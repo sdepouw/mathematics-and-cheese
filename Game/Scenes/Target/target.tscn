@@ -7,7 +7,11 @@
 script = ExtResource("1_tbd3m")
 
 [node name="TargetIdentifier" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = -20.0
+offset_top = -17.0
+offset_right = 20.0
+offset_bottom = 7.0
 theme_override_fonts/font = ExtResource("2_jd5eg")
 theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+vertical_alignment = 1
