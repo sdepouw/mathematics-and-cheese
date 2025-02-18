@@ -1,11 +1,57 @@
-[gd_scene load_steps=3 format=3 uid="uid://du0qdv00hfe3g"]
+[gd_scene load_steps=4 format=3 uid="uid://du0qdv00hfe3g"]
 
 [ext_resource type="Script" uid="uid://75y8glss6r2g" path="res://Scenes/Main/main.gd" id="1_1r6ip"]
-[ext_resource type="Texture2D" uid="uid://cocqyop1xi8t0" path="res://icon.svg" id="2_lixft"]
+[ext_resource type="PackedScene" uid="uid://u0p710ebviv6" path="res://Scenes/Target/target.tscn" id="2_lixft"]
+[ext_resource type="FontFile" uid="uid://c3gilp1mqllvg" path="res://Assets/Fonts/poco/Poco.tres" id="3_qw60k"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_1r6ip")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(587, 318)
-texture = ExtResource("2_lixft")
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.441889, 0.36456, 0, 1)
+
+[node name="Target1" parent="." instance=ExtResource("2_lixft")]
+position = Vector2(292, 148)
+
+[node name="Target2" parent="." instance=ExtResource("2_lixft")]
+position = Vector2(673, 150)
+Id = 2
+
+[node name="Target3" parent="." instance=ExtResource("2_lixft")]
+position = Vector2(927, 156)
+Id = 3
+
+[node name="Target4" parent="." instance=ExtResource("2_lixft")]
+position = Vector2(292, 434)
+Id = 4
+
+[node name="Target5" parent="." instance=ExtResource("2_lixft")]
+position = Vector2(676, 419)
+Id = 5
+
+[node name="Target6" parent="." instance=ExtResource("2_lixft")]
+position = Vector2(925, 419)
+Id = 6
+
+[node name="CurrentlyHeldThing" type="Label" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -105.0
+offset_right = 20.0
+offset_bottom = -82.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_qw60k")
+theme_override_font_sizes/font_size = 64
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://u0p710ebviv6"]
+
+[ext_resource type="Script" uid="uid://jg7e35yabitp" path="res://Scenes/Target/target.gd" id="1_tbd3m"]
+[ext_resource type="FontFile" uid="uid://cdsulrg8628fw" path="res://Assets/Fonts/poco/Poco.ttf" id="2_jd5eg"]
+
+[node name="Target" type="Marker2D"]
+script = ExtResource("1_tbd3m")
+
+[node name="TargetIdentifier" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_jd5eg")
+theme_override_font_sizes/font_size = 20
