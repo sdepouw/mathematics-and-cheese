@@ -9,38 +9,63 @@ extends Node
 @onready var _reticle: Sprite2D = $Reticle
 @onready var _currentlyHeldThing: Label = $CurrentlyHeldThing;
 
-var _targets: Array[Target]
-
+var _targets: Array
+var _currentTarget: Vector2 = Vector2.ZERO
 var _currentThing: int
-var _currentTargetIndex: int = 0
-var _maxTargetIndex: int = 0
+
+func _getReticleTarget() -> Target:
+  return _targets[_currentTarget.y][_currentTarget.x]
 
 func _ready() -> void:
-  _targets = [_target1, _target2, _target3, _target4, _target5, _target6]
-  _reticle.position = _target1.position
-  _maxTargetIndex = _targets.size() - 1
+  _targets.append([_target1, _target2, _target3])
+  _targets.append([_target4, _target5, _target6])
+  _reticle.position = _getReticleTarget().position
   _assignNewThing()
 
 func _process(_delta: float) -> void:
   if Input.is_action_just_pressed("fire"):
-    if _currentThing == _targets[_currentTargetIndex].Id:
+    if _currentThing == _getReticleTarget().Id:
       print("hit!")
     else:
       print("miss!")
     _assignNewThing()
-  if Input.is_action_just_pressed("move_right"):
-    _newTarget(_currentTargetIndex + 1)
-  elif Input.is_action_just_pressed("move_left"):
-    _newTarget(_currentTargetIndex - 1)
+  _tryMoveReticle()
 
 func _assignNewThing() -> void:
   _currentThing = randi_range(1, 6)
   _currentlyHeldThing.text = str(_currentThing)
 
-func _newTarget(newTarget: int) -> void:
-  if newTarget < 0:
-    newTarget = _maxTargetIndex
-  if newTarget > _maxTargetIndex:
-    newTarget = 0
-  _currentTargetIndex = newTarget
-  _reticle.position = _targets[_currentTargetIndex].position
+func _tryMoveReticle() -> void:
+  if !Input.is_anything_pressed():
+    return
+  const maxX: float = 2
+  const maxY: float = 1
+  var newX: float = -1;
+  var newY: float = _currentTarget.y;
+  if Input.is_action_just_pressed("move_right"):
+    if _currentTarget.x == maxX:
+      newX = 0
+      newY = 1 if _currentTarget.y == 0 else 0
+    else:
+      newX = _currentTarget.x + 1
+  if Input.is_action_just_pressed("move_left"):
+    if _currentTarget.x == 0:
+      newX = maxX
+      newY = 0 if _currentTarget.y == 1 else 1
+    else:
+      newX = _currentTarget.x - 1
+  if Input.is_action_just_pressed("move_down"):
+    if _currentTarget.y == maxY:
+      newY = 0
+    else:
+      newY = _currentTarget.y + 1
+    newX = _currentTarget.x
+  if Input.is_action_just_pressed("move_up"):
+    if _currentTarget.y == 0:
+      newY = maxY
+    else:
+      newY = _currentTarget.y - 1
+    newX = _currentTarget.x
+  if newX >= 0 and newY >= 0:
+    _currentTarget = Vector2(newX, newY)
+  _reticle.position = _getReticleTarget().position
