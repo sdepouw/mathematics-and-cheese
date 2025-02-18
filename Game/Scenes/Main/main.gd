@@ -23,24 +23,32 @@ func _ready() -> void:
   _assignNewThing()
 
 func _process(_delta: float) -> void:
+  _tryFire()
+  _tryMoveReticle()
+
+func _assignNewThing() -> void:
+  # TODO: Replace int ("current thing" with cheese names (which should be in each Target)
+  # Should be able to say "pick a random Target, then grab its cheese, and set to current item"
+  # Then when firing, compare current cheese to target cheese
+  var firstSet: Array = _targets[0]
+  _currentThing = randi_range(1, _targets.size() * firstSet.size())
+  _currentlyHeldThing.text = str(_currentThing)
+
+func _tryFire() -> void:
   if Input.is_action_just_pressed("fire"):
     if _currentThing == _getReticleTarget().Id:
       print("hit!")
     else:
       print("miss!")
     _assignNewThing()
-  _tryMoveReticle()
-
-func _assignNewThing() -> void:
-  _currentThing = randi_range(1, 6)
-  _currentlyHeldThing.text = str(_currentThing)
 
 func _tryMoveReticle() -> void:
   if !Input.is_anything_pressed():
     return
-  const maxX: float = 2
-  const maxY: float = 1
-  var newX: float = -1;
+  var firstSet: Array = _targets[0]
+  var maxX: int = firstSet.size() - 1
+  var maxY: int = _targets.size() - 1
+  var newX: float = _currentTarget.x;
   var newY: float = _currentTarget.y;
   if Input.is_action_just_pressed("move_right"):
     if _currentTarget.x == maxX:
@@ -59,13 +67,11 @@ func _tryMoveReticle() -> void:
       newY = 0
     else:
       newY = _currentTarget.y + 1
-    newX = _currentTarget.x
   if Input.is_action_just_pressed("move_up"):
     if _currentTarget.y == 0:
       newY = maxY
     else:
       newY = _currentTarget.y - 1
-    newX = _currentTarget.x
-  if newX >= 0 and newY >= 0:
+  if newX != _currentTarget.x or newY != _currentTarget.y:
     _currentTarget = Vector2(newX, newY)
-  _reticle.position = _getReticleTarget().position
+    _reticle.position = _getReticleTarget().position
