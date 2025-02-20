@@ -1,4 +1,7 @@
+class_name Main
 extends Node
+
+# TODO: 'Main Menu' with 'Start' and 'Credits' (attribute icon, font, license)
 
 @onready var _target1: Target = $Target1
 @onready var _target2: Target = $Target2
