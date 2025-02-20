@@ -13,13 +13,14 @@ var _targets: Array
 var _currentTarget: Vector2 = Vector2.ZERO
 var _currentThing: int
 
-func _getReticleTarget() -> Target:
+## Gets the Target that the reticle is currently selecting
+func _getCurrentTarget() -> Target:
   return _targets[_currentTarget.y][_currentTarget.x]
 
 func _ready() -> void:
   _targets.append([_target1, _target2, _target3])
   _targets.append([_target4, _target5, _target6])
-  _reticle.position = _getReticleTarget().position
+  _reticle.position = _getCurrentTarget().position
   _assignNewThing()
 
 func _process(_delta: float) -> void:
@@ -36,7 +37,7 @@ func _assignNewThing() -> void:
 
 func _tryFire() -> void:
   if Input.is_action_just_pressed("fire"):
-    if _currentThing == _getReticleTarget().Id:
+    if _currentThing == _getCurrentTarget().Id:
       print("hit!")
     else:
       print("miss!")
@@ -74,4 +75,4 @@ func _tryMoveReticle() -> void:
       newY = _currentTarget.y - 1
   if newX != _currentTarget.x or newY != _currentTarget.y:
     _currentTarget = Vector2(newX, newY)
-    _reticle.position = _getReticleTarget().position
+    _reticle.position = _getCurrentTarget().position

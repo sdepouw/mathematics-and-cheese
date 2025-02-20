@@ -17,26 +17,26 @@ grow_vertical = 2
 color = Color(0.441889, 0.36456, 0, 1)
 
 [node name="Target1" parent="." instance=ExtResource("2_lixft")]
-position = Vector2(292, 148)
+position = Vector2(288, 128)
 
 [node name="Target2" parent="." instance=ExtResource("2_lixft")]
-position = Vector2(673, 150)
+position = Vector2(576, 128)
 Id = 2
 
 [node name="Target3" parent="." instance=ExtResource("2_lixft")]
-position = Vector2(927, 156)
+position = Vector2(864, 128)
 Id = 3
 
 [node name="Target4" parent="." instance=ExtResource("2_lixft")]
-position = Vector2(292, 434)
+position = Vector2(288, 384)
 Id = 4
 
 [node name="Target5" parent="." instance=ExtResource("2_lixft")]
-position = Vector2(676, 419)
+position = Vector2(576, 384)
 Id = 5
 
 [node name="Target6" parent="." instance=ExtResource("2_lixft")]
-position = Vector2(925, 419)
+position = Vector2(864, 384)
 Id = 6
 
 [node name="CurrentlyHeldThing" type="Label" parent="."]
@@ -46,9 +46,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -20.0
-offset_top = -105.0
+offset_top = -130.0
 offset_right = 20.0
-offset_bottom = -82.0
+offset_bottom = -52.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("3_qw60k")
