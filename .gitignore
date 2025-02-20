@@ -4,7 +4,11 @@
 # Godot-specific ignores
 .import/
 export.cfg
-export_presets.cfg
+# As of https://github.com/godotengine/godot/pull/76165,
+# export_presets.cfg no longer contains sensitive information
+# and can be included in source control.
+# Instead, we exclude export_credentials.config
+export_credentials.cfg
 
 # Imported translations (automatically generated from CSV files)
 *.translation
