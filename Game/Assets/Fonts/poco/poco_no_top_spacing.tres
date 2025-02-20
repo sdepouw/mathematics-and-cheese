@@ -1,0 +1,7 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://bk2bu37t8kpfm"]
+
+[ext_resource type="FontFile" uid="uid://cdsulrg8628fw" path="res://Assets/Fonts/poco/Poco.ttf" id="1_6l2c0"]
+
+[resource]
+base_font = ExtResource("1_6l2c0")
+spacing_top = -40
