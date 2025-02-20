@@ -41,6 +41,10 @@ gdscript/warnings/unsafe_call_argument=2
 gdscript/warnings/unsafe_void_return=2
 gdscript/warnings/return_value_discarded=1
 
+[display]
+
+window/stretch/mode="canvas_items"
+
 [dotnet]
 
 project/assembly_name="Cheese"
