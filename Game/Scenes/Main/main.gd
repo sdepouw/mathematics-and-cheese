@@ -12,9 +12,11 @@ extends Node
 @onready var _gameTimer: Timer = $GameTimer
 
 var _targets: Array
-var _currentTarget: Vector2 = Vector2.ZERO
+var _currentTarget: Vector2
 var _currentThing: int
-var _currentScore: int = 0
+var _currentScore: int
+var _highScore: int = 0
+var _gameOn: bool
 
 ## Gets the Target that the reticle is currently selecting
 func _getCurrentTarget() -> Target:
@@ -23,20 +25,27 @@ func _getCurrentTarget() -> Target:
 func _ready() -> void:
   _targets.append([_target1, _target2, _target3])
   _targets.append([_target4, _target5, _target6])
+  _new_game()
+
+func _new_game() -> void:
+  _gameOn = true
+  _currentScore = 0
+  _currentTarget = Vector2.ZERO
   _reticle.show()
   _reticle.position = _getCurrentTarget().position
   _assignNewThing()
   _gameTimer.start()
 
 func _process(_delta: float) -> void:
+  if (!_gameOn):
+    return;
   _hud.update_time_display(_gameTimer.time_left)
   _tryFire()
   _tryMoveReticle()
 
 func _assignNewThing() -> void:
-  # TODO: Replace int ("current thing") with cheese names (which should be in each Target)
-  # Should be able to say "pick a random Target, then grab its cheese, and set to current item"
-  # Then when firing, compare current cheese to target cheese
+  # TODO: Show equations instead of flat numbers, randomize the numbers
+  # TODO: Mouse avatar? Work cheese in somehow?
   var firstSet: Array = _targets[0]
   _currentThing = randi_range(1, _targets.size() * firstSet.size())
   _currentlyHeldThing.text = str(_currentThing)
@@ -44,10 +53,11 @@ func _assignNewThing() -> void:
 func _tryFire() -> void:
   if Input.is_action_just_pressed("fire"):
     if _currentThing == _getCurrentTarget().Id:
-      _currentScore += 17
+      _currentScore += 50 # TODO: Consecutive bonus / combos
       _hud.update_score_display(_currentScore)
     else:
-      print("miss!")
+      _currentScore -= 5
+      _hud.update_score_display(_currentScore)
     _assignNewThing()
 
 func _tryMoveReticle() -> void:
@@ -83,3 +93,16 @@ func _tryMoveReticle() -> void:
   if newX != _currentTarget.x or newY != _currentTarget.y:
     _currentTarget = Vector2(newX, newY)
     _reticle.position = _getCurrentTarget().position
+
+func _on_game_timer_timeout() -> void:
+  # TODO: Show Game Over screen
+  _reticle.hide()
+  _gameOn = false
+  _hud.update_time_display(0)
+  if _currentScore > _highScore:
+    _hud.update_high_score_display(_currentScore)
+    _highScore = _currentScore
+  # TODO: Give the player a button to play again
+  # TODO: And to start, for that matter
+  await get_tree().create_timer(5.0).timeout
+  _new_game()

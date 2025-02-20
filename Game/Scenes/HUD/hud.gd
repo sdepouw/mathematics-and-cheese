@@ -17,8 +17,10 @@ func update_time_display(time_remaining: float) -> void:
     return;
   var format: String = "%2d"
   if (time_remaining < 10):
+    # formats as as "0.0"
+    # the 3 indicates '3 total symbols', and the 1 indicates 'only 1 digit to the right of the .'
     format = "%3.1f"
   TimeLabel.text = format % time_remaining
 
 func _clamp_score_display(score: int) -> String:
-  return "%05d" % min(score, 99999)
+  return "%05d" % max(0, min(score, 99999))
