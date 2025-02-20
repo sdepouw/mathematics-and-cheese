@@ -45,6 +45,10 @@ gdscript/warnings/return_value_discarded=1
 
 project/assembly_name="Cheese"
 
+[gui]
+
+theme/custom="uid://u6cwubtei5fr"
+
 [input]
 
 move_left={

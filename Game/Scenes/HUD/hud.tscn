@@ -1,11 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cfdil1vt2522f"]
-
-[ext_resource type="Theme" uid="uid://u6cwubtei5fr" path="res://Assets/Themes/base_theme.tres" id="1_33i1w"]
+[gd_scene format=3 uid="uid://cfdil1vt2522f"]
 
 [node name="HUD" type="CanvasLayer"]
 
 [node name="ScoreLabel" type="Label" parent="."]
 offset_right = 128.0
 offset_bottom = 38.0
-theme = ExtResource("1_33i1w")
 text = "00000"

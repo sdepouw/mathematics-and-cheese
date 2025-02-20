@@ -2,12 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://cdsulrg8628fw"
-valid=false
+uid="uid://ce8ycs7skwpvr"
+path="res://.godot/imported/Poco.ttf-34fd3037bc0f0b39ec05ce75a5060dd5.fontdata"
 
 [deps]
 
 source_file="res://Assets/Fonts/poco/Poco.ttf"
+dest_files=["res://.godot/imported/Poco.ttf-34fd3037bc0f0b39ec05ce75a5060dd5.fontdata"]
 
 [params]
 
