@@ -53,7 +53,7 @@ func _assignNewThing() -> void:
 func _tryFire() -> void:
   if Input.is_action_just_pressed("fire"):
     if _currentThing == _getCurrentTarget().Id:
-      _currentScore += 50 # TODO: Consecutive bonus / combos
+      _currentScore += 10 # TODO: Consecutive bonus / combos
       _hud.update_score_display(_currentScore)
     else:
       _currentScore -= 5
@@ -100,6 +100,7 @@ func _on_game_timer_timeout() -> void:
   _gameOn = false
   _hud.update_time_display(0)
   if _currentScore > _highScore:
+    # TODO: Persist high score
     _hud.update_high_score_display(_currentScore)
     _highScore = _currentScore
   # TODO: Give the player a button to play again
