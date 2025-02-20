@@ -20,6 +20,7 @@ func _getCurrentTarget() -> Target:
 func _ready() -> void:
   _targets.append([_target1, _target2, _target3])
   _targets.append([_target4, _target5, _target6])
+  _reticle.show()
   _reticle.position = _getCurrentTarget().position
   _assignNewThing()
 
@@ -28,7 +29,7 @@ func _process(_delta: float) -> void:
   _tryMoveReticle()
 
 func _assignNewThing() -> void:
-  # TODO: Replace int ("current thing" with cheese names (which should be in each Target)
+  # TODO: Replace int ("current thing") with cheese names (which should be in each Target)
   # Should be able to say "pick a random Target, then grab its cheese, and set to current item"
   # Then when firing, compare current cheese to target cheese
   var firstSet: Array = _targets[0]
