@@ -8,10 +8,12 @@ extends Node
 @onready var _target6: Target = $Target6
 @onready var _reticle: Sprite2D = $Reticle
 @onready var _currentlyHeldThing: Label = $CurrentlyHeldThing;
+@onready var _hud: HUD = $HUD
 
 var _targets: Array
 var _currentTarget: Vector2 = Vector2.ZERO
 var _currentThing: int
+var _currentScore: int = 0
 
 ## Gets the Target that the reticle is currently selecting
 func _getCurrentTarget() -> Target:
@@ -39,7 +41,8 @@ func _assignNewThing() -> void:
 func _tryFire() -> void:
   if Input.is_action_just_pressed("fire"):
     if _currentThing == _getCurrentTarget().Id:
-      print("hit!")
+      _currentScore += 17
+      _hud.update_score_display(_currentScore)
     else:
       print("miss!")
     _assignNewThing()
