@@ -9,6 +9,7 @@ extends Node
 @onready var _reticle: Sprite2D = $Reticle
 @onready var _currentlyHeldThing: Label = $CurrentlyHeldThing;
 @onready var _hud: HUD = $HUD
+@onready var _gameTimer: Timer = $GameTimer
 
 var _targets: Array
 var _currentTarget: Vector2 = Vector2.ZERO
@@ -25,8 +26,10 @@ func _ready() -> void:
   _reticle.show()
   _reticle.position = _getCurrentTarget().position
   _assignNewThing()
+  _gameTimer.start()
 
 func _process(_delta: float) -> void:
+  _hud.update_time_display(_gameTimer.time_left)
   _tryFire()
   _tryMoveReticle()
 

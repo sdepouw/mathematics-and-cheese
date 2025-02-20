@@ -60,3 +60,7 @@ visible = false
 texture = ExtResource("4_5yls4")
 
 [node name="HUD" parent="." instance=ExtResource("4_p6jpk")]
+
+[node name="GameTimer" type="Timer" parent="."]
+wait_time = 11.0
+one_shot = true
