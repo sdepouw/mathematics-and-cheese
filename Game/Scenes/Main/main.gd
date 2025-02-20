@@ -46,6 +46,7 @@ func _process(_delta: float) -> void:
 func _assignNewThing() -> void:
   # TODO: Show equations instead of flat numbers, randomize the numbers
   # TODO: Mouse avatar? Work cheese in somehow?
+  # TODO: Instead of equation, throw # of cheeses sometimes?
   var firstSet: Array = _targets[0]
   _currentThing = randi_range(1, _targets.size() * firstSet.size())
   _currentlyHeldThing.text = str(_currentThing)
