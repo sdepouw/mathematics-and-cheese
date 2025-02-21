@@ -1,6 +1,7 @@
 class_name Game
 extends MainSceneNode
 
+# TODO: The Game Over screen should have 'play again' or 'back to menu'
 # TODO: Small countdown before the game commences. "Get Ready!"
 # TODO: Show 'Game Over' stuff besides just "Game!" along the top
 # TODO: Persist high score
