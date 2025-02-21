@@ -17,5 +17,3 @@ color = Color(0.441889, 0.36456, 0, 1)
 [node name="SceneLoader" type="Node" parent="."]
 script = ExtResource("3_qw60k")
 metadata/_custom_type_script = "uid://cqc2ob5ygqwqw"
-
-[connection signal="instance_loaded" from="SceneLoader" to="." method="_on_scene_loader_instance_loaded"]

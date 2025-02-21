@@ -15,19 +15,15 @@ extends Node
 
 func _ready() -> void:
   _sceneLoader.queue_load(_splashScreenScene)
-  EventBus.back_to_menu.connect(_load_main_menu)
+  EventBus.load_main_menu.connect(_load_main_menu)
+  EventBus.load_game.connect(_load_game)
+  EventBus.load_credits.connect(_load_credits)
 
 func _load_main_menu() -> void:
   _sceneLoader.queue_load(_mainMenuScene)
 
-func _on_load_game_request() -> void:
+func _load_game() -> void:
   _sceneLoader.queue_load(_gameScene)
 
-func _on_load_credits_request() -> void:
+func _load_credits() -> void:
   _sceneLoader.queue_load(_creditsScene)
-
-func _on_scene_loader_instance_loaded(loadedInstance: Node) -> void:
-  var mainMenu: MainMenu = loadedInstance as MainMenu
-  if mainMenu != null:
-    mainMenu.load_game.connect(_on_load_game_request, CONNECT_DEFERRED | CONNECT_ONE_SHOT)
-    mainMenu.load_credits.connect(_on_load_credits_request, CONNECT_DEFERRED | CONNECT_ONE_SHOT)
