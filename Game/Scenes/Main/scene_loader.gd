@@ -6,6 +6,8 @@ var _sceneToLoad: PackedScene
 var _loadQueued: bool:
   get: return _sceneToLoad != null
 
+signal instance_loaded(loadedInstance: Node)
+
 ## Queue a PackedScene for loading. The previously-loaded scene will
 ## be unloaded properly before this scene will load.
 ## If another PackedScene was queued for loading but never got loaded,
@@ -28,6 +30,7 @@ func _process(_delta: float) -> void:
 func _load_instance() -> void:
   _loadedInstance = _sceneToLoad.instantiate()
   get_parent().add_child(_loadedInstance)
+  instance_loaded.emit(_loadedInstance)
 
 func _unload_instance() -> void:
   if _loadedInstance == null or !is_instance_valid(_loadedInstance):
