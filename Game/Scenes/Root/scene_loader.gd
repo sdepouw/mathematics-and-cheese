@@ -22,9 +22,7 @@ func _process(_delta: float) -> void:
   if _loadedInstance != null:
     if is_instance_valid(_loadedInstance):
       _unload_instance()
-      return;
-    _loadedInstance = null
-  if _loadedInstance == null:
+  else:
     _load_instance()
     _sceneToLoad = null
 
