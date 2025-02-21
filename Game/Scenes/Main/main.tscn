@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://du0qdv00hfe3g"]
+[gd_scene load_steps=4 format=3 uid="uid://du0qdv00hfe3g"]
 
 [ext_resource type="Script" uid="uid://75y8glss6r2g" path="res://Scenes/Main/main.gd" id="1_1r6ip"]
+[ext_resource type="PackedScene" uid="uid://cxxfidelu3rv1" path="res://Scenes/SplashScreen/splash_screen.tscn" id="2_lixft"]
+[ext_resource type="Script" uid="uid://cqc2ob5ygqwqw" path="res://Scenes/Main/scene_loader.gd" id="3_qw60k"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_1r6ip")
@@ -12,3 +14,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.441889, 0.36456, 0, 1)
+
+[node name="SplashScreen" parent="." instance=ExtResource("2_lixft")]
+
+[node name="SceneLoader" type="Node" parent="."]
+script = ExtResource("3_qw60k")
+metadata/_custom_type_script = "uid://cqc2ob5ygqwqw"
+
+[connection signal="splash_scene_ended" from="SplashScreen" to="." method="_on_splash_screen_ended"]
