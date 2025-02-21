@@ -1,8 +1,6 @@
 class_name SplashScreen
-extends Node
-
-signal splash_scene_ended
+extends MainSceneNode
 
 func _ready() -> void:
   await get_tree().create_timer(1.5).timeout
-  splash_scene_ended.emit()
+  back_to_menu.emit()

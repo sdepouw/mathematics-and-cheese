@@ -2,8 +2,9 @@
 
 [ext_resource type="Script" uid="uid://c066o242r7s4j" path="res://Scenes/Credits/credits.gd" id="1_ykwev"]
 
-[node name="Credits" type="CanvasLayer"]
+[node name="Credits" type="Node"]
 script = ExtResource("1_ykwev")
+metadata/_custom_type_script = "uid://qvfdhubwuj0t"
 
 [node name="Label" type="Label" parent="."]
 anchors_preset = 15

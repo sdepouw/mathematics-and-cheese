@@ -1,7 +1,7 @@
-## The Game
 class_name Game
-extends Node
+extends MainSceneNode
 
+# TODO: Small countdown before the game commences. "Get Ready!"
 # TODO: Show 'Game Over' stuff besides just "Game!" along the top
 # TODO: Persist high score
 # TODO: Remove timer to restart, and give player a 'Restart' button

@@ -4,6 +4,7 @@
 
 [node name="SplashScreen" type="Node"]
 script = ExtResource("1_bio1j")
+metadata/_custom_type_script = "uid://qvfdhubwuj0t"
 
 [node name="Splash!" type="Label" parent="."]
 anchors_preset = 15

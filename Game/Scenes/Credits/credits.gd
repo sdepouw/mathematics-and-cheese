@@ -1,7 +1,5 @@
 class_name CreditsScreen
-extends CanvasLayer
-
-signal credits_ended
+extends MainSceneNode
 
 func _on_back_button_pressed() -> void:
-  credits_ended.emit()
+  back_to_menu.emit()
