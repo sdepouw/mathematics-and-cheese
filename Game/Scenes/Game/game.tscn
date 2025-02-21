@@ -8,7 +8,6 @@
 
 [node name="Game" type="Node"]
 script = ExtResource("1_i1e5p")
-metadata/_custom_type_script = "uid://qvfdhubwuj0t"
 
 [node name="GameEvents" type="Node" parent="."]
 script = ExtResource("2_ciybh")

@@ -4,7 +4,6 @@
 
 [node name="Credits" type="Node"]
 script = ExtResource("1_ykwev")
-metadata/_custom_type_script = "uid://qvfdhubwuj0t"
 
 [node name="Label" type="Label" parent="."]
 anchors_preset = 15

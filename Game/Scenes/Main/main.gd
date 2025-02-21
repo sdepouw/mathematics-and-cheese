@@ -15,6 +15,7 @@ extends Node
 
 func _ready() -> void:
   _sceneLoader.queue_load(_splashScreenScene)
+  EventBus.back_to_menu.connect(_load_main_menu)
 
 func _load_main_menu() -> void:
   _sceneLoader.queue_load(_mainMenuScene)
@@ -30,7 +31,3 @@ func _on_scene_loader_instance_loaded(loadedInstance: Node) -> void:
   if mainMenu != null:
     mainMenu.load_game.connect(_on_load_game_request, CONNECT_DEFERRED | CONNECT_ONE_SHOT)
     mainMenu.load_credits.connect(_on_load_credits_request, CONNECT_DEFERRED | CONNECT_ONE_SHOT)
-    return
-  var mainSceneNode: MainSceneNode = loadedInstance as MainSceneNode
-  if mainSceneNode != null:
-    mainSceneNode.back_to_menu.connect(_load_main_menu, CONNECT_DEFERRED | CONNECT_ONE_SHOT)

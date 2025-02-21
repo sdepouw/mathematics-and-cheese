@@ -1,5 +1,5 @@
 class_name CreditsScreen
-extends MainSceneNode
+extends Node
 
 func _on_back_button_pressed() -> void:
-  back_to_menu.emit()
+  EventBus.back_to_menu.emit()

@@ -1,6 +1,6 @@
-## A Node that has a "back_to_menu" signal. Emit when wanting the game
-## to return to the main menu screen.
-class_name MainSceneNode
+## Globally-accessible Signals
+
+# Included in global scope, so no class_name
 extends Node
 
 ## A signal to indicate that the game should switch back from the main menu,
