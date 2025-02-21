@@ -59,10 +59,12 @@ func _assignNewThing() -> void:
 func _tryFire() -> void:
   if Input.is_action_just_pressed("fire"):
     if _currentThing == _getCurrentTarget().Id:
-      _currentScore += 10 # TODO: Consecutive bonus / combos
+       # TODO: Consecutive bonus / combos
+       # TODO: Magic number of score cap is in multiple places
+      _currentScore = min(_currentScore + 10, 99999)
       _hud.update_score_display(_currentScore)
     else:
-      _currentScore -= 5
+      _currentScore = max(_currentScore - 5, 0)
       _hud.update_score_display(_currentScore)
     _assignNewThing()
 
