@@ -25,7 +25,3 @@ func _map_input_events_to_signals() -> void:
     player_moved.emit(Globals.Direction.DOWN)
   if Input.is_action_just_pressed("fire"):
     player_fired.emit()
-
-
-func _on_game_started() -> void:
-  print("_on_game_started() in event_bus.gd")

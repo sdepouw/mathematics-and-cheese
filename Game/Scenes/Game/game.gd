@@ -1,3 +1,4 @@
+## The Game
 class_name Game
 extends Node
 
@@ -53,10 +54,11 @@ func _ready() -> void:
   var firstSet: Array = _targets[0]
   _maxX = firstSet.size() - 1
   _maxY = _targets.size() - 1
-  _events.game_started.emit();
+  _events.game_started.emit()
 
 func _process(_delta: float) -> void:
-  _hud.update_time_display(_gameTimer.time_left)
+  if _gameOn:
+    _hud.update_time_display(_gameTimer.time_left)
 
 func _on_game_started() -> void:
   _gameOn = true
@@ -69,9 +71,9 @@ func _on_game_started() -> void:
   _gameTimer.start()
 
 func _on_game_ended() -> void:
+  _gameOn = false
   _reticle.hide()
   _currentlyHeldThing.hide()
-  _gameOn = false
   if _currentScore > _highScore:
     _highScore = _currentScore
   await get_tree().create_timer(5.0).timeout

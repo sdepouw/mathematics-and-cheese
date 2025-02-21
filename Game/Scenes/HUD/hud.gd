@@ -12,9 +12,6 @@ func update_high_score_display(high_score: int) -> void:
   _highScoreLabel.text = _clamp_score_display(high_score)
 
 func update_time_display(time_remaining: float) -> void:
-  if time_remaining == 0:
-    _timeLabel.text = "Game!"
-    return
   var format: String = "%2d"
   if (time_remaining < 10):
     # Formats float as as "0.0"
@@ -25,3 +22,6 @@ func update_time_display(time_remaining: float) -> void:
 
 func _clamp_score_display(score: int) -> String:
   return "%05d" % max(0, score)
+
+func _on_game_ended() -> void:
+  _timeLabel.text = "Game!"
