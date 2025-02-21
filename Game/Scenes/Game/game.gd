@@ -1,12 +1,9 @@
 class_name Game
 extends Node
 
-# TODO: The Game Over screen should have 'play again' or 'back to menu'
 # TODO: Small countdown before the game commences. "Get Ready!"
 # TODO: Show 'Game Over' stuff besides just "Game!" along the top
 # TODO: Persist high score
-# TODO: Remove timer to restart, and give player a 'Restart' button
-# Also a button to take back to main menu once that exists
 # TODO: Finite State Machine instead of bool _gameOn?
 # Game is new -> started <-> paused, started -> stopped, stopped -> new
 
@@ -61,29 +58,30 @@ func _process(_delta: float) -> void:
   if _gameOn:
     _hud.update_time_display(_gameTimer.time_left)
 
+func _assignNewThing() -> void:
+  var firstSet: Array = _targets[0]
+  _currentThing = randi_range(1, _targets.size() * firstSet.size())
+  _currentlyHeldThing.text = str(_currentThing)
+
+func _toggle_game_piece_visibility(gamePiecesVisible: bool) -> void:
+  _gameOn = gamePiecesVisible
+  for item: CanvasItem in get_tree().get_nodes_in_group("GamePieces"):
+    item.visible = gamePiecesVisible
+  for item: CanvasItem in get_tree().get_nodes_in_group("GameOverPieces"):
+    item.visible = !gamePiecesVisible
+
 func _on_game_started() -> void:
-  _gameOn = true
   _currentScore = 0
   _currentTarget = Vector2.ZERO
-  _reticle.show()
-  _currentlyHeldThing.show()
+  _toggle_game_piece_visibility(true)
   _reticle.position = _getCurrentTarget().position
   _assignNewThing()
   _gameTimer.start()
 
 func _on_game_ended() -> void:
-  _gameOn = false
-  _reticle.hide()
-  _currentlyHeldThing.hide()
+  _toggle_game_piece_visibility(false)
   if _currentScore > _highScore:
     _highScore = _currentScore
-  await get_tree().create_timer(5.0).timeout
-  _events.game_started.emit()
-
-func _assignNewThing() -> void:
-  var firstSet: Array = _targets[0]
-  _currentThing = randi_range(1, _targets.size() * firstSet.size())
-  _currentlyHeldThing.text = str(_currentThing)
 
 func _on_player_fired() -> void:
   if !_gameOn:
@@ -112,3 +110,6 @@ func _on_player_moved(direction: Globals.Direction) -> void:
 
 func _on_game_timer_timeout() -> void:
   _events.game_ended.emit()
+
+func _on_main_menu_button_pressed() -> void:
+  EventBus.load_main_menu.emit()
