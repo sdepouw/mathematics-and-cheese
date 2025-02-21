@@ -21,7 +21,7 @@ func update_time_display(time_remaining: float) -> void:
   _timeLabel.text = format % time_remaining
 
 func _clamp_score_display(score: int) -> String:
-  return "%05d" % max(0, score)
+  return "%07d" % max(0, score)
 
 func _on_game_ended() -> void:
   _timeLabel.text = "Game!"

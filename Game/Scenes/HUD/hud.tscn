@@ -6,52 +6,48 @@
 script = ExtResource("1_33i1w")
 
 [node name="ScoreLabel" type="Label" parent="."]
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 138.0
-offset_bottom = 48.0
-text = "00000"
+offset_right = 128.0
+offset_bottom = 65.0
+text = "0000000"
 
 [node name="ScoreText" type="Label" parent="."]
-offset_left = 10.0
-offset_top = 60.0
-offset_right = 138.0
-offset_bottom = 98.0
+offset_top = 65.0
+offset_right = 179.0
+offset_bottom = 110.0
 theme_override_font_sizes/font_size = 45
 text = "Score"
+horizontal_alignment = 1
 
 [node name="HighScoreLabel" type="Label" parent="."]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -128.0
-offset_top = 10.0
-offset_bottom = 48.0
+offset_bottom = 65.0
 grow_horizontal = 0
-text = "00000"
+text = "0000000"
 horizontal_alignment = 2
 
 [node name="HighScoreText" type="Label" parent="."]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -128.0
-offset_top = 60.0
-offset_bottom = 98.0
+offset_left = -179.0
+offset_top = 65.0
+offset_bottom = 110.0
 grow_horizontal = 0
 theme_override_font_sizes/font_size = 45
 text = "High"
-horizontal_alignment = 2
+horizontal_alignment = 1
 
 [node name="TimeLabel" type="Label" parent="."]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -108.0
-offset_top = -22.0
 offset_right = 108.0
-offset_bottom = 92.0
+offset_bottom = 114.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 120
+theme_override_font_sizes/font_size = 96
 text = "00"
 horizontal_alignment = 1

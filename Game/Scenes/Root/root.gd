@@ -1,7 +1,6 @@
 class_name Root
 extends Node
 
-# TODO: Update to monospaced font. Google has a 'pixel' font?
 # TODO: Button defaults (theme?): 400x100, pointer cursor
 # TODO: 'Main Menu' with 'Start' and 'Credits' (attribute icon, font, license)
 # TODO: Bluey credited to "Alblune" https://alblune.com/,

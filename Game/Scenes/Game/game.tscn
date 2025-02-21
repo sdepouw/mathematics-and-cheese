@@ -17,26 +17,26 @@ wait_time = 20.0
 one_shot = true
 
 [node name="Target1" parent="." instance=ExtResource("1_qikps")]
-position = Vector2(288, 128)
+position = Vector2(288, 192)
 
 [node name="Target2" parent="." instance=ExtResource("1_qikps")]
-position = Vector2(576, 128)
+position = Vector2(576, 192)
 Id = 2
 
 [node name="Target3" parent="." instance=ExtResource("1_qikps")]
-position = Vector2(864, 128)
+position = Vector2(864, 192)
 Id = 3
 
 [node name="Target4" parent="." instance=ExtResource("1_qikps")]
-position = Vector2(288, 384)
+position = Vector2(288, 448)
 Id = 4
 
 [node name="Target5" parent="." instance=ExtResource("1_qikps")]
-position = Vector2(576, 384)
+position = Vector2(576, 448)
 Id = 5
 
 [node name="Target6" parent="." instance=ExtResource("1_qikps")]
-position = Vector2(864, 384)
+position = Vector2(864, 448)
 Id = 6
 
 [node name="HUD" parent="." instance=ExtResource("2_i1e5p")]
