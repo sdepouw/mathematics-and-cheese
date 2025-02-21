@@ -13,7 +13,7 @@ script = ExtResource("1_i1e5p")
 script = ExtResource("2_ciybh")
 
 [node name="GameTimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 20.0
 one_shot = true
 
 [node name="Target1" parent="." groups=["GamePieces"] instance=ExtResource("1_qikps")]
@@ -70,30 +70,29 @@ visible = false
 texture = ExtResource("3_ciybh")
 
 [node name="GameOverLabel" type="Label" parent="." groups=["GameOverPieces"]]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Mathematics and Cheese!"
+text = "A Cheesy Delight!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="RestartButton" type="Button" parent="." groups=["GameOverPieces"]]
-visible = false
-offset_left = 212.0
+offset_left = 128.0
 offset_top = 448.0
-offset_right = 512.0
-offset_bottom = 521.0
+offset_right = 528.0
+offset_bottom = 548.0
+mouse_default_cursor_shape = 2
 text = "Play Again"
 
 [node name="MainMenuButton" type="Button" parent="." groups=["GameOverPieces"]]
-visible = false
-offset_left = 640.0
+offset_left = 624.0
 offset_top = 448.0
-offset_right = 940.0
-offset_bottom = 521.0
+offset_right = 1024.0
+offset_bottom = 548.0
+mouse_default_cursor_shape = 2
 text = "Main Menu"
 
 [connection signal="game_ended" from="GameEvents" to="." method="_on_game_ended"]
