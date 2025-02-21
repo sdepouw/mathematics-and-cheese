@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://du0qdv00hfe3g"]
 
-[ext_resource type="Script" uid="uid://75y8glss6r2g" path="res://Scenes/Main/main.gd" id="1_1r6ip"]
-[ext_resource type="Script" uid="uid://cqc2ob5ygqwqw" path="res://Scenes/Main/scene_loader.gd" id="3_qw60k"]
+[ext_resource type="Script" uid="uid://75y8glss6r2g" path="res://Scenes/Root/root.gd" id="1_1r6ip"]
+[ext_resource type="Script" uid="uid://cqc2ob5ygqwqw" path="res://Scenes/Root/scene_loader.gd" id="3_qw60k"]
 
-[node name="Main" type="Node"]
+[node name="Root" type="Node"]
 script = ExtResource("1_1r6ip")
 
 [node name="ColorRect" type="ColorRect" parent="."]

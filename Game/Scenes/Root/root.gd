@@ -1,4 +1,4 @@
-class_name Main
+class_name Root
 extends Node
 
 # TODO: Update to monospaced font. Google has a 'pixel' font?
