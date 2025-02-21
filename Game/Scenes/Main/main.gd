@@ -2,6 +2,7 @@ class_name Main
 extends Node
 
 # TODO: Update to monospaced font. Google has a 'pixel' font?
+# TODO: Button defaults (theme?): 400x100, pointer cursor
 # TODO: 'Main Menu' with 'Start' and 'Credits' (attribute icon, font, license)
 # TODO: Bluey credited to "Alblune" https://alblune.com/,
 # from "Squakross: Home Squeak Home" https://www.squeakross.cool/
@@ -15,7 +16,7 @@ extends Node
 func _ready() -> void:
   _sceneLoader.queue_load(_splashScreenScene)
 
-func _on_splash_screen_ended() -> void:
+func _load_main_menu() -> void:
   _sceneLoader.queue_load(_mainMenuScene)
 
 func _on_load_game_request() -> void:
@@ -27,13 +28,15 @@ func _on_load_credits_request() -> void:
 func _on_scene_loader_instance_loaded(loadedInstance: Node) -> void:
   var mainMenu: MainMenu = loadedInstance as MainMenu
   if mainMenu != null:
-    print("It's a main menu!")
     mainMenu.load_game.connect(_on_load_game_request)
     mainMenu.load_credits.connect(_on_load_credits_request)
     return
+  # TODO: Any "return to main menu on scene end", could we emit "scene unloaded" instead?
+  # Each scene would essentially have to self-terminate
   var splashScreen: SplashScreen = loadedInstance as SplashScreen
   if splashScreen != null:
-    print("It's a splash screen!")
-    splashScreen.splash_scene_ended.connect(_on_splash_screen_ended)
-  else:
-    print("It's something else!")
+    splashScreen.splash_scene_ended.connect(_load_main_menu)
+    return
+  var creditsScreen: CreditsScreen = loadedInstance as CreditsScreen
+  if creditsScreen != null:
+    creditsScreen.credits_ended.connect(_load_main_menu)

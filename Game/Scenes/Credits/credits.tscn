@@ -1,6 +1,9 @@
-[gd_scene format=3 uid="uid://c2m51cu3euqqd"]
+[gd_scene load_steps=2 format=3 uid="uid://c2m51cu3euqqd"]
+
+[ext_resource type="Script" uid="uid://c066o242r7s4j" path="res://Scenes/Credits/credits.gd" id="1_ykwev"]
 
 [node name="Credits" type="CanvasLayer"]
+script = ExtResource("1_ykwev")
 
 [node name="Label" type="Label" parent="."]
 anchors_preset = 15
@@ -12,3 +15,20 @@ size_flags_horizontal = 0
 text = "These are some credits!"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="BackButton" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_default_cursor_shape = 2
+text = "Back"
+
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
