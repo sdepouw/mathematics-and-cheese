@@ -1,12 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://du0qdv00hfe3g"]
+[gd_scene load_steps=6 format=3 uid="uid://du0qdv00hfe3g"]
 
 [ext_resource type="Script" uid="uid://75y8glss6r2g" path="res://Scenes/Main/main.gd" id="1_1r6ip"]
 [ext_resource type="PackedScene" uid="uid://u0p710ebviv6" path="res://Scenes/Target/target.tscn" id="2_lixft"]
+[ext_resource type="Script" uid="uid://dxywswnxf614h" path="res://Scenes/Main/events.gd" id="2_p6jpk"]
 [ext_resource type="Texture2D" uid="uid://k78lbssqjiui" path="res://Assets/Art/Reticle.png" id="4_5yls4"]
 [ext_resource type="PackedScene" uid="uid://cfdil1vt2522f" path="res://Scenes/HUD/hud.tscn" id="4_p6jpk"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_1r6ip")
+
+[node name="Events" type="Node" parent="."]
+script = ExtResource("2_p6jpk")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15
@@ -66,4 +70,8 @@ texture = ExtResource("4_5yls4")
 wait_time = 20.0
 one_shot = true
 
+[connection signal="game_ended" from="Events" to="." method="_on_game_ended"]
+[connection signal="game_ended" from="Events" to="HUD" method="_on_game_ended"]
+[connection signal="game_started" from="Events" to="." method="_on_game_started"]
+[connection signal="game_started" from="Events" to="HUD" method="_on_game_started"]
 [connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]

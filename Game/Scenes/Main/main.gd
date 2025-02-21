@@ -18,6 +18,7 @@ extends Node
 @onready var _currentlyHeldThing: Label = $CurrentlyHeldThing;
 @onready var _hud: HUD = $HUD
 @onready var _gameTimer: Timer = $GameTimer
+@onready var _events: Events = $Events
 
 var _targets: Array
 var _currentTarget: Vector2
@@ -28,7 +29,7 @@ var _currentScore: int:
   get:
     return _currentScore
   set(value):
-    _currentScore = min(value, 0)
+    _currentScore = max(value, 0)
     _hud.update_score_display(_currentScore)
 
 var _highScore: int = 0:
@@ -45,9 +46,9 @@ func _getCurrentTarget() -> Target:
 func _ready() -> void:
   _targets.append([_target1, _target2, _target3])
   _targets.append([_target4, _target5, _target6])
-  _new_game()
+  _events.game_started.emit();
 
-func _new_game() -> void:
+func _on_game_started() -> void:
   _gameOn = true
   _currentScore = 0
   _currentTarget = Vector2.ZERO
@@ -55,6 +56,18 @@ func _new_game() -> void:
   _reticle.position = _getCurrentTarget().position
   _assignNewThing()
   _gameTimer.start()
+
+func _on_game_ended() -> void:
+  # TODO: Show Game Over screen
+  _reticle.hide()
+  _gameOn = false
+  if _currentScore > _highScore:
+    # TODO: Persist high score
+    _highScore = _currentScore
+  # TODO: Give the player a button to play again
+  # TODO: And to start, for that matter
+  await get_tree().create_timer(5.0).timeout
+  _events.game_started.emit()
 
 func _process(_delta: float) -> void:
   if (!_gameOn):
@@ -110,14 +123,4 @@ func _tryMoveReticle() -> void:
     _reticle.position = _getCurrentTarget().position
 
 func _on_game_timer_timeout() -> void:
-  # TODO: Show Game Over screen
-  _reticle.hide()
-  _gameOn = false
-  _hud.update_time_display(0)
-  if _currentScore > _highScore:
-    # TODO: Persist high score
-    _highScore = _currentScore
-  # TODO: Give the player a button to play again
-  # TODO: And to start, for that matter
-  await get_tree().create_timer(5.0).timeout
-  _new_game()
+  _events.game_ended.emit()

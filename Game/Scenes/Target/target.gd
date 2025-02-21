@@ -1,5 +1,4 @@
 class_name Target
-
 extends Marker2D
 
 ## The ID of the Target to match
