@@ -6,6 +6,7 @@ var _sceneToLoad: PackedScene
 var _loadQueued: bool:
   get: return _sceneToLoad != null
 
+## Emitted whenever a new scene is instantiated and loaded into the parent
 signal instance_loaded(loadedInstance: Node)
 
 ## Queue a PackedScene for loading. The previously-loaded scene will
