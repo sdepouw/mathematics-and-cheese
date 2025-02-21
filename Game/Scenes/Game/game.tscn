@@ -63,8 +63,8 @@ vertical_alignment = 1
 visible = false
 texture = ExtResource("3_ciybh")
 
-[connection signal="game_ended" from="GameEvents" to="HUD" method="_on_game_ended"]
 [connection signal="game_ended" from="GameEvents" to="." method="_on_game_ended"]
+[connection signal="game_ended" from="GameEvents" to="HUD" method="_on_game_ended"]
 [connection signal="game_started" from="GameEvents" to="." method="_on_game_started"]
 [connection signal="player_fired" from="GameEvents" to="." method="_on_player_fired"]
 [connection signal="player_moved" from="GameEvents" to="." method="_on_player_moved"]
