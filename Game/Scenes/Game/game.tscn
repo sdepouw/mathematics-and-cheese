@@ -1,15 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://55o2ddpjh5ds"]
+[gd_scene load_steps=6 format=3 uid="uid://55o2ddpjh5ds"]
 
 [ext_resource type="Script" uid="uid://lv7n6cdct43x" path="res://Scenes/Game/game.gd" id="1_i1e5p"]
 [ext_resource type="PackedScene" uid="uid://u0p710ebviv6" path="res://Scenes/Target/target.tscn" id="1_qikps"]
+[ext_resource type="Script" uid="uid://b2ylthq7556mh" path="res://Scenes/Game/events.gd" id="2_ciybh"]
 [ext_resource type="PackedScene" uid="uid://cfdil1vt2522f" path="res://Scenes/HUD/hud.tscn" id="2_i1e5p"]
 [ext_resource type="Texture2D" uid="uid://k78lbssqjiui" path="res://Assets/Art/Reticle.png" id="3_ciybh"]
 
 [node name="Game" type="Node"]
 script = ExtResource("1_i1e5p")
 
+[node name="GameEvents" type="Node" parent="."]
+script = ExtResource("2_ciybh")
+
 [node name="GameTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 20.0
 one_shot = true
 
 [node name="Target1" parent="." instance=ExtResource("1_qikps")]
@@ -59,4 +63,8 @@ vertical_alignment = 1
 visible = false
 texture = ExtResource("3_ciybh")
 
+[connection signal="game_ended" from="GameEvents" to="." method="_on_game_ended"]
+[connection signal="game_started" from="GameEvents" to="." method="_on_game_started"]
+[connection signal="player_fired" from="GameEvents" to="." method="_on_player_fired"]
+[connection signal="player_moved" from="GameEvents" to="." method="_on_player_moved"]
 [connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]

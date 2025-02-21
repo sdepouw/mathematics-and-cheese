@@ -1,9 +1,20 @@
 class_name Game
 extends Node
 
+# TODO: Show 'Game Over' stuff besides just "Game!" along the top
+# TODO: Persist high score
+# TODO: Remove timer to restart, and give player a 'Restart' button
+# Also a button to take back to main menu once that exists
+# TODO: Finite State Machine instead of bool _gameOn?
+# Game is new -> started <-> paused, started -> stopped, stopped -> new
+
 # TODO: Each match also rewards a cheese? ('flip' equation card?)
 # Could show equations instead of numbers, and then a cheese is (sometimes) revealed
+# TODO: More complex scoring
+# - Combos / Consecutive Bonuses
+# - At end, each found cheese adds to score
 
+@onready var _events: GameEvents = $GameEvents
 @onready var _target1: Target = $Target1
 @onready var _target2: Target = $Target2
 @onready var _target3: Target = $Target3
@@ -20,9 +31,6 @@ var _maxY: int
 var _targets: Array
 var _currentTarget: Vector2
 var _currentThing: int
-# TODO: Move main game to its own scene, and just don't have it loaded
-# when the game is over.
-# Right now, have to put a lot of "if game is over, take no action" checks in.
 var _gameOn: bool
 
 var _currentScore: int:
@@ -45,17 +53,12 @@ func _ready() -> void:
   var firstSet: Array = _targets[0]
   _maxX = firstSet.size() - 1
   _maxY = _targets.size() - 1
-  EventBus.game_started.connect(_on_game_started)
-  EventBus.game_ended.connect(_on_game_ended)
-  EventBus.player_fired.connect(_on_player_fired)
-  EventBus.player_moved.connect(_on_player_moved)
-  EventBus.game_started.emit();
+  _events.game_started.emit();
 
 func _process(_delta: float) -> void:
   _hud.update_time_display(_gameTimer.time_left)
 
 func _on_game_started() -> void:
-  print("_on_game_started in game.gd")
   _gameOn = true
   _currentScore = 0
   _currentTarget = Vector2.ZERO
@@ -66,17 +69,13 @@ func _on_game_started() -> void:
   _gameTimer.start()
 
 func _on_game_ended() -> void:
-  # TODO: Show Game Over screen
   _reticle.hide()
   _currentlyHeldThing.hide()
   _gameOn = false
   if _currentScore > _highScore:
-    # TODO: Persist high score
     _highScore = _currentScore
-  # TODO: Give the player a button to play again
-  # TODO: And to start, for that matter
   await get_tree().create_timer(5.0).timeout
-  EventBus.game_started.emit()
+  _events.game_started.emit()
 
 func _assignNewThing() -> void:
   var firstSet: Array = _targets[0]
@@ -87,7 +86,6 @@ func _on_player_fired() -> void:
   if !_gameOn:
     return
   if _currentThing == _getCurrentTarget().Id:
-     # TODO: Consecutive bonus / combos
     _currentScore += 10
   else:
     _currentScore -= 5
@@ -110,4 +108,4 @@ func _on_player_moved(direction: Globals.Direction) -> void:
   _reticle.position = _getCurrentTarget().position
 
 func _on_game_timer_timeout() -> void:
-  EventBus.game_ended.emit()
+  _events.game_ended.emit()

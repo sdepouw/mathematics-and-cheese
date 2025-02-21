@@ -1,4 +1,5 @@
-## The Event Bus for the entire application
+## Houses all Signals for the Game Scene
+class_name GameEvents
 extends Node
 
 ## Emitted when a new game starts

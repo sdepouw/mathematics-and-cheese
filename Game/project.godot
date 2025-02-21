@@ -18,7 +18,6 @@ config/icon="uid://dq1gwfal68ugg"
 [autoload]
 
 Globals="*res://Globals/globals.gd"
-EventBus="*res://Globals/event_bus.gd"
 
 [debug]
 
