@@ -24,6 +24,8 @@ extends Node
 @onready var _currentlyHeldThing: Label = $CurrentlyHeldThing;
 @onready var _hud: HUD = $HUD
 @onready var _gameTimer: Timer = $GameTimer
+@onready var _countdownTimer: Timer = $CountdownTimer
+@onready var _countdownLabel: Label = $CountdownLabel
 
 var _maxX: int
 var _maxY: int
@@ -57,6 +59,8 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
   if _gameOn:
     _hud.update_time_display(_gameTimer.time_left)
+  if !_countdownTimer.is_stopped():
+    _countdownLabel.text = str(ceili(_countdownTimer.time_left))
 
 func _assignNewThing() -> void:
   var firstSet: Array = _targets[0]
@@ -67,12 +71,17 @@ func _toggle_game_piece_visibility(gamePiecesVisible: bool) -> void:
   _gameOn = gamePiecesVisible
   for item: CanvasItem in get_tree().get_nodes_in_group("GamePieces"):
     item.visible = gamePiecesVisible
+
+func _toggle_game_over_visibility(visible: bool) -> void:
   for item: CanvasItem in get_tree().get_nodes_in_group("GameOverPieces"):
-    item.visible = !gamePiecesVisible
+    item.visible = visible
 
 func _on_game_started() -> void:
   _currentScore = 0
   _currentTarget = Vector2.ZERO
+  _hud.update_time_display(_gameTimer.wait_time)
+  _toggle_game_over_visibility(false)
+  await _run_countdown_async()
   _toggle_game_piece_visibility(true)
   _reticle.position = _getCurrentTarget().position
   _assignNewThing()
@@ -80,6 +89,7 @@ func _on_game_started() -> void:
 
 func _on_game_ended() -> void:
   _toggle_game_piece_visibility(false)
+  _toggle_game_over_visibility(true)
   if _currentScore > _highScore:
     _highScore = _currentScore
 
@@ -113,3 +123,9 @@ func _on_game_timer_timeout() -> void:
 
 func _on_main_menu_button_pressed() -> void:
   EventBus.load_main_menu.emit()
+
+func _run_countdown_async() -> void:
+  _countdownLabel.show()
+  _countdownTimer.start()
+  await _countdownTimer.timeout
+  _countdownLabel.hide()
