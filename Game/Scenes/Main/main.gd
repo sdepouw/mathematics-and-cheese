@@ -20,21 +20,22 @@ extends Node
 @onready var _gameTimer: Timer = $GameTimer
 @onready var _events: Events = $Events
 
+var _maxX: int
+var _maxY: int
 var _targets: Array
 var _currentTarget: Vector2
 var _currentThing: int
+# TODO: Move main game to its own scene, and just don't have it loaded
+# when the game is over.
+# Right now, have to put a lot of "if game is over, take no action" checks in.
 var _gameOn: bool
 
 var _currentScore: int:
-  get:
-    return _currentScore
   set(value):
     _currentScore = max(value, 0)
     _hud.update_score_display(_currentScore)
 
 var _highScore: int = 0:
-  get:
-    return _highScore;
   set(value):
     _highScore = value
     _hud.update_high_score_display(value)
@@ -46,7 +47,14 @@ func _getCurrentTarget() -> Target:
 func _ready() -> void:
   _targets.append([_target1, _target2, _target3])
   _targets.append([_target4, _target5, _target6])
+  var firstSet: Array = _targets[0]
+  _maxX = firstSet.size() - 1
+  _maxY = _targets.size() - 1
   _events.game_started.emit();
+
+func _process(_delta: float) -> void:
+  if _gameOn:
+    _hud.update_time_display(_gameTimer.time_left)
 
 func _on_game_started() -> void:
   _gameOn = true
@@ -69,58 +77,54 @@ func _on_game_ended() -> void:
   await get_tree().create_timer(5.0).timeout
   _events.game_started.emit()
 
-func _process(_delta: float) -> void:
-  if (!_gameOn):
-    return;
-  _hud.update_time_display(_gameTimer.time_left)
-  _tryFire()
-  _tryMoveReticle()
-
 func _assignNewThing() -> void:
   var firstSet: Array = _targets[0]
   _currentThing = randi_range(1, _targets.size() * firstSet.size())
   _currentlyHeldThing.text = str(_currentThing)
 
-func _tryFire() -> void:
-  if Input.is_action_just_pressed("fire"):
-    if _currentThing == _getCurrentTarget().Id:
-       # TODO: Consecutive bonus / combos
-      _currentScore += 10
-    else:
-      _currentScore -= 5
-    _assignNewThing()
-
-func _tryMoveReticle() -> void:
-  if !Input.is_anything_pressed():
+func _on_player_fired() -> void:
+  if !_gameOn:
     return
-  var firstSet: Array = _targets[0]
-  var maxX: int = firstSet.size() - 1
-  var maxY: int = _targets.size() - 1
+  if _currentThing == _getCurrentTarget().Id:
+     # TODO: Consecutive bonus / combos
+    _currentScore += 10
+  else:
+    _currentScore -= 5
+  _assignNewThing()
+
+func _on_player_moved_horizontally(direction: Events.Direction) -> void:
+  if !_gameOn:
+    return
   var newX: float = _currentTarget.x;
-  var newY: float = _currentTarget.y;
-  if Input.is_action_just_pressed("move_right"):
-    if _currentTarget.x == maxX:
+  if direction == Events.Direction.LEFT:
+    if _currentTarget.x == 0:
+      newX = _maxX
+    else:
+      newX -= 1
+  if direction == Events.Direction.RIGHT:
+    if _currentTarget.x == _maxX:
       newX = 0
     else:
-      newX = _currentTarget.x + 1
-  if Input.is_action_just_pressed("move_left"):
-    if _currentTarget.x == 0:
-      newX = maxX
-    else:
-      newX = _currentTarget.x - 1
-  if Input.is_action_just_pressed("move_down"):
-    if _currentTarget.y == maxY:
+      newX += 1
+  _currentTarget = Vector2(newX, _currentTarget.y)
+  _reticle.position = _getCurrentTarget().position
+
+func _on_player_moved_vertically(direction: Events.Direction) -> void:
+  if !_gameOn:
+    return
+  var newY: float = _currentTarget.y;
+  if direction == Events.Direction.DOWN:
+    if _currentTarget.y == _maxY:
       newY = 0
     else:
-      newY = _currentTarget.y + 1
-  if Input.is_action_just_pressed("move_up"):
+      newY += 1
+  if direction == Events.Direction.UP:
     if _currentTarget.y == 0:
-      newY = maxY
+      newY = _maxY
     else:
-      newY = _currentTarget.y - 1
-  if newX != _currentTarget.x or newY != _currentTarget.y:
-    _currentTarget = Vector2(newX, newY)
-    _reticle.position = _getCurrentTarget().position
+      newY -= 1
+  _currentTarget = Vector2(_currentTarget.x, newY)
+  _reticle.position = _getCurrentTarget().position
 
 func _on_game_timer_timeout() -> void:
   _events.game_ended.emit()

@@ -74,4 +74,7 @@ one_shot = true
 [connection signal="game_ended" from="Events" to="HUD" method="_on_game_ended"]
 [connection signal="game_started" from="Events" to="." method="_on_game_started"]
 [connection signal="game_started" from="Events" to="HUD" method="_on_game_started"]
+[connection signal="player_fired" from="Events" to="." method="_on_player_fired"]
+[connection signal="player_moved_horizontally" from="Events" to="." method="_on_player_moved_horizontally"]
+[connection signal="player_moved_vertically" from="Events" to="." method="_on_player_moved_vertically"]
 [connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]
