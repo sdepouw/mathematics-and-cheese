@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://ce8ycs7skwpvr"
-path="res://.godot/imported/Poco.ttf-34fd3037bc0f0b39ec05ce75a5060dd5.fontdata"
+uid="uid://dn8avfqtcmgj6"
+path="res://.godot/imported/VT323-Regular.ttf-d5c0a6e61d92dacdc55134843a2ecfc7.fontdata"
 
 [deps]
 
-source_file="res://Assets/Fonts/poco/Poco.ttf"
-dest_files=["res://.godot/imported/Poco.ttf-34fd3037bc0f0b39ec05ce75a5060dd5.fontdata"]
+source_file="res://Assets/Fonts/VT323/VT323-Regular.ttf"
+dest_files=["res://.godot/imported/VT323-Regular.ttf-d5c0a6e61d92dacdc55134843a2ecfc7.fontdata"]
 
 [params]
 

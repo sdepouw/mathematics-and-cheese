@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=2 format=3 uid="uid://u6cwubtei5fr"]
 
-[ext_resource type="FontVariation" uid="uid://bk2bu37t8kpfm" path="res://Assets/Fonts/poco/poco_no_top_spacing.tres" id="1_c2cg5"]
+[ext_resource type="FontFile" uid="uid://dn8avfqtcmgj6" path="res://Assets/Fonts/VT323/VT323-Regular.ttf" id="1_c2cg5"]
 
 [resource]
 Button/font_sizes/font_size = 64
