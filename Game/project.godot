@@ -15,6 +15,10 @@ run/main_scene="uid://du0qdv00hfe3g"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="uid://dq1gwfal68ugg"
 
+[autoload]
+
+Globals="*res://direction.gd"
+
 [debug]
 
 gdscript/warnings/renamed_in_godot_4_hint=false

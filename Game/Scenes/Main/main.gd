@@ -91,15 +91,15 @@ func _on_player_fired() -> void:
     _currentScore -= 5
   _assignNewThing()
 
-func _on_player_moved(direction: Events.Direction) -> void:
+func _on_player_moved(direction: Globals.Direction) -> void:
   if !_gameOn:
     return
   var newX: float = _currentTarget.x;
   var newY: float = _currentTarget.y;
-  if direction == Events.Direction.LEFT: newX -= 1
-  if direction == Events.Direction.RIGHT: newX += 1
-  if direction == Events.Direction.DOWN: newY += 1
-  if direction == Events.Direction.UP: newY -= 1
+  if direction == Globals.Direction.LEFT: newX -= 1
+  if direction == Globals.Direction.RIGHT: newX += 1
+  if direction == Globals.Direction.DOWN: newY += 1
+  if direction == Globals.Direction.UP: newY -= 1
   if newX > _maxX: newX = 0
   if newX < 0: newX = _maxX;
   if newY > _maxY: newY = 0;
