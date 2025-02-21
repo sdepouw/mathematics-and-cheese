@@ -2,6 +2,8 @@ class_name Root
 extends Node
 
 # TODO: Button defaults (theme?): 400x100, pointer cursor
+# TODO: Update Reticle with custom sprite
+# TODO: Sound effects
 # TODO: Add Godot, Font licnese access to Credits
 # TODO: Credit Alblune - Bluey credited to "Alblune" https://alblune.com/,
 # from "Squakross: Home Squeak Home" https://www.squeakross.cool/
