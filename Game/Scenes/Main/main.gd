@@ -53,8 +53,7 @@ func _ready() -> void:
   _events.game_started.emit();
 
 func _process(_delta: float) -> void:
-  if _gameOn:
-    _hud.update_time_display(_gameTimer.time_left)
+  _hud.update_time_display(_gameTimer.time_left)
 
 func _on_game_started() -> void:
   _gameOn = true
@@ -92,38 +91,20 @@ func _on_player_fired() -> void:
     _currentScore -= 5
   _assignNewThing()
 
-func _on_player_moved_horizontally(direction: Events.Direction) -> void:
+func _on_player_moved(direction: Events.Direction) -> void:
   if !_gameOn:
     return
   var newX: float = _currentTarget.x;
-  if direction == Events.Direction.LEFT:
-    if _currentTarget.x == 0:
-      newX = _maxX
-    else:
-      newX -= 1
-  if direction == Events.Direction.RIGHT:
-    if _currentTarget.x == _maxX:
-      newX = 0
-    else:
-      newX += 1
-  _currentTarget = Vector2(newX, _currentTarget.y)
-  _reticle.position = _getCurrentTarget().position
-
-func _on_player_moved_vertically(direction: Events.Direction) -> void:
-  if !_gameOn:
-    return
   var newY: float = _currentTarget.y;
-  if direction == Events.Direction.DOWN:
-    if _currentTarget.y == _maxY:
-      newY = 0
-    else:
-      newY += 1
-  if direction == Events.Direction.UP:
-    if _currentTarget.y == 0:
-      newY = _maxY
-    else:
-      newY -= 1
-  _currentTarget = Vector2(_currentTarget.x, newY)
+  if direction == Events.Direction.LEFT: newX -= 1
+  if direction == Events.Direction.RIGHT: newX += 1
+  if direction == Events.Direction.DOWN: newY += 1
+  if direction == Events.Direction.UP: newY -= 1
+  if newX > _maxX: newX = 0
+  if newX < 0: newX = _maxX;
+  if newY > _maxY: newY = 0;
+  if newY < 0: newY = _maxY;
+  _currentTarget = Vector2(newX, newY)
   _reticle.position = _getCurrentTarget().position
 
 func _on_game_timer_timeout() -> void:
