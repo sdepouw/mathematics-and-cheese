@@ -23,4 +23,4 @@ func update_time_display(time_remaining: float) -> void:
   TimeLabel.text = format % time_remaining
 
 func _clamp_score_display(score: int) -> String:
-  return "%05d" % max(0, min(score, 99999))
+  return "%05d" % max(0, score)

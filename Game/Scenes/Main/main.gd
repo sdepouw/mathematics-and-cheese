@@ -4,6 +4,9 @@ extends Node
 # TODO: 'Main Menu' with 'Start' and 'Credits' (attribute icon, font, license)
 # TODO: Bluey credited to "Alblune" https://alblune.com/,
 # from "Squakross: Home Squeak Home" https://www.squeakross.cool/
+# TODO: Do not wrap to next row when going right/left. Just jump to other side of row.
+# TODO: Each match also rewards a cheese? ('flip' equation card?)
+# Could show equations instead of numbers, and then a cheese is (sometimes) revealed
 
 @onready var _target1: Target = $Target1
 @onready var _target2: Target = $Target2
@@ -19,9 +22,21 @@ extends Node
 var _targets: Array
 var _currentTarget: Vector2
 var _currentThing: int
-var _currentScore: int
-var _highScore: int = 0
 var _gameOn: bool
+
+var _currentScore: int:
+  get:
+    return _currentScore
+  set(value):
+    _currentScore = min(value, 0)
+    _hud.update_score_display(_currentScore)
+
+var _highScore: int = 0:
+  get:
+    return _highScore;
+  set(value):
+    _highScore = value
+    _hud.update_high_score_display(value)
 
 ## Gets the Target that the reticle is currently selecting
 func _getCurrentTarget() -> Target:
@@ -49,9 +64,6 @@ func _process(_delta: float) -> void:
   _tryMoveReticle()
 
 func _assignNewThing() -> void:
-  # TODO: Show equations instead of flat numbers, randomize the numbers
-  # TODO: Mouse avatar? Work cheese in somehow?
-  # TODO: Instead of equation, throw # of cheeses sometimes?
   var firstSet: Array = _targets[0]
   _currentThing = randi_range(1, _targets.size() * firstSet.size())
   _currentlyHeldThing.text = str(_currentThing)
@@ -60,12 +72,9 @@ func _tryFire() -> void:
   if Input.is_action_just_pressed("fire"):
     if _currentThing == _getCurrentTarget().Id:
        # TODO: Consecutive bonus / combos
-       # TODO: Magic number of score cap is in multiple places
-      _currentScore = min(_currentScore + 10, 99999)
-      _hud.update_score_display(_currentScore)
+      _currentScore += 10
     else:
-      _currentScore = max(_currentScore - 5, 0)
-      _hud.update_score_display(_currentScore)
+      _currentScore -= 5
     _assignNewThing()
 
 func _tryMoveReticle() -> void:
@@ -79,13 +88,11 @@ func _tryMoveReticle() -> void:
   if Input.is_action_just_pressed("move_right"):
     if _currentTarget.x == maxX:
       newX = 0
-      newY = 1 if _currentTarget.y == 0 else 0
     else:
       newX = _currentTarget.x + 1
   if Input.is_action_just_pressed("move_left"):
     if _currentTarget.x == 0:
       newX = maxX
-      newY = 0 if _currentTarget.y == 1 else 1
     else:
       newX = _currentTarget.x - 1
   if Input.is_action_just_pressed("move_down"):
@@ -109,7 +116,6 @@ func _on_game_timer_timeout() -> void:
   _hud.update_time_display(0)
   if _currentScore > _highScore:
     # TODO: Persist high score
-    _hud.update_high_score_display(_currentScore)
     _highScore = _currentScore
   # TODO: Give the player a button to play again
   # TODO: And to start, for that matter
