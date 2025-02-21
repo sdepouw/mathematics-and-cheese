@@ -5,8 +5,6 @@ extends CanvasLayer
 @onready var _highScoreLabel: Label = $HighScoreLabel;
 @onready var _timeLabel: Label = $TimeLabel;
 
-var _display_locked: bool = false
-
 func update_score_display(score: int) -> void:
   _scoreLabel.text = _clamp_score_display(score)
 
@@ -14,7 +12,8 @@ func update_high_score_display(high_score: int) -> void:
   _highScoreLabel.text = _clamp_score_display(high_score)
 
 func update_time_display(time_remaining: float) -> void:
-  if _display_locked:
+  if time_remaining == 0:
+    _timeLabel.text = "Game!"
     return
   var format: String = "%2d"
   if (time_remaining < 10):
@@ -26,10 +25,3 @@ func update_time_display(time_remaining: float) -> void:
 
 func _clamp_score_display(score: int) -> String:
   return "%05d" % max(0, score)
-
-func _on_game_started() -> void:
-  _display_locked = false
-
-func _on_game_ended() -> void:
-  _display_locked = true
-  _timeLabel.text = "Game!"

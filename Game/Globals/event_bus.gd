@@ -1,9 +1,13 @@
-class_name Events
+## The Event Bus for the entire application
 extends Node
 
+## Emitted when a new game starts
 signal game_started()
+## Emitted when a game ends
 signal game_ended()
+## Emitted when the player presses the "fire" button
 signal player_fired()
+## Emitted whenever a player presses a movement button (any direction)
 signal player_moved(direction: Globals.Direction)
 
 func _process(_delta: float) -> void:
@@ -20,3 +24,7 @@ func _map_input_events_to_signals() -> void:
     player_moved.emit(Globals.Direction.DOWN)
   if Input.is_action_just_pressed("fire"):
     player_fired.emit()
+
+
+func _on_game_started() -> void:
+  print("_on_game_started() in event_bus.gd")

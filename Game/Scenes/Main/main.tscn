@@ -1,16 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://du0qdv00hfe3g"]
+[gd_scene load_steps=3 format=3 uid="uid://du0qdv00hfe3g"]
 
 [ext_resource type="Script" uid="uid://75y8glss6r2g" path="res://Scenes/Main/main.gd" id="1_1r6ip"]
-[ext_resource type="PackedScene" uid="uid://u0p710ebviv6" path="res://Scenes/Target/target.tscn" id="2_lixft"]
-[ext_resource type="Script" uid="uid://dxywswnxf614h" path="res://Scenes/Main/events.gd" id="2_p6jpk"]
-[ext_resource type="Texture2D" uid="uid://k78lbssqjiui" path="res://Assets/Art/Reticle.png" id="4_5yls4"]
-[ext_resource type="PackedScene" uid="uid://cfdil1vt2522f" path="res://Scenes/HUD/hud.tscn" id="4_p6jpk"]
+[ext_resource type="PackedScene" uid="uid://55o2ddpjh5ds" path="res://Scenes/Game/game.tscn" id="3_qw60k"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_1r6ip")
-
-[node name="Events" type="Node" parent="."]
-script = ExtResource("2_p6jpk")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15
@@ -20,60 +14,4 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.441889, 0.36456, 0, 1)
 
-[node name="Target1" parent="." instance=ExtResource("2_lixft")]
-position = Vector2(288, 128)
-
-[node name="Target2" parent="." instance=ExtResource("2_lixft")]
-position = Vector2(576, 128)
-Id = 2
-
-[node name="Target3" parent="." instance=ExtResource("2_lixft")]
-position = Vector2(864, 128)
-Id = 3
-
-[node name="Target4" parent="." instance=ExtResource("2_lixft")]
-position = Vector2(288, 384)
-Id = 4
-
-[node name="Target5" parent="." instance=ExtResource("2_lixft")]
-position = Vector2(576, 384)
-Id = 5
-
-[node name="Target6" parent="." instance=ExtResource("2_lixft")]
-position = Vector2(864, 384)
-Id = 6
-
-[node name="CurrentlyHeldThing" type="Label" parent="."]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = -89.0
-offset_right = 20.0
-offset_bottom = -51.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_colors/font_color = Color(0, 0.341176, 0.72549, 1)
-text = "1"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Reticle" type="Sprite2D" parent="."]
-visible = false
-texture = ExtResource("4_5yls4")
-
-[node name="HUD" parent="." instance=ExtResource("4_p6jpk")]
-
-[node name="GameTimer" type="Timer" parent="."]
-wait_time = 20.0
-one_shot = true
-
-[connection signal="game_ended" from="Events" to="." method="_on_game_ended"]
-[connection signal="game_ended" from="Events" to="HUD" method="_on_game_ended"]
-[connection signal="game_started" from="Events" to="." method="_on_game_started"]
-[connection signal="game_started" from="Events" to="HUD" method="_on_game_started"]
-[connection signal="player_fired" from="Events" to="." method="_on_player_fired"]
-[connection signal="player_moved" from="Events" to="." method="_on_player_moved"]
-[connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]
+[node name="Game" parent="." instance=ExtResource("3_qw60k")]
