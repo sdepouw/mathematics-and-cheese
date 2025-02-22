@@ -1,3 +1,6 @@
+## Instantiates a given PackedScene into SceneLoader's parent, ensuring
+## that the previously-istantiated PackedScene is removed and deleted
+## beforehand
 class_name SceneLoader
 extends Node
 
@@ -20,8 +23,7 @@ func _process(_delta: float) -> void:
   if !_loadQueued:
     return
   if _loadedInstance != null:
-    if is_instance_valid(_loadedInstance):
-      _unload_instance()
+    _try_unload_instance()
   else:
     _load_instance()
     _sceneToLoad = null
@@ -31,7 +33,6 @@ func _load_instance() -> void:
   get_parent().add_child(_loadedInstance)
   instance_loaded.emit(_loadedInstance)
 
-func _unload_instance() -> void:
-  if _loadedInstance == null or !is_instance_valid(_loadedInstance):
-    return
-  _loadedInstance.queue_free()
+func _try_unload_instance() -> void:
+  if _loadedInstance != null and is_instance_valid(_loadedInstance):
+    _loadedInstance.queue_free()
