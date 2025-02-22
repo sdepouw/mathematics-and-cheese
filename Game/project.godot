@@ -13,6 +13,8 @@ config_version=5
 config/name="Mathematics and Cheese"
 run/main_scene="uid://du0qdv00hfe3g"
 config/features=PackedStringArray("4.4", "Forward Plus")
+boot_splash/bg_color=Color(0.709804, 0.592157, 0, 1)
+boot_splash/show_image=false
 config/icon="uid://dq1gwfal68ugg"
 
 [autoload]

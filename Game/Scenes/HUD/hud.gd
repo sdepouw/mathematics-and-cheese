@@ -13,7 +13,7 @@ func update_high_score_display(high_score: int) -> void:
 
 func update_time_display(time_remaining: float) -> void:
   var format: String = "%2d"
-  if (time_remaining < 10):
+  if (time_remaining < 9.90):
     # Formats float as as "0.0"
     # The 3 indicates '3 total symbols'
     # The 1 indicates 'only 1 digit to the right of the .'
