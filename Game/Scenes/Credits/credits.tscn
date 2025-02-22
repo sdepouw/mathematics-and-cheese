@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://c2m51cu3euqqd"]
+[gd_scene load_steps=3 format=3 uid="uid://c2m51cu3euqqd"]
 
 [ext_resource type="Script" uid="uid://c066o242r7s4j" path="res://Scenes/Credits/credits.gd" id="1_ykwev"]
+[ext_resource type="Script" uid="uid://de706yc1x0tdn" path="res://Scenes/ClickableRichTextLabel/clickable_rich_text_label.gd" id="2_22rij"]
 
 [node name="Credits" type="Node"]
 script = ExtResource("1_ykwev")
@@ -27,6 +28,8 @@ Used with permission from [url=https://alblune.com/]Alblune[/url]
 
 Thank you for playing!"
 horizontal_alignment = 1
+script = ExtResource("2_22rij")
+metadata/_custom_type_script = "uid://de706yc1x0tdn"
 
 [node name="BackButton" type="Button" parent="."]
 anchors_preset = 7
