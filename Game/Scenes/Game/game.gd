@@ -1,7 +1,6 @@
 class_name Game
 extends Node
 
-# TODO: Show 'Game Over' stuff besides just "Game!" along the top
 # TODO: Finite State Machine instead of bool _gameOn?
 # Game is new -> started <-> paused, started -> stopped, stopped -> new
 

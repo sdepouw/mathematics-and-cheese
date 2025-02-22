@@ -4,9 +4,6 @@ extends Node
 # TODO: Button defaults (theme?): 400x100, pointer cursor
 # TODO: Update Reticle with custom sprite
 # TODO: Sound effects
-# TODO: Add Godot, Font licnese access to Credits
-# TODO: Credit Alblune - Bluey credited to "Alblune" https://alblune.com/,
-# from "Squakross: Home Squeak Home" https://www.squeakross.cool/
 
 @onready var _sceneLoader: SceneLoader = $SceneLoader
 @onready var _splashScreenScene: PackedScene = preload("res://Scenes/SplashScreen/splash_screen.tscn")
