@@ -19,6 +19,7 @@ config/icon="uid://dq1gwfal68ugg"
 
 Globals="*res://Globals/globals.gd"
 EventBus="*res://Globals/event_bus.gd"
+HighScore="*res://Globals/high_score.gd"
 
 [debug]
 

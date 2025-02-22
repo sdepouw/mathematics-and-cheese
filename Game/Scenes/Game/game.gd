@@ -1,9 +1,7 @@
 class_name Game
 extends Node
 
-# TODO: Small countdown before the game commences. "Get Ready!"
 # TODO: Show 'Game Over' stuff besides just "Game!" along the top
-# TODO: Persist high score
 # TODO: Finite State Machine instead of bool _gameOn?
 # Game is new -> started <-> paused, started -> stopped, stopped -> new
 
@@ -12,6 +10,8 @@ extends Node
 # TODO: More complex scoring
 # - Combos / Consecutive Bonuses
 # - At end, each found cheese adds to score
+# TODO: Sound/Animation when scoring
+# TODO: Sound/Animation/Congrats on new high score
 
 @onready var _events: GameEvents = $GameEvents
 @onready var _target1: Target = $Target1
@@ -39,11 +39,6 @@ var _currentScore: int:
     _currentScore = max(value, 0)
     _hud.update_score_display(_currentScore)
 
-var _highScore: int = 0:
-  set(value):
-    _highScore = value
-    _hud.update_high_score_display(value)
-
 ## Gets the Target that the reticle is currently selecting
 func _getCurrentTarget() -> Target:
   return _targets[_currentTarget.y][_currentTarget.x]
@@ -55,6 +50,8 @@ func _ready() -> void:
   _maxX = firstSet.size() - 1
   _maxY = _targets.size() - 1
   _events.game_started.emit()
+  HighScore.updated.connect(_hud.update_high_score_display)
+  _hud.update_high_score_display(HighScore.get_current_high_score())
 
 func _process(_delta: float) -> void:
   if _gameOn:
@@ -90,8 +87,8 @@ func _on_game_started() -> void:
 func _on_game_ended() -> void:
   _toggle_game_piece_visibility(false)
   _toggle_game_over_visibility(true)
-  if _currentScore > _highScore:
-    _highScore = _currentScore
+  if _currentScore > HighScore.get_current_high_score():
+    HighScore.save_new_high_score(_currentScore)
 
 func _on_player_fired() -> void:
   if !_gameOn:
