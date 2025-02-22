@@ -89,7 +89,7 @@ func _on_game_ended() -> void:
   if _currentScore > HighScore.get_current_high_score():
     HighScore.save_new_high_score(_currentScore)
 
-func _on_player_fired() -> void:
+func _on_player_shoot() -> void:
   if !_gameOn:
     return
   if _currentThing == _getCurrentTarget().Id:

@@ -6,8 +6,8 @@ extends Node
 signal game_started()
 ## Emitted when a game ends
 signal game_ended()
-## Emitted when the player presses the "fire" button
-signal player_fired()
+## Emitted when the player presses the "shoot" button
+signal player_shoot()
 ## Emitted whenever a player presses a movement button (any direction)
 signal player_moved(direction: Globals.Direction)
 
@@ -23,5 +23,5 @@ func _map_input_events_to_signals() -> void:
     player_moved.emit(Globals.Direction.UP)
   if Input.is_action_just_pressed("move_down"):
     player_moved.emit(Globals.Direction.DOWN)
-  if Input.is_action_just_pressed("fire"):
-    player_fired.emit()
+  if Input.is_action_just_pressed("shoot"):
+    player_shoot.emit()
