@@ -15,9 +15,16 @@ func _process(_delta: float) -> void:
   if !can_pause:
     return
   if Input.is_action_just_pressed("cancel"):
-    _root_tree.paused = !_root_tree.paused
-    self.visible = _root_tree.paused
-    if _root_tree.paused:
-      paused.emit()
-    else:
-      unpaused.emit()
+    _toggle_paused()
+
+func _toggle_paused() -> void:
+  _root_tree.paused = !_root_tree.paused
+  self.visible = _root_tree.paused
+  if _root_tree.paused:
+    paused.emit()
+  else:
+    unpaused.emit()
+
+func _on_quit_button_pressed() -> void:
+  EventBus.load_main_menu.emit()
+  _toggle_paused()
