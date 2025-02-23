@@ -1,0 +1,72 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfdil1vt2522f"]
+
+[ext_resource type="Script" uid="uid://fg53675uc40p" path="res://Scenes/HUD/hud.gd" id="1_33i1w"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_33i1w")
+
+[node name="ScoreLabel" type="Label" parent="."]
+offset_right = 128.0
+offset_bottom = 65.0
+text = "0000000"
+
+[node name="ScoreText" type="Label" parent="."]
+offset_top = 65.0
+offset_right = 179.0
+offset_bottom = 110.0
+theme_override_font_sizes/font_size = 45
+text = "Score"
+horizontal_alignment = 1
+
+[node name="StreakLabel" type="Label" parent="."]
+visible = false
+offset_left = 334.0
+offset_top = 16.0
+offset_right = 400.0
+offset_bottom = 81.0
+theme_override_font_sizes/font_size = 45
+text = "000"
+horizontal_alignment = 2
+
+[node name="StreakText" type="Label" parent="."]
+visible = false
+offset_left = 208.0
+offset_top = 16.0
+offset_right = 334.0
+offset_bottom = 81.0
+theme_override_font_sizes/font_size = 45
+text = "Streak!"
+
+[node name="HighScoreLabel" type="Label" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -128.0
+offset_bottom = 65.0
+grow_horizontal = 0
+text = "0000000"
+horizontal_alignment = 2
+
+[node name="HighScoreText" type="Label" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -179.0
+offset_top = 65.0
+offset_bottom = 110.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 45
+text = "High"
+horizontal_alignment = 1
+
+[node name="TimeLabel" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -108.0
+offset_right = 108.0
+offset_bottom = 114.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 96
+text = "00"
+horizontal_alignment = 1

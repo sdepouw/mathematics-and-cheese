@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://du0qdv00hfe3g"]
+
+[ext_resource type="Script" uid="uid://75y8glss6r2g" path="res://Scenes/Root/root.gd" id="1_1r6ip"]
+[ext_resource type="Script" uid="uid://cqc2ob5ygqwqw" path="res://Scenes/Root/scene_loader.gd" id="3_qw60k"]
+
+[node name="Root" type="Node"]
+script = ExtResource("1_1r6ip")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.711566, 0.592268, 0, 1)
+
+[node name="SceneLoader" type="Node" parent="."]
+script = ExtResource("3_qw60k")
+metadata/_custom_type_script = "uid://cqc2ob5ygqwqw"

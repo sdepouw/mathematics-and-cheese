@@ -1,0 +1,164 @@
+[gd_scene load_steps=13 format=3 uid="uid://55o2ddpjh5ds"]
+
+[ext_resource type="Script" uid="uid://lv7n6cdct43x" path="res://Scenes/Game/game.gd" id="1_i1e5p"]
+[ext_resource type="PackedScene" uid="uid://u0p710ebviv6" path="res://Scenes/Target/target.tscn" id="1_qikps"]
+[ext_resource type="Script" uid="uid://b2ylthq7556mh" path="res://Scenes/Game/events.gd" id="2_ciybh"]
+[ext_resource type="PackedScene" uid="uid://cfdil1vt2522f" path="res://Scenes/HUD/hud.tscn" id="2_i1e5p"]
+[ext_resource type="Texture2D" uid="uid://c47m8ju77yfek" path="res://Assets/Art/reticle-sheet.png" id="5_ciybh"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_ciybh"]
+action = &"shoot"
+
+[sub_resource type="Shortcut" id="Shortcut_flgk0"]
+events = [SubResource("InputEventAction_ciybh")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_flgk0"]
+action = &"cancel"
+
+[sub_resource type="Shortcut" id="Shortcut_vifcx"]
+events = [SubResource("InputEventAction_flgk0")]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_flgk0"]
+atlas = ExtResource("5_ciybh")
+region = Rect2(0, 0, 224, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vifcx"]
+atlas = ExtResource("5_ciybh")
+region = Rect2(224, 0, 224, 105)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xfil1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_flgk0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vifcx")
+}],
+"loop": true,
+"name": &"blinking",
+"speed": 3.0
+}]
+
+[node name="Game" type="Node"]
+script = ExtResource("1_i1e5p")
+
+[node name="GameEvents" type="Node" parent="."]
+script = ExtResource("2_ciybh")
+
+[node name="GameTimer" type="Timer" parent="."]
+wait_time = 30.0
+one_shot = true
+
+[node name="Target1" parent="." groups=["GamePieces"] instance=ExtResource("1_qikps")]
+visible = false
+position = Vector2(288, 192)
+
+[node name="Target2" parent="." groups=["GamePieces"] instance=ExtResource("1_qikps")]
+visible = false
+position = Vector2(576, 192)
+
+[node name="Target3" parent="." groups=["GamePieces"] instance=ExtResource("1_qikps")]
+visible = false
+position = Vector2(864, 192)
+
+[node name="Target4" parent="." groups=["GamePieces"] instance=ExtResource("1_qikps")]
+visible = false
+position = Vector2(288, 448)
+
+[node name="Target5" parent="." groups=["GamePieces"] instance=ExtResource("1_qikps")]
+visible = false
+position = Vector2(576, 448)
+
+[node name="Target6" parent="." groups=["GamePieces"] instance=ExtResource("1_qikps")]
+visible = false
+position = Vector2(864, 448)
+
+[node name="HUD" parent="." instance=ExtResource("2_i1e5p")]
+
+[node name="TargetToHitLabel" type="Label" parent="." groups=["GamePieces"]]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -89.0
+offset_right = 20.0
+offset_bottom = -51.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0, 0.341176, 0.72549, 1)
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameOverLabel" type="Label" parent="." groups=["GameOverPieces"]]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "A Cheesy Delight!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RestartButton" type="Button" parent="." groups=["GameOverPieces"]]
+visible = false
+offset_left = 128.0
+offset_top = 448.0
+offset_right = 528.0
+offset_bottom = 548.0
+mouse_default_cursor_shape = 2
+shortcut = SubResource("Shortcut_flgk0")
+text = "Play Again"
+
+[node name="MainMenuButton" type="Button" parent="." groups=["GameOverPieces"]]
+visible = false
+offset_left = 624.0
+offset_top = 448.0
+offset_right = 1024.0
+offset_bottom = 548.0
+mouse_default_cursor_shape = 2
+shortcut = SubResource("Shortcut_vifcx")
+text = "Main Menu"
+
+[node name="CountdownLabel" type="Label" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -32.5
+offset_right = 20.0
+offset_bottom = 32.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 256
+text = "3"
+horizontal_alignment = 1
+
+[node name="CountdownTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="Reticle" type="AnimatedSprite2D" parent="." groups=["GamePieces"]]
+visible = false
+modulate = Color(0, 0.341176, 0.72549, 1)
+sprite_frames = SubResource("SpriteFrames_xfil1")
+animation = &"blinking"
+autoplay = "blinking"
+frame_progress = 0.779093
+
+[connection signal="game_ended" from="GameEvents" to="." method="_on_game_ended"]
+[connection signal="game_ended" from="GameEvents" to="HUD" method="_on_game_ended"]
+[connection signal="game_started" from="GameEvents" to="." method="_on_game_started"]
+[connection signal="player_moved" from="GameEvents" to="." method="_on_player_moved"]
+[connection signal="player_shoot" from="GameEvents" to="." method="_on_player_shoot"]
+[connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]
+[connection signal="pressed" from="RestartButton" to="." method="_on_game_started"]
+[connection signal="pressed" from="MainMenuButton" to="." method="_on_main_menu_button_pressed"]
