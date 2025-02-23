@@ -99,7 +99,7 @@ func _on_game_ended() -> void:
   if _current_score > HighScore.get_current_high_score():
     HighScore.save_new_high_score(_current_score)
 
-func _on_player_shoot() -> void:
+func _on_player_confirm() -> void:
   if !_game_on:
     return
   if _answer_to_hit == _get_current_target().get_answer():

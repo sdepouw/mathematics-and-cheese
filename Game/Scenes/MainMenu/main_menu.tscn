@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dguubyrqu3dxi" path="res://Scenes/MainMenu/main_menu.gd" id="1_uqdog"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_uqdog"]
-action = &"shoot"
+action = &"confirm"
 
 [sub_resource type="Shortcut" id="Shortcut_v763k"]
 events = [SubResource("InputEventAction_uqdog")]
