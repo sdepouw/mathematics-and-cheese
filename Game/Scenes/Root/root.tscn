@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://du0qdv00hfe3g"]
+[gd_scene load_steps=4 format=3 uid="uid://du0qdv00hfe3g"]
 
 [ext_resource type="Script" uid="uid://75y8glss6r2g" path="res://Scenes/Root/root.gd" id="1_1r6ip"]
+[ext_resource type="Texture2D" uid="uid://cwl8t64jyhp3j" path="res://Assets/Art/background.png" id="3_517d8"]
 [ext_resource type="Script" uid="uid://cqc2ob5ygqwqw" path="res://Scenes/Root/scene_loader.gd" id="3_qw60k"]
 
 [node name="Root" type="Node"]
@@ -14,6 +15,18 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.711566, 0.592268, 0, 1)
 
+[node name="BackgroundParallex" type="Parallax2D" parent="."]
+visible = false
+repeat_size = Vector2(1152, 648)
+autoscroll = Vector2(100, 100)
+repeat_times = 2
+
+[node name="Background" type="Sprite2D" parent="BackgroundParallex"]
+position = Vector2(576, 324)
+texture = ExtResource("3_517d8")
+
 [node name="SceneLoader" type="Node" parent="."]
 script = ExtResource("3_qw60k")
 metadata/_custom_type_script = "uid://cqc2ob5ygqwqw"
+
+[connection signal="instance_loaded" from="SceneLoader" to="." method="_on_scene_loader_instance_loaded"]

@@ -10,7 +10,7 @@ var _load_queued: bool:
   get: return _scene_to_load != null
 
 ## Emitted whenever a new scene is instantiated and loaded into the parent
-signal instance_loaded(loaded_instance: Node)
+signal instance_loaded(loaded_scene: PackedScene, loaded_instance: Node)
 
 ## Queue a PackedScene for loading. The previously-loaded scene will
 ## be unloaded properly before this scene will load.
@@ -31,7 +31,7 @@ func _process(_delta: float) -> void:
 func _load_instance() -> void:
   _loaded_instance = _scene_to_load.instantiate()
   get_parent().add_child(_loaded_instance)
-  instance_loaded.emit(_loaded_instance)
+  instance_loaded.emit(_scene_to_load, _loaded_instance)
 
 func _try_unload_instance() -> void:
   if _loaded_instance != null and is_instance_valid(_loaded_instance):

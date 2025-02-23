@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://hnj5a3kfiu1v"]
+[gd_scene load_steps=4 format=3 uid="uid://hnj5a3kfiu1v"]
 
 [ext_resource type="Script" uid="uid://dguubyrqu3dxi" path="res://Scenes/MainMenu/main_menu.gd" id="1_uqdog"]
-[ext_resource type="PackedScene" uid="uid://vy44lgq4vbmt" path="res://Scenes/MenuBackground/menu_background.tscn" id="2_v763k"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_uqdog"]
 action = &"shoot"
@@ -11,8 +10,6 @@ events = [SubResource("InputEventAction_uqdog")]
 
 [node name="MainMenu" type="Node"]
 script = ExtResource("1_uqdog")
-
-[node name="MenuBackground" parent="." instance=ExtResource("2_v763k")]
 
 [node name="GameTitleLabel" type="Label" parent="."]
 anchors_preset = 8
