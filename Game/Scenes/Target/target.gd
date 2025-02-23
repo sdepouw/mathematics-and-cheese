@@ -12,7 +12,7 @@ func get_answer() -> int:
 func generate_new_equation() -> int:
   var operation: MathOperation = MathOperation.values().pick_random()
   var operand1: int = randi_range(0, 9)
-  var operand2: int = randi_range(2, 11)
+  var operand2: int = randi_range(0, 9)
   _target_identifier.text = _build_display_equation(operand1, operand2, operation)
   _answer = _calculate(operand1, operand2, operation)
   return get_answer()

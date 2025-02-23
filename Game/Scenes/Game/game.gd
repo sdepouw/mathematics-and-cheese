@@ -18,10 +18,6 @@ extends Node
 #   - "Favorite Cheese" (user option), worth double
 #   - Game Over screen shows raw score, then cheese tally for total
 #   - Update high score live (only persist it at end of tally)
-# - Equation Generation
-#   - Pick two numbers randomly (sensible limits)
-#   - Pick operand randomly (+ - *, no division for now)
-#   - Calculate and produce result to use
 # TODO: Sound/Animation when scoring
 # TODO: Sound/Animation/Congrats on new high score
 
