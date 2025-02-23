@@ -12,12 +12,14 @@ func _ready() -> void:
   self.visible = false
 
 func _process(_delta: float) -> void:
-  if !can_pause:
-    return
+  # We have to manually parse inputs instead of relying on EventBus
+  # because EventBus signals don't process while paused
   if Input.is_action_just_pressed("cancel"):
     _toggle_paused()
 
 func _toggle_paused() -> void:
+  if !can_pause:
+    return
   _root_tree.paused = !_root_tree.paused
   self.visible = _root_tree.paused
   if _root_tree.paused:
