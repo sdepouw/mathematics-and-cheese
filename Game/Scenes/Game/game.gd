@@ -7,9 +7,6 @@ extends Node
 # TODO: Each match also rewards a cheese? ('flip' equation card?)
 # Could show equations instead of numbers, and then a cheese is (sometimes) revealed
 # TODO: More complex scoring
-# - Streak counter (score = 1, or 1 * streak when streak > 5)
-#   - Each guess = 1 point, or 1 * streak when streak > 5
-#   - Obviously, mistakes lose the streak
 # - Timer for each move (3-5 seconds, counts as Miss if timer expires)
 # - Randomly find cheese. Guarantee cheese every 10th get
 #   - Increase timer to 60 seconds
@@ -46,10 +43,17 @@ var _answer_to_hit: int:
     _currentlyHeldThing.text = str(value)
 var _gameOn: bool
 
-var _currentScore: int:
+# Scoring
+var _current_score: int:
   set(value):
-    _currentScore = max(value, 0)
-    _hud.update_score_display(_currentScore)
+    _current_score = max(value, 0)
+    _hud.update_score_display(_current_score)
+var _current_streak: int:
+  set(value):
+    _current_streak = value
+    _hud.update_streak_display(_current_streak, _on_notable_streak())
+func _on_notable_streak() -> bool:
+  return _current_streak > 2
 
 ## Gets the Target that the reticle is currently selecting
 func _getCurrentTarget() -> Target:
@@ -91,7 +95,8 @@ func _toggle_game_over_visibility(visible: bool) -> void:
     item.visible = visible
 
 func _on_game_started() -> void:
-  _currentScore = 0
+  _current_score = 0
+  _current_streak = 0
   _currentTarget = Vector2.ZERO
   _hud.update_time_display(_gameTimer.wait_time)
   _toggle_game_over_visibility(false)
@@ -104,16 +109,23 @@ func _on_game_started() -> void:
 func _on_game_ended() -> void:
   _toggle_game_piece_visibility(false)
   _toggle_game_over_visibility(true)
-  if _currentScore > HighScore.get_current_high_score():
-    HighScore.save_new_high_score(_currentScore)
+  if _current_score > HighScore.get_current_high_score():
+    HighScore.save_new_high_score(_current_score)
 
 func _on_player_shoot() -> void:
   if !_gameOn:
     return
   if _answer_to_hit == _getCurrentTarget().get_answer():
-    _currentScore += 10
+    _current_streak += 1
+    const BASE_SCORE: int = 100
+    if _on_notable_streak():
+      var streak_bonus: int = ceili(BASE_SCORE * _current_streak * 0.15)
+      _current_score += BASE_SCORE + streak_bonus
+    else:
+      _current_score += 100
   else:
-    _currentScore -= 5
+    _current_score -= 50
+    _current_streak = 0
   generate_new_targets()
 
 func _on_player_moved(direction: Globals.Direction) -> void:
