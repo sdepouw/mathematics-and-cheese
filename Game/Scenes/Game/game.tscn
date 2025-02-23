@@ -38,8 +38,10 @@ animations = [{
 script = ExtResource("1_i1e5p")
 
 [node name="GameTimer" type="Timer" parent="."]
-wait_time = 30.0
+wait_time = 60.0
 one_shot = true
+
+[node name="GameEndWaitTimer" type="Timer" parent="."]
 
 [node name="Target1" parent="." groups=["GamePieces"] instance=ExtResource("1_qikps")]
 visible = false
@@ -150,7 +152,7 @@ visible = false
 [connection signal="game_ended" from="." to="." method="_on_game_ended"]
 [connection signal="game_started" from="." to="." method="_on_game_started"]
 [connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]
-[connection signal="pressed" from="RestartButton" to="." method="_on_game_started"]
+[connection signal="pressed" from="RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="MainMenuButton" to="." method="_on_main_menu_button_pressed"]
 [connection signal="paused" from="PauseScreen" to="." method="_toggle_game_piece_visibility" binds= [false]]
 [connection signal="unpaused" from="PauseScreen" to="." method="_toggle_game_piece_visibility" binds= [true]]

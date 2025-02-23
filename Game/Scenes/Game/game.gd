@@ -19,6 +19,9 @@ signal game_ended()
 @onready var _countdown_timer: Timer = $CountdownTimer
 @onready var _countdown_label: Label = $CountdownLabel
 @onready var _pause_screen: PauseScreen = $PauseScreen
+@onready var _game_end_wait_timer: Timer = $GameEndWaitTimer
+@onready var _main_menu_button: Button = $MainMenuButton
+@onready var _restart_button: Button = $RestartButton
 
 var _max_x: int:
   get:
@@ -99,11 +102,22 @@ func _on_game_started() -> void:
   _pause_screen.can_pause = true
 
 func _on_game_ended() -> void:
+  _disable_game_end_buttons_momentarily()
   _pause_screen.can_pause = false
   _toggle_game_piece_visibility(false)
   _toggle_game_over_visibility(true)
   if _current_score > HighScore.get_current_high_score():
     HighScore.save_new_high_score(_current_score)
+
+## Prevents players from playing down to the wire and accidentally skipping the
+## Game Over screen
+func _disable_game_end_buttons_momentarily() -> void:
+  _restart_button.disabled = true
+  _main_menu_button.disabled = true
+  _game_end_wait_timer.start()
+  await _game_end_wait_timer.timeout
+  _restart_button.disabled = false
+  _main_menu_button.disabled = false
 
 func _on_player_confirm() -> void:
   if !_game_on:
@@ -130,6 +144,9 @@ func _on_player_moved(direction: Globals.Direction) -> void:
 
 func _on_game_timer_timeout() -> void:
   game_ended.emit()
+
+func _on_restart_button_pressed() -> void:
+  game_started.emit()
 
 func _on_main_menu_button_pressed() -> void:
   EventBus.load_main_menu.emit()
