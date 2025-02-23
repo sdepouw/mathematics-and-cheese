@@ -35,7 +35,7 @@ extends Node
 var _max_x: int:
   get:
     var first_row: Array = _targets_grid[0]
-    return first_row.size()
+    return first_row.size() - 1
 var _max_y: int:
   get: return _targets_grid.size() - 1
 var _targets_grid: Array
