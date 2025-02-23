@@ -1,7 +1,11 @@
 class_name Game
 extends Node
 
-@onready var _events: GameEvents = $GameEvents
+## Emitted when a new game starts
+signal game_started()
+## Emitted when a game ends
+signal game_ended()
+
 @onready var _target_1: Target = $Target1
 @onready var _target_2: Target = $Target2
 @onready var _target_3: Target = $Target3
@@ -51,9 +55,11 @@ func _ready() -> void:
   _targets_grid.append([_target_1, _target_2, _target_3])
   _targets_grid.append([_target_4, _target_5, _target_6])
   _targets = [_target_1, _target_2, _target_3, _target_4, _target_5, _target_6]
-  _events.game_started.emit()
+  game_started.emit()
   HighScore.updated.connect(_hud.update_high_score_display)
   _hud.update_high_score_display(HighScore.get_current_high_score())
+  EventBus.player_confirm.connect(_on_player_confirm)
+  EventBus.player_moved.connect(_on_player_moved)
 
 func _process(_delta: float) -> void:
   if _game_on:
@@ -122,6 +128,12 @@ func _on_player_moved(direction: Globals.Direction) -> void:
   _targeted_grid_spot = new_position
   _reticle.position = _get_current_target().position
 
+func _on_game_timer_timeout() -> void:
+  game_ended.emit()
+
+func _on_main_menu_button_pressed() -> void:
+  EventBus.load_main_menu.emit()
+
 func _get_new_reticle_position(direction: Globals.Direction) -> Vector2:
   var new_position: Vector2 = _targeted_grid_spot
   if direction == Globals.Direction.LEFT: new_position.x -= 1
@@ -133,12 +145,6 @@ func _get_new_reticle_position(direction: Globals.Direction) -> Vector2:
   if new_position.y > _max_y: new_position.y = 0;
   if new_position.y < 0: new_position.y = _max_y;
   return new_position
-
-func _on_game_timer_timeout() -> void:
-  _events.game_ended.emit()
-
-func _on_main_menu_button_pressed() -> void:
-  EventBus.load_main_menu.emit()
 
 func _run_countdown_async() -> void:
   _countdown_label.show()
