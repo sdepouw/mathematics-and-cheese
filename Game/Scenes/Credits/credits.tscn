@@ -38,6 +38,7 @@ grow_horizontal = 2
 grow_vertical = 0
 mouse_default_cursor_shape = 2
 shortcut = SubResource("Shortcut_4lsct")
+shortcut_in_tooltip = false
 text = "Back"
 
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

@@ -32,4 +32,5 @@ func _load_credits() -> void:
 func _on_scene_loader_instance_loaded(loaded_scene: PackedScene, _loaded_instance: Node) -> void:
   _backgroud_parallex.visible =\
     loaded_scene == MAIN_MENU_SCENE or\
-    loaded_scene == CREDITS_SCENE
+    loaded_scene == CREDITS_SCENE or\
+    loaded_scene == INSTRUCTIONS_SCENE

@@ -104,6 +104,7 @@ offset_right = 528.0
 offset_bottom = 548.0
 mouse_default_cursor_shape = 2
 shortcut = SubResource("Shortcut_flgk0")
+shortcut_in_tooltip = false
 text = "Play Again"
 
 [node name="MainMenuButton" type="Button" parent="." groups=["GameOverPieces"]]

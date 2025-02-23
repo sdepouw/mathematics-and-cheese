@@ -53,6 +53,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_default_cursor_shape = 2
 shortcut = SubResource("Shortcut_v763k")
+shortcut_in_tooltip = false
 text = "Start Game"
 
 [node name="InstructionsButton" type="Button" parent="."]
