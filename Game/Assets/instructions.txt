@@ -1,0 +1,10 @@
+
+[b]Controls[/b]
+
+{controls}
+
+[b]Objective[/b]
+
+Bluey wants cheese! For some reason he has to solve math problems to earn
+cheese! Several equations will be presented, and he has to select the one
+that matches the number he's thinking of!

@@ -1,0 +1,3 @@
+↑/←/↓/→ or w/a/s/d: Move
+Enter/Spacebar: Confirm
+Escape: Pause
