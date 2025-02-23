@@ -152,7 +152,6 @@ modulate = Color(0, 0.341176, 0.72549, 1)
 sprite_frames = SubResource("SpriteFrames_xfil1")
 animation = &"blinking"
 autoplay = "blinking"
-frame_progress = 0.779093
 
 [connection signal="game_ended" from="GameEvents" to="." method="_on_game_ended"]
 [connection signal="game_ended" from="GameEvents" to="HUD" method="_on_game_ended"]
