@@ -14,6 +14,7 @@ extends Node
 @onready var _game_timer: Timer = $GameTimer
 @onready var _countdown_timer: Timer = $CountdownTimer
 @onready var _countdown_label: Label = $CountdownLabel
+@onready var _pause_screen: PauseScreen = $PauseScreen
 
 var _max_x: int:
   get:
@@ -89,8 +90,10 @@ func _on_game_started() -> void:
   _reticle.position = _get_current_target().position
   generate_new_targets()
   _game_timer.start()
+  _pause_screen.can_pause = true
 
 func _on_game_ended() -> void:
+  _pause_screen.can_pause = false
   _toggle_game_piece_visibility(false)
   _toggle_game_over_visibility(true)
   if _current_score > HighScore.get_current_high_score():

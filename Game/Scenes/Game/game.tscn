@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://55o2ddpjh5ds"]
+[gd_scene load_steps=14 format=3 uid="uid://55o2ddpjh5ds"]
 
 [ext_resource type="Script" uid="uid://lv7n6cdct43x" path="res://Scenes/Game/game.gd" id="1_i1e5p"]
 [ext_resource type="PackedScene" uid="uid://u0p710ebviv6" path="res://Scenes/Target/target.tscn" id="1_qikps"]
 [ext_resource type="Script" uid="uid://b2ylthq7556mh" path="res://Scenes/Game/events.gd" id="2_ciybh"]
 [ext_resource type="PackedScene" uid="uid://cfdil1vt2522f" path="res://Scenes/HUD/hud.tscn" id="2_i1e5p"]
 [ext_resource type="Texture2D" uid="uid://c47m8ju77yfek" path="res://Assets/Art/reticle-sheet.png" id="5_ciybh"]
+[ext_resource type="PackedScene" uid="uid://csme42t8hpnid" path="res://Scenes/PauseScreen/pause_screen.tscn" id="6_flgk0"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_ciybh"]
 action = &"shoot"
@@ -152,6 +153,9 @@ modulate = Color(0, 0.341176, 0.72549, 1)
 sprite_frames = SubResource("SpriteFrames_xfil1")
 animation = &"blinking"
 autoplay = "blinking"
+
+[node name="PauseScreen" parent="." instance=ExtResource("6_flgk0")]
+visible = false
 
 [connection signal="game_ended" from="GameEvents" to="." method="_on_game_ended"]
 [connection signal="game_ended" from="GameEvents" to="HUD" method="_on_game_ended"]
