@@ -20,19 +20,20 @@ horizontal_alignment = 1
 
 [node name="StreakLabel" type="Label" parent="."]
 visible = false
-offset_left = 126.0
-offset_top = 110.0
-offset_right = 192.0
-offset_bottom = 175.0
+offset_left = 334.0
+offset_top = 16.0
+offset_right = 400.0
+offset_bottom = 81.0
 theme_override_font_sizes/font_size = 45
 text = "000"
 horizontal_alignment = 2
 
 [node name="StreakText" type="Label" parent="."]
 visible = false
-offset_top = 110.0
-offset_right = 40.0
-offset_bottom = 175.0
+offset_left = 208.0
+offset_top = 16.0
+offset_right = 334.0
+offset_bottom = 81.0
 theme_override_font_sizes/font_size = 45
 text = "Streak!"
 
