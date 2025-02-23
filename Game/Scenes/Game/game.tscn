@@ -54,7 +54,7 @@ position = Vector2(864, 448)
 
 [node name="HUD" parent="." instance=ExtResource("2_i1e5p")]
 
-[node name="CurrentlyHeldThing" type="Label" parent="." groups=["GamePieces"]]
+[node name="TargetToHitLabel" type="Label" parent="." groups=["GamePieces"]]
 visible = false
 anchors_preset = 7
 anchor_left = 0.5

@@ -1,4 +1,4 @@
-# Basic Godot Game
+# Mathematics and Cheese
 
 A basic game created in Godot using GDScript.
 

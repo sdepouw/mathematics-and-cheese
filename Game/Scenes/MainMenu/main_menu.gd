@@ -1,10 +1,10 @@
 class_name MainMenu
 extends Node
 
-@onready var _gameTitleLabel: Label = $GameTitleLabel
+@onready var _game_title_label: Label = $GameTitleLabel
 
 func _ready() -> void:
-  _gameTitleLabel.text = ProjectSettings.get_setting("application/config/name")
+  _game_title_label.text = ProjectSettings.get_setting("application/config/name")
 
 func _on_play_button_pressed() -> void:
   EventBus.load_game.emit()

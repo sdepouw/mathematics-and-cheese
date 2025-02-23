@@ -1,7 +1,7 @@
 class_name Game
 extends Node
 
-# TODO: Finite State Machine instead of bool _gameOn?
+# TODO: Finite State Machine instead of bool _game_on?
 # Game is new -> started <-> paused, started -> stopped, stopped -> new
 
 # TODO: Each match also rewards a cheese? ('flip' equation card?)
@@ -19,29 +19,33 @@ extends Node
 # TODO: Sound/Animation/Congrats on new high score
 
 @onready var _events: GameEvents = $GameEvents
-@onready var _target1: Target = $Target1
-@onready var _target2: Target = $Target2
-@onready var _target3: Target = $Target3
-@onready var _target4: Target = $Target4
-@onready var _target5: Target = $Target5
-@onready var _target6: Target = $Target6
+@onready var _target_1: Target = $Target1
+@onready var _target_2: Target = $Target2
+@onready var _target_3: Target = $Target3
+@onready var _target_4: Target = $Target4
+@onready var _target_5: Target = $Target5
+@onready var _target_6: Target = $Target6
 @onready var _reticle: Sprite2D = $Reticle
-@onready var _currentlyHeldThing: Label = $CurrentlyHeldThing;
+@onready var _target_to_hit_label: Label = $TargetToHitLabel;
 @onready var _hud: HUD = $HUD
-@onready var _gameTimer: Timer = $GameTimer
-@onready var _countdownTimer: Timer = $CountdownTimer
-@onready var _countdownLabel: Label = $CountdownLabel
+@onready var _game_timer: Timer = $GameTimer
+@onready var _countdown_timer: Timer = $CountdownTimer
+@onready var _countdown_label: Label = $CountdownLabel
 
-var _maxX: int
-var _maxY: int
-var _targets: Array
-var _targetsFlattened: Array[Target]
-var _currentTarget: Vector2
+var _max_x: int:
+  get:
+    var first_row: Array = _targets_grid[0]
+    return first_row.size()
+var _max_y: int:
+  get: return _targets_grid.size() - 1
+var _targets_grid: Array
+var _targets: Array[Target]
+var _targeted_grid_spot: Vector2
 var _answer_to_hit: int:
   set(value):
     _answer_to_hit = value
-    _currentlyHeldThing.text = str(value)
-var _gameOn: bool
+    _target_to_hit_label.text = str(value)
+var _game_on: bool
 
 # Scoring
 var _current_score: int:
@@ -56,39 +60,36 @@ func _on_notable_streak() -> bool:
   return _current_streak > 2
 
 ## Gets the Target that the reticle is currently selecting
-func _getCurrentTarget() -> Target:
-  return _targets[_currentTarget.y][_currentTarget.x]
+func _get_current_target() -> Target:
+  return _targets_grid[_targeted_grid_spot.y][_targeted_grid_spot.x]
 
 func _ready() -> void:
-  _targets.append([_target1, _target2, _target3])
-  _targets.append([_target4, _target5, _target6])
-  _targetsFlattened = [_target1, _target2, _target3, _target4, _target5, _target6]
-  var firstSet: Array = _targets[0]
-  _maxX = firstSet.size() - 1
-  _maxY = _targets.size() - 1
+  _targets_grid.append([_target_1, _target_2, _target_3])
+  _targets_grid.append([_target_4, _target_5, _target_6])
+  _targets = [_target_1, _target_2, _target_3, _target_4, _target_5, _target_6]
   _events.game_started.emit()
   HighScore.updated.connect(_hud.update_high_score_display)
   _hud.update_high_score_display(HighScore.get_current_high_score())
 
 func _process(_delta: float) -> void:
-  if _gameOn:
-    _hud.update_time_display(_gameTimer.time_left)
-  if !_countdownTimer.is_stopped():
-    _countdownLabel.text = str(ceili(_countdownTimer.time_left))
+  if _game_on:
+    _hud.update_time_display(_game_timer.time_left)
+  if !_countdown_timer.is_stopped():
+    _countdown_label.text = str(ceili(_countdown_timer.time_left))
 
 func generate_new_targets() -> void:
-  for target: Target in _targetsFlattened:
+  for target: Target in _targets:
     var current_answer: int = target.generate_new_equation()
     # Guarantee all answers are unique
-    while _targetsFlattened.filter(func (element: Target) -> bool: return element.get_answer() == current_answer).size() > 1:
+    while _targets.filter(func (element: Target) -> bool: return element.get_answer() == current_answer).size() > 1:
       current_answer = target.generate_new_equation()
-  var selectedTarget: Target = _targetsFlattened.pick_random()
-  _answer_to_hit = selectedTarget.get_answer()
+  var selected_target: Target = _targets.pick_random()
+  _answer_to_hit = selected_target.get_answer()
 
-func _toggle_game_piece_visibility(gamePiecesVisible: bool) -> void:
-  _gameOn = gamePiecesVisible
+func _toggle_game_piece_visibility(visible: bool) -> void:
+  _game_on = visible
   for item: CanvasItem in get_tree().get_nodes_in_group("GamePieces"):
-    item.visible = gamePiecesVisible
+    item.visible = visible
 
 func _toggle_game_over_visibility(visible: bool) -> void:
   for item: CanvasItem in get_tree().get_nodes_in_group("GameOverPieces"):
@@ -97,14 +98,14 @@ func _toggle_game_over_visibility(visible: bool) -> void:
 func _on_game_started() -> void:
   _current_score = 0
   _current_streak = 0
-  _currentTarget = Vector2.ZERO
-  _hud.update_time_display(_gameTimer.wait_time)
+  _targeted_grid_spot = Vector2.ZERO
+  _hud.update_time_display(_game_timer.wait_time)
   _toggle_game_over_visibility(false)
   await _run_countdown_async()
   _toggle_game_piece_visibility(true)
-  _reticle.position = _getCurrentTarget().position
+  _reticle.position = _get_current_target().position
   generate_new_targets()
-  _gameTimer.start()
+  _game_timer.start()
 
 func _on_game_ended() -> void:
   _toggle_game_piece_visibility(false)
@@ -113,9 +114,9 @@ func _on_game_ended() -> void:
     HighScore.save_new_high_score(_current_score)
 
 func _on_player_shoot() -> void:
-  if !_gameOn:
+  if !_game_on:
     return
-  if _answer_to_hit == _getCurrentTarget().get_answer():
+  if _answer_to_hit == _get_current_target().get_answer():
     _current_streak += 1
     const BASE_SCORE: int = 100
     if _on_notable_streak():
@@ -129,22 +130,22 @@ func _on_player_shoot() -> void:
   generate_new_targets()
 
 func _on_player_moved(direction: Globals.Direction) -> void:
-  if !_gameOn:
+  if !_game_on:
     return
   var new_position: Vector2 = _get_new_reticle_position(direction)
-  _currentTarget = new_position
-  _reticle.position = _getCurrentTarget().position
+  _targeted_grid_spot = new_position
+  _reticle.position = _get_current_target().position
 
 func _get_new_reticle_position(direction: Globals.Direction) -> Vector2:
-  var new_position: Vector2 = _currentTarget
+  var new_position: Vector2 = _targeted_grid_spot
   if direction == Globals.Direction.LEFT: new_position.x -= 1
   if direction == Globals.Direction.RIGHT: new_position.x += 1
   if direction == Globals.Direction.DOWN: new_position.y += 1
   if direction == Globals.Direction.UP: new_position.y -= 1
-  if new_position.x > _maxX: new_position.x = 0
-  if new_position.x < 0: new_position.x = _maxX;
-  if new_position.y > _maxY: new_position.y = 0;
-  if new_position.y < 0: new_position.y = _maxY;
+  if new_position.x > _max_x: new_position.x = 0
+  if new_position.x < 0: new_position.x = _max_x;
+  if new_position.y > _max_y: new_position.y = 0;
+  if new_position.y < 0: new_position.y = _max_y;
   return new_position
 
 func _on_game_timer_timeout() -> void:
@@ -154,7 +155,7 @@ func _on_main_menu_button_pressed() -> void:
   EventBus.load_main_menu.emit()
 
 func _run_countdown_async() -> void:
-  _countdownLabel.show()
-  _countdownTimer.start()
-  await _countdownTimer.timeout
-  _countdownLabel.hide()
+  _countdown_label.show()
+  _countdown_timer.start()
+  await _countdown_timer.timeout
+  _countdown_label.hide()
