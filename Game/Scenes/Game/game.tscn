@@ -35,27 +35,22 @@ position = Vector2(288, 192)
 [node name="Target2" parent="." groups=["GamePieces"] instance=ExtResource("1_qikps")]
 visible = false
 position = Vector2(576, 192)
-Id = 2
 
 [node name="Target3" parent="." groups=["GamePieces"] instance=ExtResource("1_qikps")]
 visible = false
 position = Vector2(864, 192)
-Id = 3
 
 [node name="Target4" parent="." groups=["GamePieces"] instance=ExtResource("1_qikps")]
 visible = false
 position = Vector2(288, 448)
-Id = 4
 
 [node name="Target5" parent="." groups=["GamePieces"] instance=ExtResource("1_qikps")]
 visible = false
 position = Vector2(576, 448)
-Id = 5
 
 [node name="Target6" parent="." groups=["GamePieces"] instance=ExtResource("1_qikps")]
 visible = false
 position = Vector2(864, 448)
-Id = 6
 
 [node name="HUD" parent="." instance=ExtResource("2_i1e5p")]
 

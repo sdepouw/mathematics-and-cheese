@@ -7,8 +7,21 @@ extends Node
 # TODO: Each match also rewards a cheese? ('flip' equation card?)
 # Could show equations instead of numbers, and then a cheese is (sometimes) revealed
 # TODO: More complex scoring
-# - Combos / Consecutive Bonuses
+# - Streak counter (score = 1, or 1 * streak when streak > 5)
+#   - Each guess = 1 point, or 1 * streak when streak > 5
+#   - Obviously, mistakes lose the streak
+# - Timer for each move (3-5 seconds, counts as Miss if timer expires)
+# - Randomly find cheese. Guarantee cheese every 10th get
+#   - Increase timer to 60 seconds
 # - At end, each found cheese adds to score
+#   - Each found cheese is worth 500 points
+#   - "Favorite Cheese" (user option), worth double
+#   - Game Over screen shows raw score, then cheese tally for total
+#   - Update high score live (only persist it at end of tally)
+# - Equation Generation
+#   - Pick two numbers randomly (sensible limits)
+#   - Pick operand randomly (+ - *, no division for now)
+#   - Calculate and produce result to use
 # TODO: Sound/Animation when scoring
 # TODO: Sound/Animation/Congrats on new high score
 
@@ -29,8 +42,12 @@ extends Node
 var _maxX: int
 var _maxY: int
 var _targets: Array
+var _targetsFlattened: Array[Target]
 var _currentTarget: Vector2
-var _currentThing: int
+var _answer_to_hit: int:
+  set(value):
+    _answer_to_hit = value
+    _currentlyHeldThing.text = str(value)
 var _gameOn: bool
 
 var _currentScore: int:
@@ -45,6 +62,7 @@ func _getCurrentTarget() -> Target:
 func _ready() -> void:
   _targets.append([_target1, _target2, _target3])
   _targets.append([_target4, _target5, _target6])
+  _targetsFlattened = [_target1, _target2, _target3, _target4, _target5, _target6]
   var firstSet: Array = _targets[0]
   _maxX = firstSet.size() - 1
   _maxY = _targets.size() - 1
@@ -58,10 +76,14 @@ func _process(_delta: float) -> void:
   if !_countdownTimer.is_stopped():
     _countdownLabel.text = str(ceili(_countdownTimer.time_left))
 
-func _assignNewThing() -> void:
-  var firstSet: Array = _targets[0]
-  _currentThing = randi_range(1, _targets.size() * firstSet.size())
-  _currentlyHeldThing.text = str(_currentThing)
+func generate_new_targets() -> void:
+  for target: Target in _targetsFlattened:
+    var current_answer: int = target.generate_new_equation()
+    # Guarantee all answers are unique
+    while _targetsFlattened.filter(func (element: Target) -> bool: return element.get_answer() == current_answer).size() > 1:
+      current_answer = target.generate_new_equation()
+  var selectedTarget: Target = _targetsFlattened.pick_random()
+  _answer_to_hit = selectedTarget.get_answer()
 
 func _toggle_game_piece_visibility(gamePiecesVisible: bool) -> void:
   _gameOn = gamePiecesVisible
@@ -80,7 +102,7 @@ func _on_game_started() -> void:
   await _run_countdown_async()
   _toggle_game_piece_visibility(true)
   _reticle.position = _getCurrentTarget().position
-  _assignNewThing()
+  generate_new_targets()
   _gameTimer.start()
 
 func _on_game_ended() -> void:
@@ -92,11 +114,11 @@ func _on_game_ended() -> void:
 func _on_player_shoot() -> void:
   if !_gameOn:
     return
-  if _currentThing == _getCurrentTarget().Id:
+  if _answer_to_hit == _getCurrentTarget().get_answer():
     _currentScore += 10
   else:
     _currentScore -= 5
-  _assignNewThing()
+  generate_new_targets()
 
 func _on_player_moved(direction: Globals.Direction) -> void:
   if !_gameOn:
