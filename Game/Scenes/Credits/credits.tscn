@@ -20,19 +20,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
-text = "
-Created by Doctor Blue
-
-Made in Godot ([url=https://godotengine.org/license/]License[/url])
-
-VT323 Font Copyright 2011, The VT323 Project Authors
- (peter.hull@oikoi.com)
-([url=https://fonts.google.com/specimen/VT323/license]License[/url])
-
-Bluey the mouse created in [url=https://www.squeakross.cool/]Squeakross: Home Squeak Home[/url]
-Used with permission from [url=https://alblune.com/]Alblune[/url]
-
-Thank you for playing!"
 horizontal_alignment = 1
 script = ExtResource("2_22rij")
 metadata/_custom_type_script = "uid://de706yc1x0tdn"
