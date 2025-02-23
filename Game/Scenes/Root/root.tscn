@@ -22,6 +22,7 @@ autoscroll = Vector2(100, 100)
 repeat_times = 2
 
 [node name="Background" type="Sprite2D" parent="BackgroundParallex"]
+modulate = Color(0, 0.341176, 0.72549, 0.282353)
 position = Vector2(576, 324)
 texture = ExtResource("3_517d8")
 
