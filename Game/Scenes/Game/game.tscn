@@ -165,3 +165,5 @@ visible = false
 [connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]
 [connection signal="pressed" from="RestartButton" to="." method="_on_game_started"]
 [connection signal="pressed" from="MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="paused" from="PauseScreen" to="." method="_toggle_game_piece_visibility" binds= [false]]
+[connection signal="unpaused" from="PauseScreen" to="." method="_toggle_game_piece_visibility" binds= [true]]

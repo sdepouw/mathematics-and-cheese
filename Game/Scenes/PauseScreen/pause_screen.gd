@@ -1,6 +1,9 @@
 class_name PauseScreen
 extends CanvasLayer
 
+signal paused
+signal unpaused
+
 var can_pause: bool = false
 
 @onready var _root_tree: SceneTree = get_tree()
@@ -14,3 +17,7 @@ func _process(_delta: float) -> void:
   if Input.is_action_just_pressed("cancel"):
     _root_tree.paused = !_root_tree.paused
     self.visible = _root_tree.paused
+    if _root_tree.paused:
+      paused.emit()
+    else:
+      unpaused.emit()
