@@ -7,9 +7,11 @@ signal unpaused
 var can_pause: bool = false
 
 @onready var _root_tree: SceneTree = get_tree()
+@onready var _controls_label: Label = $ControlsLabel
 
 func _ready() -> void:
   self.visible = false
+  _controls_label.text = Globals.get_controls_text()
 
 func _process(_delta: float) -> void:
   # We have to manually parse inputs instead of relying on EventBus
