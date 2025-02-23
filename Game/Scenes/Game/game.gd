@@ -131,18 +131,21 @@ func _on_player_shoot() -> void:
 func _on_player_moved(direction: Globals.Direction) -> void:
   if !_gameOn:
     return
-  var newX: float = _currentTarget.x;
-  var newY: float = _currentTarget.y;
-  if direction == Globals.Direction.LEFT: newX -= 1
-  if direction == Globals.Direction.RIGHT: newX += 1
-  if direction == Globals.Direction.DOWN: newY += 1
-  if direction == Globals.Direction.UP: newY -= 1
-  if newX > _maxX: newX = 0
-  if newX < 0: newX = _maxX;
-  if newY > _maxY: newY = 0;
-  if newY < 0: newY = _maxY;
-  _currentTarget = Vector2(newX, newY)
+  var new_position: Vector2 = _get_new_reticle_position(direction)
+  _currentTarget = new_position
   _reticle.position = _getCurrentTarget().position
+
+func _get_new_reticle_position(direction: Globals.Direction) -> Vector2:
+  var new_position: Vector2 = _currentTarget
+  if direction == Globals.Direction.LEFT: new_position.x -= 1
+  if direction == Globals.Direction.RIGHT: new_position.x += 1
+  if direction == Globals.Direction.DOWN: new_position.y += 1
+  if direction == Globals.Direction.UP: new_position.y -= 1
+  if new_position.x > _maxX: new_position.x = 0
+  if new_position.x < 0: new_position.x = _maxX;
+  if new_position.y > _maxY: new_position.y = 0;
+  if new_position.y < 0: new_position.y = _maxY;
+  return new_position
 
 func _on_game_timer_timeout() -> void:
   _events.game_ended.emit()
