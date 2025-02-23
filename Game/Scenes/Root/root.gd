@@ -1,10 +1,6 @@
 class_name Root
 extends Node
 
-# TODO: Button defaults (theme?): 400x100, pointer cursor
-# TODO: Update Reticle with custom sprite
-# TODO: Sound effects
-
 const SPLASH_SCREEN_SCENE: PackedScene = preload("res://Scenes/SplashScreen/splash_screen.tscn")
 const MAIN_MENU_SCENE: PackedScene = preload("res://Scenes/MainMenu/main_menu.tscn")
 const GAME_SCENE: PackedScene = preload("res://Scenes/Game/game.tscn")

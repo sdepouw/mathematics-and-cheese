@@ -2,9 +2,19 @@
 
 A basic game created in Godot using GDScript.
 
-My goal is to build a game from scratch that contains basic features and functionality. The gameplay itself will be very familiar and hardly innovative, but this, like my [Godot Sandbox](https://github.com/sdepouw/GodotSandbox), is meant as an exercise in improvement and learning more than designing something to be put up for sale.
+## Playable Online
 
-[Now has a kanban board](https://github.com/users/sdepouw/projects/3/)!
+[Play the latest prototype up on itch.io](https://doctorblue.itch.io/mathematics-and-cheese?password=Bluey)!
+
+In Firefox, you might get a "404 not found" screen when attempting to start the game. If you do, try a different browser.
+
+## Development Tracking
+
+[A kanban board is available to view](https://github.com/users/sdepouw/projects/3/).
+
+## Mission Statement
+
+My goal is to build a game from scratch that contains basic features and functionality. The gameplay itself will be very familiar and hardly innovative, but this, like my [Godot Sandbox](https://github.com/sdepouw/GodotSandbox), is meant as an exercise in improvement and learning more than designing something to be put up for sale.
 
 ## GDScript vs. C#
 

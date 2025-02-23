@@ -1,23 +1,6 @@
 class_name Game
 extends Node
 
-# TODO: Finite State Machine instead of bool _game_on?
-# Game is new -> started <-> paused, started -> stopped, stopped -> new
-
-# TODO: Each match also rewards a cheese? ('flip' equation card?)
-# Could show equations instead of numbers, and then a cheese is (sometimes) revealed
-# TODO: More complex scoring
-# - Timer for each move (3-5 seconds, counts as Miss if timer expires)
-# - Randomly find cheese. Guarantee cheese every 10th get
-#   - Increase timer to 60 seconds
-# - At end, each found cheese adds to score
-#   - Each found cheese is worth 500 points
-#   - "Favorite Cheese" (user option), worth double
-#   - Game Over screen shows raw score, then cheese tally for total
-#   - Update high score live (only persist it at end of tally)
-# TODO: Sound/Animation when scoring
-# TODO: Sound/Animation/Congrats on new high score
-
 @onready var _events: GameEvents = $GameEvents
 @onready var _target_1: Target = $Target1
 @onready var _target_2: Target = $Target2
