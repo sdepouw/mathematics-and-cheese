@@ -1,9 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://55o2ddpjh5ds"]
+[gd_scene load_steps=7 format=3 uid="uid://55o2ddpjh5ds"]
 
 [ext_resource type="Script" uid="uid://lv7n6cdct43x" path="res://Scenes/Game/game.gd" id="1_i1e5p"]
-[ext_resource type="PackedScene" uid="uid://u0p710ebviv6" path="res://Scenes/Target/target.tscn" id="1_qikps"]
 [ext_resource type="PackedScene" uid="uid://cfdil1vt2522f" path="res://Scenes/HUD/hud.tscn" id="2_i1e5p"]
-[ext_resource type="Texture2D" uid="uid://c47m8ju77yfek" path="res://Assets/Art/reticle-sheet.png" id="5_ciybh"]
+[ext_resource type="PackedScene" uid="uid://c5b1rrrdeysj3" path="res://Scenes/EquationBoard/equation_board.tscn" id="3_flgk0"]
 [ext_resource type="PackedScene" uid="uid://csme42t8hpnid" path="res://Scenes/PauseScreen/pause_screen.tscn" id="6_flgk0"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_ciybh"]
@@ -11,28 +10,6 @@ action = &"confirm"
 
 [sub_resource type="Shortcut" id="Shortcut_flgk0"]
 events = [SubResource("InputEventAction_ciybh")]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_flgk0"]
-atlas = ExtResource("5_ciybh")
-region = Rect2(0, 0, 224, 105)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vifcx"]
-atlas = ExtResource("5_ciybh")
-region = Rect2(224, 0, 224, 105)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_xfil1"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_flgk0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vifcx")
-}],
-"loop": true,
-"name": &"blinking",
-"speed": 3.0
-}]
 
 [node name="Game" type="Node"]
 script = ExtResource("1_i1e5p")
@@ -43,33 +20,12 @@ one_shot = true
 
 [node name="GameEndWaitTimer" type="Timer" parent="."]
 
-[node name="Target1" parent="." groups=["GamePieces"] instance=ExtResource("1_qikps")]
-visible = false
-position = Vector2(288, 192)
-
-[node name="Target2" parent="." groups=["GamePieces"] instance=ExtResource("1_qikps")]
-visible = false
-position = Vector2(576, 192)
-
-[node name="Target3" parent="." groups=["GamePieces"] instance=ExtResource("1_qikps")]
-visible = false
-position = Vector2(864, 192)
-
-[node name="Target4" parent="." groups=["GamePieces"] instance=ExtResource("1_qikps")]
-visible = false
-position = Vector2(288, 448)
-
-[node name="Target5" parent="." groups=["GamePieces"] instance=ExtResource("1_qikps")]
-visible = false
-position = Vector2(576, 448)
-
-[node name="Target6" parent="." groups=["GamePieces"] instance=ExtResource("1_qikps")]
-visible = false
-position = Vector2(864, 448)
-
 [node name="HUD" parent="." instance=ExtResource("2_i1e5p")]
 
-[node name="TargetToHitLabel" type="Label" parent="." groups=["GamePieces"]]
+[node name="EquationBoard" parent="." groups=["GamePieces"] instance=ExtResource("3_flgk0")]
+position = Vector2(288, 192)
+
+[node name="AnswerToHitLabel" type="Label" parent="." groups=["GamePieces"]]
 visible = false
 anchors_preset = 7
 anchor_left = 0.5
@@ -139,13 +95,6 @@ horizontal_alignment = 1
 wait_time = 3.0
 one_shot = true
 
-[node name="Reticle" type="AnimatedSprite2D" parent="." groups=["GamePieces"]]
-visible = false
-modulate = Color(0, 0.341176, 0.72549, 1)
-sprite_frames = SubResource("SpriteFrames_xfil1")
-animation = &"blinking"
-autoplay = "blinking"
-
 [node name="PauseScreen" parent="." instance=ExtResource("6_flgk0")]
 visible = false
 
@@ -153,7 +102,6 @@ visible = false
 [connection signal="game_ended" from="." to="HUD" method="_on_game_ended"]
 [connection signal="game_started" from="." to="." method="_on_game_started"]
 [connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]
+[connection signal="equation_selected" from="EquationBoard" to="." method="_on_equation_selected"]
 [connection signal="pressed" from="RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="MainMenuButton" to="." method="_on_main_menu_button_pressed"]
-[connection signal="paused" from="PauseScreen" to="." method="_toggle_game_piece_visibility" binds= [false]]
-[connection signal="unpaused" from="PauseScreen" to="." method="_toggle_game_piece_visibility" binds= [true]]

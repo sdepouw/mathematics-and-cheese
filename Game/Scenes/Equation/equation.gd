@@ -1,7 +1,7 @@
 class_name Equation
 extends Area2D
 
-signal equation_selected(equation: String, answer: int)
+signal equation_selected(equation: Equation)
 
 enum MathOperation { ADD, SUBTRACT, MULTIPLY }
 
@@ -17,12 +17,15 @@ var _equation: String:
 func get_answer() -> int:
   return _answer
 
-func _ready() -> void:
+func generate_new_equation() -> void:
   var operation: MathOperation = MathOperation.values().pick_random()
   var operand_1: int = randi_range(0, 9)
   var operand_2: int = randi_range(0, 9)
   _equation = _build_equation(operand_1, operand_2, operation)
   _answer = _calculate(operand_1, operand_2, operation)
+
+func _ready() -> void:
+  generate_new_equation()
 
 func _build_equation(operand_1: int, operand_2: int, operation: MathOperation) -> String:
   var operation_string: String
@@ -59,8 +62,4 @@ func _on_mouse_exited() -> void:
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
   var mouse_event: InputEventMouseButton = event as InputEventMouseButton
   if mouse_event and mouse_event.button_mask == MOUSE_BUTTON_MASK_LEFT and not mouse_event.double_click:
-    equation_selected.emit(_equation, _answer)
-
-# TODO: Remove
-func _on_clicked(equation: String, answer: int) -> void:
-  print("Clicked equation %s = %d!" % [equation, answer])
+    equation_selected.emit(self)

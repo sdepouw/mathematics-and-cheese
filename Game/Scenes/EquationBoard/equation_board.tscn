@@ -1,7 +1,30 @@
-[gd_scene load_steps=3 format=3 uid="uid://c5b1rrrdeysj3"]
+[gd_scene load_steps=7 format=3 uid="uid://c5b1rrrdeysj3"]
 
 [ext_resource type="Script" uid="uid://mfy244fpx3oj" path="res://Scenes/EquationBoard/equation_board.gd" id="1_5rk8r"]
 [ext_resource type="PackedScene" uid="uid://shcfqf0hlsfq" path="res://Scenes/EquationBoard/equation_row.tscn" id="2_8qyjv"]
+[ext_resource type="Texture2D" uid="uid://c47m8ju77yfek" path="res://Assets/Art/reticle-sheet.png" id="3_8qyjv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_flgk0"]
+atlas = ExtResource("3_8qyjv")
+region = Rect2(0, 0, 224, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vifcx"]
+atlas = ExtResource("3_8qyjv")
+region = Rect2(224, 0, 224, 105)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kioqp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_flgk0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vifcx")
+}],
+"loop": true,
+"name": &"blinking",
+"speed": 3.0
+}]
 
 [node name="EquationBoard" type="Node2D"]
 script = ExtResource("1_5rk8r")
@@ -10,3 +33,10 @@ script = ExtResource("1_5rk8r")
 
 [node name="EquationRow3" parent="." instance=ExtResource("2_8qyjv")]
 position = Vector2(0, 256)
+
+[node name="Reticle" type="AnimatedSprite2D" parent="."]
+visible = false
+modulate = Color(0, 0.341176, 0.72549, 1)
+sprite_frames = SubResource("SpriteFrames_kioqp")
+animation = &"blinking"
+autoplay = "blinking"
