@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://u0p710ebviv6"]
+[gd_scene load_steps=3 format=3 uid="uid://u0p710ebviv6"]
 
 [ext_resource type="Script" uid="uid://jg7e35yabitp" path="res://Scenes/Target/target.gd" id="1_tbd3m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tbd3m"]
+size = Vector2(224, 105)
 
 [node name="Target" type="Marker2D"]
 script = ExtResource("1_tbd3m")
@@ -21,3 +24,12 @@ size_flags_horizontal = 4
 text = "44 * 44"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ClickableArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClickableArea"]
+shape = SubResource("RectangleShape2D_tbd3m")
+
+[connection signal="input_event" from="ClickableArea" to="." method="_on_clickable_area_input_event"]
+[connection signal="mouse_entered" from="ClickableArea" to="." method="_on_clickable_area_mouse_entered"]
+[connection signal="mouse_exited" from="ClickableArea" to="." method="_on_clickable_area_mouse_exited"]

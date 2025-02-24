@@ -1,6 +1,8 @@
 class_name Target
 extends Marker2D
 
+signal clicked
+
 enum MathOperation { ADD, SUBTRACT, MULTIPLY }
 
 @onready var _target_identifier: Label = $TargetIdentifier
@@ -42,3 +44,16 @@ func _calculate(operand_1: int, operand_2: int, operation: MathOperation) -> int
       return operand_1 * operand_2
     _:
       return 0
+
+var _default_cursor_shape: Input.CursorShape
+func _on_clickable_area_mouse_entered() -> void:
+  _default_cursor_shape = Input.get_current_cursor_shape()
+  Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
+
+func _on_clickable_area_mouse_exited() -> void:
+  Input.set_default_cursor_shape(_default_cursor_shape)
+
+func _on_clickable_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+  var mouse_event: InputEventMouseButton = event as InputEventMouseButton
+  if mouse_event and mouse_event.button_mask == MOUSE_BUTTON_MASK_LEFT and not mouse_event.double_click:
+    clicked.emit()
