@@ -121,6 +121,7 @@ func _on_main_menu_button_pressed() -> void:
 
 func _run_countdown_async() -> void:
   _equation_board.show() # Allow preview of first set of equations
+  _equation_board.reset_reticle_position()
   _countdown_label.show()
   _countdown_timer.start()
   await _countdown_timer.timeout
