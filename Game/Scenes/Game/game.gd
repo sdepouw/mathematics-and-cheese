@@ -16,6 +16,7 @@ signal game_ended()
 @onready var _game_end_wait_timer: Timer = $GameEndWaitTimer
 @onready var _main_menu_button: Button = $MainMenuButton
 @onready var _restart_button: Button = $RestartButton
+@onready var _move_cursour_sound: AudioStreamPlayer = $MoveCursorSound
 
 var _answer_to_hit: int:
   set(value):

@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cfdil1vt2522f" path="res://Scenes/HUD/hud.tscn" id="2_i1e5p"]
 [ext_resource type="PackedScene" uid="uid://c5b1rrrdeysj3" path="res://Scenes/EquationBoard/equation_board.tscn" id="3_flgk0"]
 [ext_resource type="PackedScene" uid="uid://csme42t8hpnid" path="res://Scenes/PauseScreen/pause_screen.tscn" id="6_flgk0"]
+[ext_resource type="AudioStream" uid="uid://dj2td4g4rgj06" path="res://Assets/Sounds/move_cursor.wav" id="6_vifcx"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_ciybh"]
 action = &"confirm"
@@ -98,6 +99,9 @@ one_shot = true
 
 [node name="PauseScreen" parent="." instance=ExtResource("6_flgk0")]
 visible = false
+
+[node name="MoveCursorSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_vifcx")
 
 [connection signal="game_ended" from="." to="." method="_on_game_ended"]
 [connection signal="game_ended" from="." to="HUD" method="_on_game_ended"]
