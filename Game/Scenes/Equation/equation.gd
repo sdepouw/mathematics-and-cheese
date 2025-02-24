@@ -17,6 +17,10 @@ var _equation: String:
 func get_answer() -> int:
   return _answer
 
+## Returns the current Equation
+func get_equation() -> String:
+  return _equation
+
 func generate_new_equation() -> void:
   var operation: MathOperation = MathOperation.values().pick_random()
   var operand_1: int = randi_range(0, 9)

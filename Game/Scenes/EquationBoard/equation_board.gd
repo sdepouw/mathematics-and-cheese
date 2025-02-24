@@ -19,12 +19,17 @@ var _equations: Array[Equation] = []
 var _reticle_grid_position: Vector2:
   set(value):
     _reticle_grid_position = value
-    _reticle.global_position = _equations_grid[_reticle_grid_position.x][_reticle_grid_position.y]
+    _selected_equation = _equations_grid[_reticle_grid_position.x][_reticle_grid_position.y]
+    _reticle.global_position = _selected_equation.global_position
+
+## Array[Array[Equation]], stored so that one can use a Vector2 to navigate
+## the grid of the board._equations_grid[1,0] will get the 2nd row
+## of the 1st column, etc.
 var _equations_grid: Array
 
 func _ready() -> void:
   EventBus.player_moved.connect(_on_player_moved)
-  EventBus.player_confirm.connect(_on_equation_selected.bind(_selected_equation))
+  EventBus.player_confirm.connect(_on_player_confirm)
   _equations = [
     _instantiate_equation(),
     _instantiate_equation(),
@@ -37,11 +42,12 @@ func _ready() -> void:
     equation.equation_selected.connect(_on_equation_selected)
   _equation_row_1.map_to_positions(_equations[0], _equations[1], _equations[2])
   _equation_row_3.map_to_positions(_equations[3], _equations[4], _equations[5])
-  _equations_grid.push_back([_equations[0].global_position, _equations[3].global_position])
-  _equations_grid.push_back([_equations[1].global_position, _equations[4].global_position])
-  _equations_grid.push_back([_equations[2].global_position, _equations[5].global_position])
+  _equations_grid.push_back([_equations[0], _equations[3]])
+  _equations_grid.push_back([_equations[1], _equations[4]])
+  _equations_grid.push_back([_equations[2], _equations[5]])
 
 func reset_reticle_position() -> void:
+  _selected_equation = _equations[0]
   _reticle.position = Vector2.ZERO
 
 func generate_unique_equations() -> Array[Equation]:
@@ -56,9 +62,6 @@ func generate_unique_equations() -> Array[Equation]:
   return _equations
 
 func _on_player_moved(direction: Globals.Direction) -> void:
-  _set_new_reticle_grid_position(direction)
-
-func _set_new_reticle_grid_position(direction: Globals.Direction) -> void:
   var new_position: Vector2 = _reticle_grid_position
   if direction == Globals.Direction.LEFT: new_position.x -= 1
   if direction == Globals.Direction.RIGHT: new_position.x += 1
@@ -73,6 +76,9 @@ func _set_new_reticle_grid_position(direction: Globals.Direction) -> void:
 func _refresh_equations() -> void:
   for equation: Equation in _equations:
     equation.generate_new_equation()
+
+func _on_player_confirm() -> void:
+  _on_equation_selected(_selected_equation)
 
 func _on_equation_selected(equation: Equation) -> void:
   if not equation:
