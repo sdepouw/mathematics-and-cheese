@@ -4,7 +4,7 @@ extends Node
 const EQUATION_SCENE: PackedScene = preload("res://Scenes/Equation/equation.tscn")
 
 ## Emitted when any Equation on the board is selected
-signal equation_selected(equation: Equation)
+signal board_equation_selected(equation: Equation)
 
 @onready var _equation_row_1: EquationRow = $EquationRow1
 @onready var _equation_row_3: EquationRow = $EquationRow3
@@ -32,9 +32,6 @@ func _ready() -> void:
   _equation_row_1.set_row(_equations[0], _equations[1], _equations[2])
   _equation_row_3.set_row(_equations[3], _equations[4], _equations[5])
 
-func _on_player_confirm() -> void:
-  equation_selected.emit(_selected_equation)
-
 func _on_player_moved(direction: Globals.Direction) -> void:
   print("moved! ", direction)
   #var new_position: Vector2 = _get_new_reticle_position(direction)
@@ -54,15 +51,22 @@ func _get_new_reticle_position(direction: Globals.Direction) -> Vector2:
   return new_position
 
 func generate_unique_equations() -> Array[Equation]:
-  # TODO: Generate unique
+  # Refresh all equations
   for equation: Equation in _equations:
     equation.generate_new_equation()
-  while _equations.filter(func (eq: Equation) -> bool: return eq.get_answer() == equation.get_answer()).size() > 0:
-    equation.generate_new_equation()
+  # If any equation's answer is a duplicate, refresh again
+  for equation: Equation in _equations:
+    if(_equations.filter(func (eq: Equation) -> bool: return eq.get_answer() == equation.get_answer()).size() > 1):
+      generate_unique_equations()
+      break
   return _equations
 
+func _refresh_equations() -> void:
+  for equation: Equation in _equations:
+    equation.generate_new_equation()
+
 func _on_equation_selected(equation: Equation) -> void:
-  equation_selected.emit(equation)
+  board_equation_selected.emit(equation)
 
 func _instantiate_equation() -> Equation:
   var instance: Node = EQUATION_SCENE.instantiate()

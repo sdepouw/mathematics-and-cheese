@@ -91,7 +91,7 @@ func _disable_game_end_buttons_momentarily() -> void:
   _restart_button.disabled = false
   _main_menu_button.disabled = false
 
-func _on_equation_selected(equation: Equation) -> void:
+func _on_board_equation_selected(equation: Equation) -> void:
   if !_game_on or equation == null:
     return
   if _answer_to_hit == equation.get_answer():
