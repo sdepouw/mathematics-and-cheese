@@ -69,9 +69,9 @@ func _on_game_started() -> void:
   _current_streak = 0
   _hud.update_time_display(_game_timer.wait_time)
   _toggle_game_over_visibility(false)
+  _generate_new_equations()
   await _run_countdown_async()
   _toggle_game_piece_visibility(true)
-  _generate_new_equations()
   _game_timer.start()
   _pause_screen.can_pause = true
 
@@ -79,6 +79,7 @@ func _on_game_ended() -> void:
   _disable_game_end_buttons_momentarily()
   _pause_screen.can_pause = false
   _toggle_game_piece_visibility(false)
+  _equation_board.hide()
   _toggle_game_over_visibility(true)
   if _current_score > HighScore.get_current_high_score():
     HighScore.save_new_high_score(_current_score)
@@ -119,6 +120,7 @@ func _on_main_menu_button_pressed() -> void:
   EventBus.load_main_menu.emit()
 
 func _run_countdown_async() -> void:
+  _equation_board.show() # Allow preview of first set of equations
   _countdown_label.show()
   _countdown_timer.start()
   await _countdown_timer.timeout

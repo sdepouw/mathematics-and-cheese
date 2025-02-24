@@ -35,7 +35,6 @@ script = ExtResource("1_5rk8r")
 position = Vector2(0, 256)
 
 [node name="Reticle" type="AnimatedSprite2D" parent="."]
-visible = false
 modulate = Color(0, 0.341176, 0.72549, 1)
 sprite_frames = SubResource("SpriteFrames_kioqp")
 animation = &"blinking"

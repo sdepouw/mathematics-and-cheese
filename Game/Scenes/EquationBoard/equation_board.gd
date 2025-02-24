@@ -18,6 +18,7 @@ var _selected_equation: Equation = null
 var _equations: Array[Equation] = []
 
 func _ready() -> void:
+  EventBus.player_moved.connect(_on_player_moved)
   EventBus.player_confirm.connect(_on_equation_selected.bind(_selected_equation))
   _equations = [
     _instantiate_equation(),
@@ -66,6 +67,8 @@ func _refresh_equations() -> void:
     equation.generate_new_equation()
 
 func _on_equation_selected(equation: Equation) -> void:
+  if not equation:
+    return
   board_equation_selected.emit(equation)
 
 func _instantiate_equation() -> Equation:
