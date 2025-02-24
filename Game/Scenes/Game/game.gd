@@ -126,3 +126,11 @@ func _run_countdown_async() -> void:
   _countdown_timer.start()
   await _countdown_timer.timeout
   _countdown_label.hide()
+
+func _on_pause_screen_paused() -> void:
+  _toggle_game_piece_visibility(false)
+  _equation_board.hide()
+
+func _on_pause_screen_unpaused() -> void:
+  _toggle_game_piece_visibility(true)
+  _equation_board.show()
