@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://shcfqf0hlsfq"]
+
+[ext_resource type="Script" uid="uid://jch8p66m66uq" path="res://Scenes/EquationBoard/equation_row.gd" id="1_kv3dt"]
+
+[node name="EquationRow" type="Node2D"]
+script = ExtResource("1_kv3dt")
+
+[node name="Col1" type="Marker2D" parent="."]
+
+[node name="Col2" type="Marker2D" parent="."]
+position = Vector2(288, 0)
+
+[node name="Col3" type="Marker2D" parent="."]
+position = Vector2(576, 0)
