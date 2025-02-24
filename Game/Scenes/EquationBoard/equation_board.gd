@@ -14,13 +14,13 @@ signal board_equation_selected(equation: Equation)
 const _MAX_X: int = 2
 const _MAX_Y: int = 1
 
-var _selected_equation: Equation = null
+var _euqation_under_reticle: Equation = null
 var _equations: Array[Equation] = []
 var _reticle_grid_position: Vector2:
   set(value):
     _reticle_grid_position = value
-    _selected_equation = _equations_grid[_reticle_grid_position.x][_reticle_grid_position.y]
-    _reticle.global_position = _selected_equation.global_position
+    _euqation_under_reticle = _equations_grid[_reticle_grid_position.x][_reticle_grid_position.y]
+    _reticle.global_position = _euqation_under_reticle.global_position
 
 ## Array[Array[Equation]], stored so that one can use a Vector2 to navigate
 ## the grid of the board._equations_grid[1,0] will get the 2nd row
@@ -39,7 +39,8 @@ func _ready() -> void:
     _instantiate_equation()
   ]
   for equation: Equation in _equations:
-    equation.equation_selected.connect(_on_equation_selected)
+    equation.equation_clicked.connect(_on_equation_clicked)
+    equation.equation_mouse_entered.connect(_on_equation_mouse_entered)
   _equation_row_1.map_to_positions(_equations[0], _equations[1], _equations[2])
   _equation_row_3.map_to_positions(_equations[3], _equations[4], _equations[5])
   _equations_grid.push_back([_equations[0], _equations[3]])
@@ -47,7 +48,7 @@ func _ready() -> void:
   _equations_grid.push_back([_equations[2], _equations[5]])
 
 func reset_reticle_position() -> void:
-  _selected_equation = _equations[0]
+  _euqation_under_reticle = _equations[0]
   _reticle.position = Vector2.ZERO
 
 func generate_unique_equations() -> Array[Equation]:
@@ -78,12 +79,27 @@ func _refresh_equations() -> void:
     equation.generate_new_equation()
 
 func _on_player_confirm() -> void:
-  _on_equation_selected(_selected_equation)
-
-func _on_equation_selected(equation: Equation) -> void:
-  if not equation:
+  if not _euqation_under_reticle:
     return
+  board_equation_selected.emit(_euqation_under_reticle)
+
+func _on_equation_clicked(equation: Equation) -> void:
   board_equation_selected.emit(equation)
+  _move_reticle_to_equation(equation)
+
+func _on_equation_mouse_entered(equation: Equation) -> void:
+  _move_reticle_to_equation(equation)
+
+func _move_reticle_to_equation(equation: Equation) -> void:
+  var first_column: Array = _equations_grid[0]
+  var second_column: Array = _equations_grid[1]
+  var third_column: Array = _equations_grid[2]
+  if first_column.has(equation):
+    _reticle_grid_position = Vector2(0, first_column.find(equation))
+  elif second_column.has(equation):
+    _reticle_grid_position = Vector2(1, second_column.find(equation))
+  elif third_column.has(equation):
+    _reticle_grid_position = Vector2(2, third_column.find(equation))
 
 func _instantiate_equation() -> Equation:
   var instance: Node = EQUATION_SCENE.instantiate()

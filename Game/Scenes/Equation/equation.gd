@@ -1,7 +1,8 @@
 class_name Equation
 extends Area2D
 
-signal equation_selected(equation: Equation)
+signal equation_clicked(equation: Equation)
+signal equation_mouse_entered(equation: Equation)
 
 enum MathOperation { ADD, SUBTRACT, MULTIPLY }
 
@@ -58,6 +59,7 @@ func _calculate(operand_1: int, operand_2: int, operation: MathOperation) -> int
 var _default_cursor_shape: Input.CursorShape
 func _on_mouse_entered() -> void:
   _default_cursor_shape = Input.get_current_cursor_shape()
+  equation_mouse_entered.emit(self)
   Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
 
 func _on_mouse_exited() -> void:
@@ -66,4 +68,4 @@ func _on_mouse_exited() -> void:
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
   var mouse_event: InputEventMouseButton = event as InputEventMouseButton
   if mouse_event and mouse_event.button_mask == MOUSE_BUTTON_MASK_LEFT and not mouse_event.double_click:
-    equation_selected.emit(self)
+    equation_clicked.emit(self)
