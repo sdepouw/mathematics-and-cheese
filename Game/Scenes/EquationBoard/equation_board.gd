@@ -1,5 +1,5 @@
 class_name EquationBoard
-extends Node
+extends Node2D
 
 const EQUATION_SCENE: PackedScene = preload("res://Scenes/Equation/equation.tscn")
 
@@ -29,8 +29,8 @@ func _ready() -> void:
   ]
   for equation: Equation in _equations:
     equation.equation_selected.connect(_on_equation_selected)
-  _equation_row_1.set_row(_equations[0], _equations[1], _equations[2])
-  _equation_row_3.set_row(_equations[3], _equations[4], _equations[5])
+  _equation_row_1.map_to_positions(_equations[0], _equations[1], _equations[2])
+  _equation_row_3.map_to_positions(_equations[3], _equations[4], _equations[5])
 
 func _on_player_moved(direction: Globals.Direction) -> void:
   print("moved! ", direction)

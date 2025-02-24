@@ -37,6 +37,8 @@ func _on_notable_streak() -> bool:
 
 func _ready() -> void:
   game_started.emit()
+  _toggle_game_piece_visibility(false)
+  _toggle_game_over_visibility(false)
   HighScore.updated.connect(_hud.update_high_score_display)
   _hud.update_high_score_display(HighScore.get_current_high_score())
 
