@@ -7,8 +7,7 @@ func _ready() -> void:
   _game_title_label.text = ProjectSettings.get_setting("application/config/name")
 
 func _on_play_button_pressed() -> void:
-  EventBus.load_instructions.emit()
-  #EventBus.load_game.emit()
+  EventBus.load_game.emit()
 
 func _on_instructions_button_pressed() -> void:
   EventBus.load_instructions.emit()

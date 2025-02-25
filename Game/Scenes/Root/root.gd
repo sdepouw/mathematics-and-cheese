@@ -18,16 +18,16 @@ func _ready() -> void:
   EventBus.load_credits.connect(_load_credits)
 
 func _load_main_menu() -> void:
-  _scene_loader.queue_load(MAIN_MENU_SCENE)
+  await _scene_loader.queue_load(MAIN_MENU_SCENE)
 
 func _load_game() -> void:
-  _scene_loader.queue_load(GAME_SCENE)
+  await _scene_loader.queue_load(GAME_SCENE)
 
 func _load_instructions() -> void:
-  _scene_loader.queue_load(INSTRUCTIONS_SCENE)
+  await _scene_loader.queue_load(INSTRUCTIONS_SCENE)
 
 func _load_credits() -> void:
-  _scene_loader.queue_load(CREDITS_SCENE)
+  await _scene_loader.queue_load(CREDITS_SCENE)
 
 func _on_scene_loader_instance_loaded(loaded_scene: PackedScene, _loaded_instance: Node) -> void:
   _backgroud_parallex.visible =\

@@ -6,6 +6,6 @@ extends Button
 @onready var _pressed_sound: AudioStreamPlayer = $PressedSound
 
 func _on_pressed_play_sound() -> void:
-  print("_on_pressed_play_sound")
   _pressed_sound.play()
-  await _pressed_sound.finished # Doesn't work.
+  # Doesn't work, since other methods getting emitted to can't await this method
+  await _pressed_sound.finished
