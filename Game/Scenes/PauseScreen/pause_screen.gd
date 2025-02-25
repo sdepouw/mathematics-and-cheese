@@ -33,4 +33,6 @@ func _toggle_paused() -> void:
 
 func _on_quit_button_pressed() -> void:
   EventBus.load_main_menu.emit()
+  # HACK: Loading the new scene waits, so we wait so game doesn't unpause
+  await get_tree().create_timer(.2).timeout
   _toggle_paused()
