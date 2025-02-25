@@ -16,6 +16,7 @@ signal game_ended()
 @onready var _game_end_wait_timer: Timer = $GameEndWaitTimer
 @onready var _main_menu_button: Button = $MainMenuButton
 @onready var _restart_button: Button = $RestartButton
+@onready var _wrong_sound: AudioStreamPlayer = $WrongSound
 
 var _answer_to_hit: int:
   set(value):
@@ -106,6 +107,7 @@ func _on_board_equation_selected(equation: Equation) -> void:
     else:
       _current_score += 100
   else:
+    _wrong_sound.play()
     _current_score -= 50
     _current_streak = 0
   _generate_new_equations()
