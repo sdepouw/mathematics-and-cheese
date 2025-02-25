@@ -7,7 +7,7 @@ signal game_started()
 signal game_ended()
 
 @onready var _equation_board: EquationBoard = $EquationBoard
-@onready var _answer_to_hit_label: Label = $AnswerToHitLabel
+@onready var _answer_to_hit_label: Label = $ThoughtBubbleSprite/AnswerToHitLabel
 @onready var _hud: HUD = $HUD
 @onready var _game_timer: Timer = $GameTimer
 @onready var _countdown_timer: Timer = $CountdownTimer
