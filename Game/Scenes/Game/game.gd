@@ -6,14 +6,8 @@ signal game_started()
 ## Emitted when a game ends
 signal game_ended()
 
-@onready var _target_1: Target = $Target1
-@onready var _target_2: Target = $Target2
-@onready var _target_3: Target = $Target3
-@onready var _target_4: Target = $Target4
-@onready var _target_5: Target = $Target5
-@onready var _target_6: Target = $Target6
-@onready var _reticle: AnimatedSprite2D = $Reticle
-@onready var _target_to_hit_label: Label = $TargetToHitLabel;
+@onready var _equation_board: EquationBoard = $EquationBoard
+@onready var _answer_to_hit_label: Label = $AnswerToHitLabel
 @onready var _hud: HUD = $HUD
 @onready var _game_timer: Timer = $GameTimer
 @onready var _countdown_timer: Timer = $CountdownTimer
@@ -23,19 +17,10 @@ signal game_ended()
 @onready var _main_menu_button: Button = $MainMenuButton
 @onready var _restart_button: Button = $RestartButton
 
-var _max_x: int:
-  get:
-    var first_row: Array = _targets_grid[0]
-    return first_row.size() - 1
-var _max_y: int:
-  get: return _targets_grid.size() - 1
-var _targets_grid: Array
-var _targets: Array[Target]
-var _targeted_grid_spot: Vector2
 var _answer_to_hit: int:
   set(value):
     _answer_to_hit = value
-    _target_to_hit_label.text = str(value)
+    _answer_to_hit_label.text = str(value)
 var _game_on: bool
 
 # Scoring
@@ -50,19 +35,12 @@ var _current_streak: int:
 func _on_notable_streak() -> bool:
   return _current_streak > 2
 
-## Gets the Target that the reticle is currently selecting
-func _get_current_target() -> Target:
-  return _targets_grid[_targeted_grid_spot.y][_targeted_grid_spot.x]
-
 func _ready() -> void:
-  _targets_grid.append([_target_1, _target_2, _target_3])
-  _targets_grid.append([_target_4, _target_5, _target_6])
-  _targets = [_target_1, _target_2, _target_3, _target_4, _target_5, _target_6]
   game_started.emit()
+  _toggle_game_piece_visibility(false)
+  _toggle_game_over_visibility(false)
   HighScore.updated.connect(_hud.update_high_score_display)
   _hud.update_high_score_display(HighScore.get_current_high_score())
-  EventBus.player_confirm.connect(_on_player_confirm)
-  EventBus.player_moved.connect(_on_player_moved)
 
 func _process(_delta: float) -> void:
   if _game_on:
@@ -70,14 +48,12 @@ func _process(_delta: float) -> void:
   if !_countdown_timer.is_stopped():
     _countdown_label.text = str(ceili(_countdown_timer.time_left))
 
-func generate_new_targets() -> void:
-  for target: Target in _targets:
-    var current_answer: int = target.generate_new_equation()
-    # Guarantee all answers are unique
-    while _targets.filter(func (element: Target) -> bool: return element.get_answer() == current_answer).size() > 1:
-      current_answer = target.generate_new_equation()
-  var selected_target: Target = _targets.pick_random()
-  _answer_to_hit = selected_target.get_answer()
+func _generate_new_equations() -> void:
+  var equations: Array[Equation] = _equation_board.generate_unique_equations()
+  _answer_to_hit = _pick_random_equation(equations).get_answer()
+
+func _pick_random_equation(equations: Array[Equation]) -> Equation:
+  return equations.pick_random()
 
 func _toggle_game_piece_visibility(visible: bool) -> void:
   _game_on = visible
@@ -91,13 +67,11 @@ func _toggle_game_over_visibility(visible: bool) -> void:
 func _on_game_started() -> void:
   _current_score = 0
   _current_streak = 0
-  _targeted_grid_spot = Vector2.ZERO
   _hud.update_time_display(_game_timer.wait_time)
   _toggle_game_over_visibility(false)
+  _generate_new_equations()
   await _run_countdown_async()
   _toggle_game_piece_visibility(true)
-  _reticle.position = _get_current_target().position
-  generate_new_targets()
   _game_timer.start()
   _pause_screen.can_pause = true
 
@@ -105,6 +79,7 @@ func _on_game_ended() -> void:
   _disable_game_end_buttons_momentarily()
   _pause_screen.can_pause = false
   _toggle_game_piece_visibility(false)
+  _equation_board.hide()
   _toggle_game_over_visibility(true)
   if _current_score > HighScore.get_current_high_score():
     HighScore.save_new_high_score(_current_score)
@@ -119,10 +94,10 @@ func _disable_game_end_buttons_momentarily() -> void:
   _restart_button.disabled = false
   _main_menu_button.disabled = false
 
-func _on_player_confirm() -> void:
-  if !_game_on:
+func _on_board_equation_selected(equation: Equation) -> void:
+  if !_game_on or equation == null:
     return
-  if _answer_to_hit == _get_current_target().get_answer():
+  if _answer_to_hit == equation.get_answer():
     _current_streak += 1
     const BASE_SCORE: int = 100
     if _on_notable_streak():
@@ -133,14 +108,7 @@ func _on_player_confirm() -> void:
   else:
     _current_score -= 50
     _current_streak = 0
-  generate_new_targets()
-
-func _on_player_moved(direction: Globals.Direction) -> void:
-  if !_game_on:
-    return
-  var new_position: Vector2 = _get_new_reticle_position(direction)
-  _targeted_grid_spot = new_position
-  _reticle.position = _get_current_target().position
+  _generate_new_equations()
 
 func _on_game_timer_timeout() -> void:
   game_ended.emit()
@@ -151,20 +119,18 @@ func _on_restart_button_pressed() -> void:
 func _on_main_menu_button_pressed() -> void:
   EventBus.load_main_menu.emit()
 
-func _get_new_reticle_position(direction: Globals.Direction) -> Vector2:
-  var new_position: Vector2 = _targeted_grid_spot
-  if direction == Globals.Direction.LEFT: new_position.x -= 1
-  if direction == Globals.Direction.RIGHT: new_position.x += 1
-  if direction == Globals.Direction.DOWN: new_position.y += 1
-  if direction == Globals.Direction.UP: new_position.y -= 1
-  if new_position.x > _max_x: new_position.x = 0
-  if new_position.x < 0: new_position.x = _max_x;
-  if new_position.y > _max_y: new_position.y = 0;
-  if new_position.y < 0: new_position.y = _max_y;
-  return new_position
-
 func _run_countdown_async() -> void:
+  _equation_board.show() # Allow preview of first set of equations
+  _equation_board.reset_reticle_position()
   _countdown_label.show()
   _countdown_timer.start()
   await _countdown_timer.timeout
   _countdown_label.hide()
+
+func _on_pause_screen_paused() -> void:
+  _toggle_game_piece_visibility(false)
+  _equation_board.hide()
+
+func _on_pause_screen_unpaused() -> void:
+  _toggle_game_piece_visibility(true)
+  _equation_board.show()
