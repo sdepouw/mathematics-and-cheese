@@ -16,6 +16,8 @@ signal game_ended()
 @onready var _game_end_wait_timer: Timer = $GameEndWaitTimer
 @onready var _main_menu_button: Button = $MainMenuButton
 @onready var _restart_button: Button = $RestartButton
+@onready var _wrong_sound: AudioStreamPlayer = $WrongSound
+@onready var _correct_sound: AudioStreamPlayer = $CorrectSound
 
 var _answer_to_hit: int:
   set(value):
@@ -98,6 +100,7 @@ func _on_board_equation_selected(equation: Equation) -> void:
   if !_game_on or equation == null:
     return
   if _answer_to_hit == equation.get_answer():
+    _correct_sound.play()
     _current_streak += 1
     const BASE_SCORE: int = 100
     if _on_notable_streak():
@@ -106,6 +109,7 @@ func _on_board_equation_selected(equation: Equation) -> void:
     else:
       _current_score += 100
   else:
+    _wrong_sound.play()
     _current_score -= 50
     _current_streak = 0
   _generate_new_equations()
@@ -115,9 +119,11 @@ func _on_game_timer_timeout() -> void:
 
 func _on_restart_button_pressed() -> void:
   game_started.emit()
+  EventBus.menu_button_pressed.emit()
 
 func _on_main_menu_button_pressed() -> void:
   EventBus.load_main_menu.emit()
+  EventBus.menu_button_pressed.emit()
 
 func _run_countdown_async() -> void:
   _equation_board.show() # Allow preview of first set of equations

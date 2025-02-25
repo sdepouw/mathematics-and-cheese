@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://c5b1rrrdeysj3"]
+[gd_scene load_steps=8 format=3 uid="uid://c5b1rrrdeysj3"]
 
 [ext_resource type="Script" uid="uid://mfy244fpx3oj" path="res://Scenes/EquationBoard/equation_board.gd" id="1_5rk8r"]
 [ext_resource type="PackedScene" uid="uid://shcfqf0hlsfq" path="res://Scenes/EquationBoard/equation_row.tscn" id="2_8qyjv"]
 [ext_resource type="Texture2D" uid="uid://c47m8ju77yfek" path="res://Assets/Art/reticle-sheet.png" id="3_8qyjv"]
+[ext_resource type="AudioStream" uid="uid://dj2td4g4rgj06" path="res://Assets/Sounds/move_cursor.wav" id="4_kioqp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_flgk0"]
 atlas = ExtResource("3_8qyjv")
@@ -39,3 +40,6 @@ modulate = Color(0, 0.341176, 0.72549, 1)
 sprite_frames = SubResource("SpriteFrames_kioqp")
 animation = &"blinking"
 autoplay = "blinking"
+
+[node name="MoveCursorSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_kioqp")

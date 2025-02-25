@@ -9,6 +9,7 @@ signal board_equation_selected(equation: Equation)
 @onready var _equation_row_1: EquationRow = $EquationRow1
 @onready var _equation_row_3: EquationRow = $EquationRow3
 @onready var _reticle: AnimatedSprite2D = $Reticle
+@onready var _move_cursor_sound: AudioStreamPlayer = $MoveCursorSound
 
 # TODO: Calculate these based on the rows used
 const _MAX_X: int = 2
@@ -16,11 +17,7 @@ const _MAX_Y: int = 1
 
 var _euqation_under_reticle: Equation = null
 var _equations: Array[Equation] = []
-var _reticle_grid_position: Vector2:
-  set(value):
-    _reticle_grid_position = value
-    _euqation_under_reticle = _equations_grid[_reticle_grid_position.x][_reticle_grid_position.y]
-    _reticle.global_position = _euqation_under_reticle.global_position
+var _reticle_grid_position: Vector2
 
 ## Array[Array[Equation]], stored so that one can use a Vector2 to navigate
 ## the grid of the board._equations_grid[1,0] will get the 2nd row
@@ -72,7 +69,7 @@ func _on_player_moved(direction: Globals.Direction) -> void:
   if new_position.x < 0: new_position.x = _MAX_X;
   if new_position.y > _MAX_Y: new_position.y = 0;
   if new_position.y < 0: new_position.y = _MAX_Y;
-  _reticle_grid_position = new_position
+  _move_reticle(new_position, true)
 
 func _refresh_equations() -> void:
   for equation: Equation in _equations:
@@ -85,21 +82,33 @@ func _on_player_confirm() -> void:
 
 func _on_equation_clicked(equation: Equation) -> void:
   board_equation_selected.emit(equation)
-  _move_reticle_to_equation(equation)
+  _move_reticle_to_equation(equation, false)
 
 func _on_equation_mouse_entered(equation: Equation) -> void:
-  _move_reticle_to_equation(equation)
+  _move_reticle_to_equation(equation, true)
 
-func _move_reticle_to_equation(equation: Equation) -> void:
+func _move_reticle_to_equation(equation: Equation, play_move_sound: bool) -> void:
   var first_column: Array = _equations_grid[0]
   var second_column: Array = _equations_grid[1]
   var third_column: Array = _equations_grid[2]
+  var new_position: Vector2
   if first_column.has(equation):
-    _reticle_grid_position = Vector2(0, first_column.find(equation))
+    new_position = Vector2(0, first_column.find(equation))
   elif second_column.has(equation):
-    _reticle_grid_position = Vector2(1, second_column.find(equation))
+    new_position = Vector2(1, second_column.find(equation))
   elif third_column.has(equation):
-    _reticle_grid_position = Vector2(2, third_column.find(equation))
+    new_position = Vector2(2, third_column.find(equation))
+  if new_position != null:
+    _move_reticle(new_position, play_move_sound)
+
+func _move_reticle(new_position: Vector2, play_move_sound: bool) -> void:
+  if _reticle_grid_position == new_position:
+    return
+  _reticle_grid_position = new_position
+  _euqation_under_reticle = _equations_grid[_reticle_grid_position.x][_reticle_grid_position.y]
+  _reticle.global_position = _euqation_under_reticle.global_position
+  if play_move_sound:
+    _move_cursor_sound.play()
 
 func _instantiate_equation() -> Equation:
   var instance: Node = EQUATION_SCENE.instantiate()

@@ -8,6 +8,7 @@ var can_pause: bool = false
 
 @onready var _root_tree: SceneTree = get_tree()
 @onready var _controls_label: Label = $ControlsLabel
+@onready var _pause_sound: AudioStreamPlayer = $PauseSound
 
 func _ready() -> void:
   self.visible = false
@@ -25,6 +26,7 @@ func _toggle_paused() -> void:
   _root_tree.paused = !_root_tree.paused
   self.visible = _root_tree.paused
   if _root_tree.paused:
+    _pause_sound.play()
     paused.emit()
   else:
     unpaused.emit()
@@ -32,3 +34,4 @@ func _toggle_paused() -> void:
 func _on_quit_button_pressed() -> void:
   EventBus.load_main_menu.emit()
   _toggle_paused()
+  EventBus.menu_button_pressed.emit()

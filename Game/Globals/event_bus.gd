@@ -19,6 +19,10 @@ signal load_instructions
 ## closing the current scene in the process.
 signal load_credits
 
+## Should be emitted whenever a button is pressed, to perform
+## universal button actions, like sound effects
+signal menu_button_pressed
+
 ## Emitted when the player presses the "confirm" button
 signal player_confirm
 

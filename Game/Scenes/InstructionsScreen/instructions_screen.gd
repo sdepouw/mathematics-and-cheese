@@ -12,3 +12,4 @@ func _ready() -> void:
 
 func _on_back_button_pressed() -> void:
   EventBus.load_main_menu.emit()
+  EventBus.menu_button_pressed.emit()
