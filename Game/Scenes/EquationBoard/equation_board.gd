@@ -9,6 +9,7 @@ signal board_equation_selected(equation: Equation)
 @onready var _equation_row_1: EquationRow = $EquationRow1
 @onready var _equation_row_3: EquationRow = $EquationRow3
 @onready var _reticle: AnimatedSprite2D = $Reticle
+@onready var _move_cursor_sound: AudioStreamPlayer = $MoveCursorSound
 
 # TODO: Calculate these based on the rows used
 const _MAX_X: int = 2
@@ -18,9 +19,12 @@ var _euqation_under_reticle: Equation = null
 var _equations: Array[Equation] = []
 var _reticle_grid_position: Vector2:
   set(value):
+    if _reticle_grid_position == value:
+      return
     _reticle_grid_position = value
     _euqation_under_reticle = _equations_grid[_reticle_grid_position.x][_reticle_grid_position.y]
     _reticle.global_position = _euqation_under_reticle.global_position
+    _move_cursor_sound.play()
 
 ## Array[Array[Equation]], stored so that one can use a Vector2 to navigate
 ## the grid of the board._equations_grid[1,0] will get the 2nd row
