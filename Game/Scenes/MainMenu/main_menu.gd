@@ -8,12 +8,9 @@ func _ready() -> void:
 
 func _on_play_button_pressed() -> void:
   EventBus.load_game.emit()
-  EventBus.menu_button_pressed.emit()
 
 func _on_instructions_button_pressed() -> void:
   EventBus.load_instructions.emit()
-  EventBus.menu_button_pressed.emit()
 
 func _on_credits_button_pressed() -> void:
   EventBus.load_credits.emit()
-  EventBus.menu_button_pressed.emit()

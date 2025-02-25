@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://csme42t8hpnid"]
+[gd_scene load_steps=4 format=3 uid="uid://csme42t8hpnid"]
 
 [ext_resource type="Script" uid="uid://bmif7r0xmyepq" path="res://Scenes/PauseScreen/pause_screen.gd" id="1_kf473"]
 [ext_resource type="AudioStream" uid="uid://qp5ruxvyevjv" path="res://Assets/Sounds/pause.wav" id="2_542x1"]
+[ext_resource type="PackedScene" uid="uid://cambpmv5v3opa" path="res://Scenes/EnhancedButton/enhanced_button.tscn" id="2_qnk5u"]
 
 [node name="PauseScreen" type="CanvasLayer"]
 process_mode = 3
@@ -29,19 +30,11 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "P A U S E D"
 
-[node name="QuitButton" type="Button" parent="."]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -224.0
-offset_top = -72.0
-offset_right = -24.0
-offset_bottom = -22.0
-grow_horizontal = 0
-grow_vertical = 0
-mouse_default_cursor_shape = 2
+[node name="QuitButton" parent="." instance=ExtResource("2_qnk5u")]
+offset_left = 928.0
+offset_top = 576.0
+offset_right = 1128.0
+offset_bottom = 626.0
 theme_override_font_sizes/font_size = 40
 text = "Quit"
 

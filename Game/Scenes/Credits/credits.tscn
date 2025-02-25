@@ -1,13 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://c2m51cu3euqqd"]
+[gd_scene load_steps=4 format=3 uid="uid://c2m51cu3euqqd"]
 
 [ext_resource type="Script" uid="uid://c066o242r7s4j" path="res://Scenes/Credits/credits.gd" id="1_ykwev"]
 [ext_resource type="Script" uid="uid://de706yc1x0tdn" path="res://Scenes/ClickableRichTextLabel/clickable_rich_text_label.gd" id="2_22rij"]
-
-[sub_resource type="InputEventAction" id="InputEventAction_22rij"]
-action = &"cancel"
-
-[sub_resource type="Shortcut" id="Shortcut_4lsct"]
-events = [SubResource("InputEventAction_22rij")]
+[ext_resource type="PackedScene" uid="uid://cambpmv5v3opa" path="res://Scenes/EnhancedButton/enhanced_button.tscn" id="3_4lsct"]
 
 [node name="Credits" type="Node"]
 script = ExtResource("1_ykwev")
@@ -24,7 +19,7 @@ horizontal_alignment = 1
 script = ExtResource("2_22rij")
 metadata/_custom_type_script = "uid://de706yc1x0tdn"
 
-[node name="BackButton" type="Button" parent="."]
+[node name="BackButton" parent="." instance=ExtResource("3_4lsct")]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -36,9 +31,6 @@ offset_right = 200.0
 offset_bottom = -44.0
 grow_horizontal = 2
 grow_vertical = 0
-mouse_default_cursor_shape = 2
-shortcut = SubResource("Shortcut_4lsct")
-shortcut_in_tooltip = false
 text = "Back"
 
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

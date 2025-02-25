@@ -17,6 +17,8 @@ signal instance_loaded(loaded_scene: PackedScene, loaded_instance: Node)
 ## If another PackedScene was queued for loading but never got loaded,
 ## this new call will take priority.
 func queue_load(scene: PackedScene) -> void:
+  # HACK: Allow any sound effects to play
+  await get_tree().create_timer(.15).timeout
   _scene_to_load = scene;
 
 func _process(_delta: float) -> void:

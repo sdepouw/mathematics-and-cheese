@@ -1,12 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://hnj5a3kfiu1v"]
+[gd_scene load_steps=3 format=3 uid="uid://hnj5a3kfiu1v"]
 
 [ext_resource type="Script" uid="uid://dguubyrqu3dxi" path="res://Scenes/MainMenu/main_menu.gd" id="1_uqdog"]
-
-[sub_resource type="InputEventAction" id="InputEventAction_uqdog"]
-action = &"confirm"
-
-[sub_resource type="Shortcut" id="Shortcut_v763k"]
-events = [SubResource("InputEventAction_uqdog")]
+[ext_resource type="PackedScene" uid="uid://cambpmv5v3opa" path="res://Scenes/EnhancedButton/enhanced_button.tscn" id="2_v763k"]
 
 [node name="MainMenu" type="Node"]
 script = ExtResource("1_uqdog")
@@ -39,7 +34,7 @@ text = "A Cheesy Prototype"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PlayButton" type="Button" parent="."]
+[node name="PlayButton" parent="." instance=ExtResource("2_v763k")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -51,12 +46,9 @@ offset_right = 200.0
 offset_bottom = -56.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_default_cursor_shape = 2
-shortcut = SubResource("Shortcut_v763k")
-shortcut_in_tooltip = false
 text = "Start Game"
 
-[node name="InstructionsButton" type="Button" parent="."]
+[node name="InstructionsButton" parent="." instance=ExtResource("2_v763k")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -68,10 +60,9 @@ offset_right = 200.0
 offset_bottom = 88.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_default_cursor_shape = 2
 text = "How to Play"
 
-[node name="CreditsButton" type="Button" parent="."]
+[node name="CreditsButton" parent="." instance=ExtResource("2_v763k")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -83,9 +74,7 @@ offset_right = 200.0
 offset_bottom = 232.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_default_cursor_shape = 2
-text = "Credits
-"
+text = "Credits"
 
 [node name="FooterLabel" type="Label" parent="."]
 anchors_preset = 7
