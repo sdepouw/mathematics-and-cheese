@@ -119,9 +119,11 @@ func _on_game_timer_timeout() -> void:
 
 func _on_restart_button_pressed() -> void:
   game_started.emit()
+  EventBus.menu_button_pressed.emit()
 
 func _on_main_menu_button_pressed() -> void:
   EventBus.load_main_menu.emit()
+  EventBus.menu_button_pressed.emit()
 
 func _run_countdown_async() -> void:
   _equation_board.show() # Allow preview of first set of equations

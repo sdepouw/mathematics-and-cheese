@@ -34,3 +34,4 @@ func _toggle_paused() -> void:
 func _on_quit_button_pressed() -> void:
   EventBus.load_main_menu.emit()
   _toggle_paused()
+  EventBus.menu_button_pressed.emit()
