@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://csme42t8hpnid"]
+[gd_scene load_steps=3 format=3 uid="uid://csme42t8hpnid"]
 
 [ext_resource type="Script" uid="uid://bmif7r0xmyepq" path="res://Scenes/PauseScreen/pause_screen.gd" id="1_kf473"]
+[ext_resource type="AudioStream" uid="uid://qp5ruxvyevjv" path="res://Assets/Sounds/pause.wav" id="2_542x1"]
 
 [node name="PauseScreen" type="CanvasLayer"]
 process_mode = 3
@@ -74,5 +75,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 32
 horizontal_alignment = 1
+
+[node name="PauseSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_542x1")
 
 [connection signal="pressed" from="QuitButton" to="." method="_on_quit_button_pressed"]
