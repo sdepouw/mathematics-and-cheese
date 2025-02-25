@@ -16,8 +16,12 @@ func update_streak_display(streak: int, show_streak: bool) -> void:
   _streak_label.visible = show_streak
   _streak_label.text = "%03d" % streak
 
-func update_high_score_display(high_score: int) -> void:
+func update_high_score_display(high_score: int, highlight: bool = false) -> void:
   _high_score_label.text = _clamp_score_display(high_score)
+  if highlight:
+    _high_score_label.add_theme_color_override("font_color", Color.GREEN)
+  else:
+    _high_score_label.remove_theme_color_override("font_color")
 
 func update_time_display(time_remaining: float) -> void:
   var format: String = "%2d"
