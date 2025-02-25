@@ -17,6 +17,7 @@ signal game_ended()
 @onready var _main_menu_button: Button = $MainMenuButton
 @onready var _restart_button: Button = $RestartButton
 @onready var _wrong_sound: AudioStreamPlayer = $WrongSound
+@onready var _correct_sound: AudioStreamPlayer = $CorrectSound
 
 var _answer_to_hit: int:
   set(value):
@@ -99,6 +100,7 @@ func _on_board_equation_selected(equation: Equation) -> void:
   if !_game_on or equation == null:
     return
   if _answer_to_hit == equation.get_answer():
+    _correct_sound.play()
     _current_streak += 1
     const BASE_SCORE: int = 100
     if _on_notable_streak():
