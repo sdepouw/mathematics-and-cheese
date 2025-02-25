@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cambpmv5v3opa"]
+
+[ext_resource type="Script" uid="uid://4hhnbaprkawe" path="res://Scenes/EnhancedButton/enhanced_button.gd" id="1_w8vv5"]
+[ext_resource type="AudioStream" uid="uid://cgxk0iwu238kx" path="res://Assets/Sounds/button_press.wav" id="2_n3lx4"]
+
+[node name="EnhancedButton" type="Button"]
+mouse_default_cursor_shape = 2
+script = ExtResource("1_w8vv5")
+
+[node name="PressedSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_n3lx4")
+volume_db = -5.0
+
+[connection signal="pressed" from="." to="." method="_on_pressed_play_sound"]
