@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://btg54dh0rsc3o"]
-
-[ext_resource type="Script" uid="uid://daw7hw8ynireq" path="res://Scenes/EquationBoard/euqation_board.gd" id="1_o8il6"]
-
-[node name="EuqationBoard" type="Node"]
-script = ExtResource("1_o8il6")
