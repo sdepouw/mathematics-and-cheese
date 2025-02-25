@@ -75,6 +75,7 @@ func _on_game_started() -> void:
   _toggle_game_over_visibility(false)
   _generate_new_equations()
   await _run_countdown_async()
+  _equation_board.toggle_cursor_sound(true)
   _toggle_game_piece_visibility(true)
   _game_timer.start()
   _pause_screen.can_pause = true
@@ -83,6 +84,7 @@ func _on_game_ended() -> void:
   _disable_game_end_buttons_momentarily()
   _pause_screen.can_pause = false
   _toggle_game_piece_visibility(false)
+  _equation_board.toggle_cursor_sound(false)
   _equation_board.hide()
   _toggle_game_over_visibility(true)
   if _current_score > HighScore.get_current_high_score():
