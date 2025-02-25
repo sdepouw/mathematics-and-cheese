@@ -7,7 +7,7 @@ signal game_started()
 signal game_ended()
 
 @onready var _equation_board: EquationBoard = $EquationBoard
-@onready var _answer_to_hit_label: Label = $ThoughtBubbleSprite/AnswerToHitLabel
+@onready var _bluey: BlueyAnswer = $BlueyAnswer
 @onready var _hud: HUD = $HUD
 @onready var _game_timer: Timer = $GameTimer
 @onready var _countdown_timer: Timer = $CountdownTimer
@@ -22,7 +22,7 @@ signal game_ended()
 var _answer_to_hit: int:
   set(value):
     _answer_to_hit = value
-    _answer_to_hit_label.text = str(value)
+    _bluey.set_answer(value)
 var _game_on: bool
 
 # Scoring

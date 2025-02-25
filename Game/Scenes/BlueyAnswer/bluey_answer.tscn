@@ -1,0 +1,66 @@
+[gd_scene load_steps=8 format=3 uid="uid://bya2bspfpyt0c"]
+
+[ext_resource type="Texture2D" uid="uid://dklqwpc1h5akg" path="res://Assets/Art/thought_bubble_sheet.png" id="1_46xgr"]
+[ext_resource type="Script" uid="uid://c6xg6ptakmxqt" path="res://Scenes/BlueyAnswer/bluey_answer.gd" id="1_rct2w"]
+[ext_resource type="Texture2D" uid="uid://dq1gwfal68ugg" path="res://bluey.png" id="2_rct2w"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xfil1"]
+atlas = ExtResource("1_46xgr")
+region = Rect2(0, 0, 400, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_huoen"]
+atlas = ExtResource("1_46xgr")
+region = Rect2(400, 0, 400, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7jvlm"]
+atlas = ExtResource("1_46xgr")
+region = Rect2(800, 0, 400, 150)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oymkd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xfil1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_huoen")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7jvlm")
+}],
+"loop": true,
+"name": &"thinking",
+"speed": 5.0
+}]
+
+[node name="BlueyAnswer" type="Node2D"]
+script = ExtResource("1_rct2w")
+
+[node name="ThoughtBubbleSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_oymkd")
+animation = &"thinking"
+autoplay = "thinking"
+metadata/_edit_group_ = true
+
+[node name="AnswerLabel" type="Label" parent="ThoughtBubbleSprite"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -329.5
+offset_top = -115.0
+offset_right = -150.5
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0.341176, 0.72549, 1)
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="BlueySprite" type="Sprite2D" parent="ThoughtBubbleSprite"]
+position = Vector2(200, 58.0001)
+scale = Vector2(0.273437, 0.273437)
+texture = ExtResource("2_rct2w")

@@ -1,42 +1,12 @@
-[gd_scene load_steps=15 format=3 uid="uid://55o2ddpjh5ds"]
+[gd_scene load_steps=10 format=3 uid="uid://55o2ddpjh5ds"]
 
 [ext_resource type="Script" uid="uid://lv7n6cdct43x" path="res://Scenes/Game/game.gd" id="1_i1e5p"]
 [ext_resource type="PackedScene" uid="uid://cfdil1vt2522f" path="res://Scenes/HUD/hud.tscn" id="2_i1e5p"]
 [ext_resource type="PackedScene" uid="uid://c5b1rrrdeysj3" path="res://Scenes/EquationBoard/equation_board.tscn" id="3_flgk0"]
-[ext_resource type="Texture2D" uid="uid://dklqwpc1h5akg" path="res://Assets/Art/thought_bubble_sheet.png" id="4_vifcx"]
+[ext_resource type="PackedScene" uid="uid://bya2bspfpyt0c" path="res://Scenes/BlueyAnswer/bluey_answer.tscn" id="4_vifcx"]
 [ext_resource type="AudioStream" uid="uid://7cc2l76edtum" path="res://Assets/Sounds/wrong.wav" id="5_ciybh"]
 [ext_resource type="PackedScene" uid="uid://csme42t8hpnid" path="res://Scenes/PauseScreen/pause_screen.tscn" id="6_flgk0"]
 [ext_resource type="AudioStream" uid="uid://c42nkfhvunfly" path="res://Assets/Sounds/correct.wav" id="6_vifcx"]
-[ext_resource type="Texture2D" uid="uid://dq1gwfal68ugg" path="res://bluey.png" id="8_xfil1"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xfil1"]
-atlas = ExtResource("4_vifcx")
-region = Rect2(0, 0, 400, 150)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_huoen"]
-atlas = ExtResource("4_vifcx")
-region = Rect2(400, 0, 400, 150)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7jvlm"]
-atlas = ExtResource("4_vifcx")
-region = Rect2(800, 0, 400, 150)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_qtymf"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xfil1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_huoen")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7jvlm")
-}],
-"loop": true,
-"name": &"thinking",
-"speed": 5.0
-}]
 
 [sub_resource type="InputEventAction" id="InputEventAction_ciybh"]
 action = &"confirm"
@@ -58,34 +28,6 @@ one_shot = true
 [node name="EquationBoard" parent="." instance=ExtResource("3_flgk0")]
 position = Vector2(288, 192)
 
-[node name="ThoughtBubbleSprite" type="AnimatedSprite2D" parent="." groups=["GamePieces"]]
-position = Vector2(596, 568)
-sprite_frames = SubResource("SpriteFrames_qtymf")
-animation = &"thinking"
-autoplay = "thinking"
-
-[node name="AnswerToHitLabel" type="Label" parent="ThoughtBubbleSprite" groups=["GamePieces"]]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -329.5
-offset_top = -115.0
-offset_right = -150.5
-offset_bottom = -50.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0.341176, 0.72549, 1)
-text = "1"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="BlueySprite" type="Sprite2D" parent="." groups=["GamePieces"]]
-position = Vector2(796, 626)
-scale = Vector2(0.273437, 0.273437)
-texture = ExtResource("8_xfil1")
-
 [node name="GameOverLabel" type="Label" parent="." groups=["GameOverPieces"]]
 visible = false
 anchors_preset = 15
@@ -96,6 +38,9 @@ grow_vertical = 2
 text = "A Cheesy Delight!"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="BlueyAnswer" parent="." groups=["GamePieces"] instance=ExtResource("4_vifcx")]
+position = Vector2(616, 576)
 
 [node name="RestartButton" type="Button" parent="." groups=["GameOverPieces"]]
 visible = false
