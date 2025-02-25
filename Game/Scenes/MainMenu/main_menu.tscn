@@ -48,7 +48,7 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Start Game"
 
-[node name="InstructionsButton" type="Button" parent="."]
+[node name="InstructionsButton" parent="." instance=ExtResource("2_v763k")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -60,10 +60,9 @@ offset_right = 200.0
 offset_bottom = 88.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_default_cursor_shape = 2
 text = "How to Play"
 
-[node name="CreditsButton" type="Button" parent="."]
+[node name="CreditsButton" parent="." instance=ExtResource("2_v763k")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -75,9 +74,7 @@ offset_right = 200.0
 offset_bottom = 232.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_default_cursor_shape = 2
-text = "Credits
-"
+text = "Credits"
 
 [node name="FooterLabel" type="Label" parent="."]
 anchors_preset = 7
