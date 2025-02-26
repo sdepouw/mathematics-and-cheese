@@ -41,9 +41,7 @@ func _disable_game_end_buttons_momentarily() -> void:
   _main_menu_button.disabled = false
 
 func _on_restart_button_pressed() -> void:
-  _bluey_animation.play("RESET")
   play_again_requested.emit()
 
 func _on_main_menu_button_pressed() -> void:
-  _bluey_animation.play("RESET")
   EventBus.load_main_menu.emit()
