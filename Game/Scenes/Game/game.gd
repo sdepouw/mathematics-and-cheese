@@ -1,11 +1,6 @@
 class_name Game
 extends Node
 
-## Emitted when a new game starts
-signal game_started()
-## Emitted when a game ends
-signal game_ended()
-
 @onready var _equation_board: EquationBoard = $EquationBoard
 @onready var _bluey: BlueyAnswer = $BlueyAnswer
 @onready var _hud: HUD = $HUD
@@ -38,7 +33,7 @@ func _on_notable_streak() -> bool:
 var _high_score_reached: bool = false
 
 func _ready() -> void:
-  game_started.emit()
+  _start_new_game()
   _toggle_game_piece_visibility(false)
   _game_over_canvas.hide()
 
@@ -60,7 +55,7 @@ func _toggle_game_piece_visibility(visible: bool) -> void:
   for item: CanvasItem in get_tree().get_nodes_in_group("GamePieces"):
     item.visible = visible
 
-func _on_game_started() -> void:
+func _start_new_game() -> void:
   _current_score = 0
   _current_streak = 0
   _high_score_reached = false
@@ -74,7 +69,7 @@ func _on_game_started() -> void:
   _game_timer.start()
   _pause_screen.can_pause = true
 
-func _on_game_ended() -> void:
+func _end_game() -> void:
   _pause_screen.can_pause = false
   _toggle_game_piece_visibility(false)
   _equation_board.toggle_cursor_sound(false)
@@ -111,15 +106,13 @@ func _on_board_equation_selected(equation: Equation) -> void:
       _hud.update_high_score_display(HighScore.get_current_high_score(), false)
     else:
       _hud.update_high_score_display(_current_score, true)
-
-
   _generate_new_equations()
 
 func _on_game_timer_timeout() -> void:
-  game_ended.emit()
+  _end_game()
 
 func _on_play_again_requested() -> void:
-  game_started.emit()
+  _start_new_game()
 
 func _run_countdown_async() -> void:
   _equation_board.show() # Allow preview of first set of equations
