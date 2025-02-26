@@ -19,6 +19,10 @@ var _euqation_under_reticle: Equation = null
 var _equations: Array[Equation] = []
 var _reticle_grid_position: Vector2
 
+var _move_cursor_sound_enabled: bool = false
+func toggle_cursor_sound(enabled: bool) -> void:
+  _move_cursor_sound_enabled = enabled
+
 ## Array[Array[Equation]], stored so that one can use a Vector2 to navigate
 ## the grid of the board._equations_grid[1,0] will get the 2nd row
 ## of the 1st column, etc.
@@ -107,7 +111,7 @@ func _move_reticle(new_position: Vector2, play_move_sound: bool) -> void:
   _reticle_grid_position = new_position
   _euqation_under_reticle = _equations_grid[_reticle_grid_position.x][_reticle_grid_position.y]
   _reticle.global_position = _euqation_under_reticle.global_position
-  if play_move_sound:
+  if play_move_sound and _move_cursor_sound_enabled:
     _move_cursor_sound.play()
 
 func _instantiate_equation() -> Equation:

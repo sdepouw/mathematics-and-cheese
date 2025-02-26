@@ -1,0 +1,121 @@
+[gd_scene load_steps=7 format=3 uid="uid://dqtfvuspfhidd"]
+
+[ext_resource type="Script" uid="uid://cvbrg7wpbbt3n" path="res://Scenes/Game/game_over_canvas.gd" id="1_pda5h"]
+[ext_resource type="PackedScene" uid="uid://cambpmv5v3opa" path="res://Scenes/EnhancedButton/enhanced_button.tscn" id="2_4p3hf"]
+[ext_resource type="Texture2D" uid="uid://dq1gwfal68ugg" path="res://bluey.png" id="3_wobr8"]
+
+[sub_resource type="Animation" id="Animation_wobr8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BlueySprite1:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BlueySprite2:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_vystn"]
+resource_name = "high_score_highlight"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BlueySprite1:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BlueySprite2:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -6.28319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h825g"]
+_data = {
+&"RESET": SubResource("Animation_wobr8"),
+&"celebrate": SubResource("Animation_vystn")
+}
+
+[node name="GameOver" type="CanvasLayer"]
+script = ExtResource("1_pda5h")
+
+[node name="GameOverLabel" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -243.0
+offset_top = -32.5
+offset_right = 243.0
+offset_bottom = 32.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Thanks for playing!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RestartButton" parent="." instance=ExtResource("2_4p3hf")]
+offset_left = 128.0
+offset_top = 448.0
+offset_right = 528.0
+offset_bottom = 548.0
+text = "Play Again"
+
+[node name="MainMenuButton" parent="." instance=ExtResource("2_4p3hf")]
+offset_left = 624.0
+offset_top = 448.0
+offset_right = 1024.0
+offset_bottom = 548.0
+text = "Main Menu"
+
+[node name="GameEndWaitTimer" type="Timer" parent="."]
+
+[node name="BlueyAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_h825g")
+}
+autoplay = "celebrate"
+
+[node name="BlueySprite1" type="Sprite2D" parent="." groups=["HighScore"]]
+position = Vector2(192, 320)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_wobr8")
+
+[node name="BlueySprite2" type="Sprite2D" parent="." groups=["HighScore"]]
+position = Vector2(960, 320)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_wobr8")
+flip_h = true
+
+[connection signal="pressed" from="RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="MainMenuButton" to="." method="_on_main_menu_button_pressed"]
