@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cfdil1vt2522f"]
+[gd_scene load_steps=3 format=3 uid="uid://cfdil1vt2522f"]
 
 [ext_resource type="Script" uid="uid://fg53675uc40p" path="res://Scenes/HUD/hud.gd" id="1_33i1w"]
+[ext_resource type="PackedScene" uid="uid://bn724mpdj3hxh" path="res://Scenes/HUD/streak_canvas.tscn" id="2_5aai8"]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_33i1w")
@@ -18,24 +19,7 @@ theme_override_font_sizes/font_size = 45
 text = "Score"
 horizontal_alignment = 1
 
-[node name="StreakLabel" type="Label" parent="."]
-visible = false
-offset_left = 334.0
-offset_top = 16.0
-offset_right = 400.0
-offset_bottom = 81.0
-theme_override_font_sizes/font_size = 45
-text = "000"
-horizontal_alignment = 2
-
-[node name="StreakText" type="Label" parent="."]
-visible = false
-offset_left = 208.0
-offset_top = 16.0
-offset_right = 334.0
-offset_bottom = 81.0
-theme_override_font_sizes/font_size = 45
-text = "Streak!"
+[node name="StreakCanvas" parent="." instance=ExtResource("2_5aai8")]
 
 [node name="HighScoreLabel" type="Label" parent="."]
 anchors_preset = 1

@@ -1,0 +1,67 @@
+[gd_scene load_steps=5 format=3 uid="uid://bn724mpdj3hxh"]
+
+[ext_resource type="Script" uid="uid://ojqs4kojty8l" path="res://Scenes/HUD/streak_canvas.gd" id="1_lpvr3"]
+
+[sub_resource type="Animation" id="Animation_lpvr3"]
+resource_name = "move"
+length = 1.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StreakLabel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 1.2, 1.6),
+"transitions": PackedFloat32Array(0.5, -2, 2, 0),
+"update": 0,
+"values": [Vector2(334, 16), Vector2(334, 0), Vector2(334, 32), Vector2(334, 16)]
+}
+
+[sub_resource type="Animation" id="Animation_erky7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StreakLabel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(334, 16)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5egs7"]
+_data = {
+&"RESET": SubResource("Animation_erky7"),
+&"move": SubResource("Animation_lpvr3")
+}
+
+[node name="StreakCanvas" type="CanvasLayer"]
+script = ExtResource("1_lpvr3")
+
+[node name="StreakLabel" type="Label" parent="."]
+offset_left = 334.0
+offset_top = 16.0
+offset_right = 400.0
+offset_bottom = 81.0
+theme_override_font_sizes/font_size = 45
+text = "000"
+horizontal_alignment = 2
+
+[node name="StreakText" type="Label" parent="."]
+visible = false
+offset_left = 208.0
+offset_top = 16.0
+offset_right = 334.0
+offset_bottom = 81.0
+theme_override_font_sizes/font_size = 45
+text = "Streak!"
+
+[node name="StreakAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_5egs7")
+}

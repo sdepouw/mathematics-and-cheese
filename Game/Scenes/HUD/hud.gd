@@ -2,19 +2,18 @@ class_name HUD
 extends CanvasLayer
 
 @onready var _score_label: Label = $ScoreLabel;
-@onready var _streak_label: Label = $StreakLabel;
+@onready var _streak_canvas: StreakCanvas = $StreakCanvas
 @onready var _high_score_label: Label = $HighScoreLabel;
 @onready var _time_label: Label = $TimeLabel;
-
-@onready var _streak_text: Label = $StreakText
 
 func update_score_display(score: int) -> void:
   _score_label.text = _clamp_score_display(score)
 
 func update_streak_display(streak: int, show_streak: bool) -> void:
-  _streak_text.visible = show_streak
-  _streak_label.visible = show_streak
-  _streak_label.text = "%03d" % streak
+  if show_streak:
+    _streak_canvas.show_streak(streak)
+  else:
+    _streak_canvas.hide_streak()
 
 func update_high_score_display(high_score: int, highlight: bool = false) -> void:
   _high_score_label.text = _clamp_score_display(high_score)
