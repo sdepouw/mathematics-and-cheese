@@ -9,6 +9,7 @@ var can_pause: bool = false
 @onready var _root_tree: SceneTree = get_tree()
 @onready var _controls_label: Label = $ControlsLabel
 @onready var _pause_sound: AudioStreamPlayer = $PauseSound
+@onready var quit_confirm_modal: ConfirmationModal = $QuitConfirmModal
 
 func _ready() -> void:
   self.visible = false
@@ -32,7 +33,11 @@ func _toggle_paused() -> void:
     unpaused.emit()
 
 func _on_quit_button_pressed() -> void:
-  EventBus.load_main_menu.emit()
-  # HACK: Loading the new scene waits, so we wait so game doesn't unpause
-  await get_tree().create_timer(.2).timeout
-  _toggle_paused()
+  var confirmed: bool = await quit_confirm_modal\
+    .configure("Are you sure?", "Progress will not be saved!")\
+    .prompt()
+  if confirmed:
+    EventBus.load_main_menu.emit()
+    # HACK: Loading the new scene waits, so we wait so game doesn't unpause
+    await get_tree().create_timer(.2).timeout
+    _toggle_paused()

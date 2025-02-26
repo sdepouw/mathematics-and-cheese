@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://csme42t8hpnid"]
+[gd_scene load_steps=6 format=3 uid="uid://csme42t8hpnid"]
 
 [ext_resource type="Script" uid="uid://bmif7r0xmyepq" path="res://Scenes/PauseScreen/pause_screen.gd" id="1_kf473"]
 [ext_resource type="AudioStream" uid="uid://qp5ruxvyevjv" path="res://Assets/Sounds/pause.wav" id="2_542x1"]
 [ext_resource type="PackedScene" uid="uid://cambpmv5v3opa" path="res://Scenes/EnhancedButton/enhanced_button.tscn" id="2_qnk5u"]
 [ext_resource type="Script" uid="uid://cva0agtacaluv" path="res://Scenes/SoundEffect/sound_effect.gd" id="4_povxt"]
+[ext_resource type="PackedScene" uid="uid://dfqcen7aye16k" path="res://Scenes/ConfirmationModal/confirmation_modal.tscn" id="5_64lmj"]
 
 [node name="PauseScreen" type="CanvasLayer"]
 process_mode = 3
@@ -74,5 +75,8 @@ horizontal_alignment = 1
 stream = ExtResource("2_542x1")
 script = ExtResource("4_povxt")
 metadata/_custom_type_script = "uid://cva0agtacaluv"
+
+[node name="QuitConfirmModal" parent="." instance=ExtResource("5_64lmj")]
+visible = false
 
 [connection signal="pressed" from="QuitButton" to="." method="_on_quit_button_pressed"]
