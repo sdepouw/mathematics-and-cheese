@@ -10,10 +10,7 @@ func update_score_display(score: int) -> void:
   _score_label.text = _clamp_score_display(score)
 
 func update_streak_display(streak: int, show_streak: bool) -> void:
-  if show_streak:
-    _streak_canvas.show_streak(streak)
-  else:
-    _streak_canvas.hide_streak()
+  _streak_canvas.update_streak_display(streak, show_streak)
 
 func update_high_score_display(high_score: int, highlight: bool = false) -> void:
   _high_score_label.text = _clamp_score_display(high_score)
