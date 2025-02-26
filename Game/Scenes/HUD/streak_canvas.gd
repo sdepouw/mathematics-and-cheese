@@ -8,8 +8,8 @@ extends CanvasLayer
 func _ready() -> void:
   _hide()
 
-func update_streak_display(streak: int, show_streak: bool) -> void:
-  if show_streak:
+func update_streak_display(streak: int, streak_visible: bool) -> void:
+  if streak_visible:
     _show(streak)
   else:
     _hide()

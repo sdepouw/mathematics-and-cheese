@@ -26,6 +26,7 @@ func _ready() -> void:
   _start_new_game()
   _toggle_game_piece_visibility(false)
   _game_over_canvas.hide()
+  _score_keeper.score_updated.connect(_hud.update_score_display)
 
 func _process(_delta: float) -> void:
   if _game_on:
@@ -74,8 +75,6 @@ func _on_board_equation_selected(equation: Equation) -> void:
     return
   if _answer_to_hit == equation.get_answer():
     _score_keeper.score_hit()
-    _hud.update_score_display(_score_keeper)
-    _hud.update_streak_display(_score_keeper)
     if _score_keeper.get_score() > HighScore.get_current_high_score():
       if not _high_score_reached:
         _new_high_score_sound.play()
@@ -88,8 +87,6 @@ func _on_board_equation_selected(equation: Equation) -> void:
   else:
     _wrong_sound.play()
     _score_keeper.score_miss()
-    _hud.update_score_display(_score_keeper)
-    _hud.update_streak_display(_score_keeper)
     if _score_keeper.get_score() <= HighScore.get_current_high_score():
       _hud.update_high_score_display(HighScore.get_current_high_score(), false)
     else:

@@ -1,5 +1,7 @@
 class_name ScoreKeeper
 
+signal score_updated(new_score: int, new_streak: int, on_hot_streak: bool)
+
 const _BASE_REWARD: int = 100
 const _BASE_PENALTY: int = 50
 const _HOT_STREAK_THRESHOLD: int = 2
@@ -23,11 +25,17 @@ func score_hit() -> void:
     _current_score += _BASE_REWARD + streak_bonus
   else:
     _current_score += _BASE_REWARD
+  _notify_score_updated()
 
 func score_miss() -> void:
   _current_score -= _BASE_PENALTY
   _current_streak = 0
+  _notify_score_updated()
 
 func reset() -> void:
   _current_score = 0
   _current_streak = 0
+  _notify_score_updated()
+
+func _notify_score_updated() -> void:
+  score_updated.emit(_current_score, _current_streak, on_hot_streak())
