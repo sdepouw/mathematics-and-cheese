@@ -72,6 +72,7 @@ func _start_new_game() -> void:
 func _end_game() -> void:
   _pause_screen.can_pause = false
   _toggle_game_piece_visibility(false)
+  _hud.show_game_end()
   _equation_board.toggle_cursor_sound(false)
   _equation_board.hide()
   var high_score_beaten: bool = _current_score > HighScore.get_current_high_score()
