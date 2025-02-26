@@ -5,13 +5,22 @@ extends CanvasLayer
 @onready var _streak_text: Label = $StreakText
 @onready var _streak_animation_player: AnimationPlayer = $StreakAnimationPlayer
 
+func _ready() -> void:
+  _hide()
+
 func update_streak_display(streak: int, show_streak: bool) -> void:
   if show_streak:
-    _streak_animation_player.play("move")
-    _streak_text.show()
-    _streak_label.show()
-    _streak_label.text = "%03d" % streak
+    _show(streak)
   else:
-    _streak_label.hide()
-    _streak_text.hide()
-    _streak_animation_player.play("RESET")
+    _hide()
+
+func _show(streak: int) -> void:
+  _streak_animation_player.play("move")
+  _streak_text.show()
+  _streak_label.show()
+  _streak_label.text = "%03d" % streak
+
+func _hide() -> void:
+  _streak_label.hide()
+  _streak_text.hide()
+  _streak_animation_player.play("RESET")

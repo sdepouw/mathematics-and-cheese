@@ -6,11 +6,11 @@ extends CanvasLayer
 @onready var _high_score_label: Label = $HighScoreLabel;
 @onready var _time_label: Label = $TimeLabel;
 
-func update_score_display(score: int) -> void:
-  _score_label.text = _clamp_score_display(score)
+func update_score_display(score_keeper: ScoreKeeper) -> void:
+  _score_label.text = _clamp_score_display(score_keeper.get_score())
 
-func update_streak_display(streak: int, show_streak: bool) -> void:
-  _streak_canvas.update_streak_display(streak, show_streak)
+func update_streak_display(score_keeper: ScoreKeeper) -> void:
+  _streak_canvas.update_streak_display(score_keeper.get_streak(), score_keeper.on_hot_streak())
 
 func update_high_score_display(high_score: int, highlight: bool = false) -> void:
   _high_score_label.text = _clamp_score_display(high_score)
