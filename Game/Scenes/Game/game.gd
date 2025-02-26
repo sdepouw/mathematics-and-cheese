@@ -74,8 +74,9 @@ func _end_game() -> void:
   _toggle_game_piece_visibility(false)
   _equation_board.toggle_cursor_sound(false)
   _equation_board.hide()
-  _game_over_canvas.show()
-  if _current_score > HighScore.get_current_high_score():
+  var high_score_beaten: bool = _current_score > HighScore.get_current_high_score()
+  _game_over_canvas.show_game_over(high_score_beaten)
+  if high_score_beaten:
     HighScore.save_new_high_score(_current_score)
 
 func _on_board_equation_selected(equation: Equation) -> void:

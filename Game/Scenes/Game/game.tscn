@@ -28,6 +28,7 @@ visible = false
 position = Vector2(616, 576)
 
 [node name="GameOverCanvas" parent="." instance=ExtResource("5_7jvlm")]
+visible = false
 
 [node name="CountdownLabel" type="Label" parent="."]
 visible = false
