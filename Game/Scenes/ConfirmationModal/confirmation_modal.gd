@@ -8,8 +8,8 @@ signal confirmed(is_confirmed: bool)
 @onready var _background: ColorRect = $Background
 @onready var _header_label: Label = %Header
 @onready var _message_label: Label = %Message
-@onready var _confirm_button: Button = %Confirm
-@onready var _cancel_button: Button = %Cancel
+@onready var _confirm_button: EnhancedButton = %Confirm
+@onready var _cancel_button: EnhancedButton = %Cancel
 
 @export var header: String = "Are you sure?"
 @export var message: String = "Message body here"

@@ -17,6 +17,9 @@ func save_new_high_score(new_high_score: int) -> void:
   file.store_64(_high_score)
   updated.emit(_high_score)
 
+func clear_high_score() -> void:
+  save_new_high_score(0)
+
 func _ready() -> void:
   if _load_high_score():
     updated.emit(_high_score)
