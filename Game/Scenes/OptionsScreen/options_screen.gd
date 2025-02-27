@@ -9,18 +9,10 @@ extends Control
 # TODO: Wire up Confirm to delete the High Score file.
 # Save options! Try saving as JSON instead of just the sound%
 
-
 var _sound: float = 1.0
 
 func _ready() -> void:
   _sound_amount.value = _sound
-
-func _on_back_button_pressed() -> void:
-  EventBus.load_main_menu.emit()
-
-func _on_clear_data_button_pressed() -> void:
-  var confirmed: bool = await _clear_confirm_modal.prompt()
-  print(confirmed)
 
 func _on_sound_amount_gui_input(event: InputEvent) -> void:
   if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
@@ -28,3 +20,13 @@ func _on_sound_amount_gui_input(event: InputEvent) -> void:
     var clicked_spot: float = clampf(mouse_event.position.x, 0, _sound_amount.size.x)
     _sound = clicked_spot / _sound_amount.size.x
     _sound_amount.value = _sound
+
+func _on_clear_data_button_pressed() -> void:
+  var confirmed: bool = await _clear_confirm_modal.prompt()
+  print(confirmed)
+
+func _on_save_button_pressed() -> void:
+  _on_back_button_pressed()
+
+func _on_back_button_pressed() -> void:
+  EventBus.load_main_menu.emit()
