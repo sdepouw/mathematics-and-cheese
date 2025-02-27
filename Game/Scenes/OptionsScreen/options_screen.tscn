@@ -57,29 +57,51 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_irk63")
 max_value = 1.0
 value = 0.55
 
-[node name="ClearDataButton" parent="." instance=ExtResource("2_arfih")]
+[node name="RestoreDefaultsButton" type="Button" parent="."]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -70.0
+offset_right = 200.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 48
+text = "Restore Defaults"
+script = ExtResource("4_ndlxd")
+metadata/_custom_type_script = "uid://4hhnbaprkawe"
+
+[node name="ClearDataMargins" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -264.0
-offset_top = -302.0
-offset_right = -64.0
-offset_bottom = -237.0
-grow_horizontal = 0
-grow_vertical = 0
+anchor_bottom = 0.5
+offset_top = 60.0
+offset_bottom = 129.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
+
+[node name="ClearDataHBox" type="HBoxContainer" parent="ClearDataMargins"]
+layout_mode = 2
+
+[node name="ClearDataButton" parent="ClearDataMargins/ClearDataHBox" instance=ExtResource("2_arfih")]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 2
 theme_override_font_sizes/font_size = 48
 text = "Clear Data
 "
 
-[node name="ClearDataLabel" type="Label" parent="."]
-layout_mode = 0
-offset_left = 64.0
-offset_top = 346.0
-offset_right = 832.0
-offset_bottom = 415.0
+[node name="ClearDataLabel" type="Label" parent="ClearDataMargins/ClearDataHBox"]
+layout_mode = 2
+size_flags_horizontal = 2
 theme_override_font_sizes/font_size = 32
 text = "Data includes high scores and any other progression!
 Once deleted it cannot be recovered!"
@@ -89,22 +111,24 @@ visible = false
 layout_mode = 1
 message = "Cannot be undone!"
 
-[node name="ButtonsHBox" type="HBoxContainer" parent="."]
+[node name="ButtonsMargins" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -136.0
-offset_bottom = -36.0
+offset_top = -123.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 10
+
+[node name="ButtonsHBox" type="HBoxContainer" parent="ButtonsMargins"]
+layout_mode = 2
 theme_override_constants/separation = 50
 
-[node name="MarginContainerLeft" type="MarginContainer" parent="ButtonsHBox"]
-layout_mode = 2
-
-[node name="SaveButton" type="Button" parent="ButtonsHBox"]
+[node name="SaveButton" type="Button" parent="ButtonsMargins/ButtonsHBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -112,16 +136,13 @@ text = "Save"
 script = ExtResource("4_ndlxd")
 metadata/_custom_type_script = "uid://4hhnbaprkawe"
 
-[node name="BackButton" parent="ButtonsHBox" instance=ExtResource("2_arfih")]
+[node name="BackButton" parent="ButtonsMargins/ButtonsHBox" instance=ExtResource("2_arfih")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 text = "Cancel"
 
-[node name="MarginContainerRight" type="MarginContainer" parent="ButtonsHBox"]
-layout_mode = 2
-
 [connection signal="gui_input" from="SoundAmount" to="." method="_on_sound_amount_gui_input"]
-[connection signal="pressed" from="ClearDataButton" to="." method="_on_clear_data_button_pressed"]
-[connection signal="pressed" from="ButtonsHBox/SaveButton" to="." method="_on_save_button_pressed"]
-[connection signal="pressed" from="ButtonsHBox/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="ClearDataMargins/ClearDataHBox/ClearDataButton" to="." method="_on_clear_data_button_pressed"]
+[connection signal="pressed" from="ButtonsMargins/ButtonsHBox/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="ButtonsMargins/ButtonsHBox/BackButton" to="." method="_on_back_button_pressed"]
