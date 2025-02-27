@@ -10,7 +10,7 @@ var _options: Options.OptionValues:
   set(value):
     _options = value
     if _options != null:
-      _sound_amount.value = _options.sound_volume
+      _set_sound_amount_value(_options.sound_volume)
 
 func _ready() -> void:
   _options = Options.get_current_options()
@@ -20,12 +20,13 @@ func _on_sound_amount_gui_input(event: InputEvent) -> void:
     var mouse_event: InputEventMouse = event as InputEventMouse
     var clicked_spot: float = clampf(mouse_event.position.x, 0, _sound_amount.size.x)
     _sound_amount.mouse_default_cursor_shape = Control.CURSOR_HSPLIT
-
-    # TODO: Calculate Progress Bar with its min/max (min + max * %) instead of assuming it's 0-1
     _options.sound_volume = clicked_spot / _sound_amount.size.x
-    _sound_amount.value = _options.sound_volume
+    _set_sound_amount_value(_options.sound_volume)
   else:
     _sound_amount.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+
+func _set_sound_amount_value(value: float) -> void:
+  _sound_amount.value = (_sound_amount.min_value + _sound_amount.max_value) * value
 
 func _on_clear_data_button_pressed() -> void:
   var confirmed: bool = await _clear_confirm_modal.prompt()
