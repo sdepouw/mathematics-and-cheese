@@ -20,14 +20,16 @@ func _on_sound_amount_gui_input(event: InputEvent) -> void:
     var mouse_event: InputEventMouse = event as InputEventMouse
     var clicked_spot: float = clampf(mouse_event.position.x, 0, _sound_volume_progress_bar.size.x)
     _sound_volume_progress_bar.mouse_default_cursor_shape = Control.CURSOR_HSPLIT
-    _options.sound_volume = clicked_spot / _sound_volume_progress_bar.size.x
-    _set_sound_amount_value(_options.sound_volume)
+    _set_sound_amount_value(clicked_spot / _sound_volume_progress_bar.size.x)
+    _options.sound_volume = _sound_volume_progress_bar.value
   else:
     _sound_volume_progress_bar.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 
-# TODO: This works when bar's value is 0-1, but not when the min/max are other values.
-func _set_sound_amount_value(value: float) -> void:
-  _sound_volume_progress_bar.value = (_sound_volume_progress_bar.min_value + _sound_volume_progress_bar.max_value) * value
+# https://stackoverflow.com/a/25835683/100534
+func _set_sound_amount_value(percentage: float) -> void:
+  var minimum: float = _sound_volume_progress_bar.min_value
+  var progress_bar_range: float = _sound_volume_progress_bar.max_value - minimum
+  _sound_volume_progress_bar.value = percentage * progress_bar_range + minimum
 
 func _on_clear_data_button_pressed() -> void:
   var confirmed: bool = await _clear_confirm_modal.prompt()
