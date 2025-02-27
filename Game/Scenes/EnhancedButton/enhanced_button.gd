@@ -8,7 +8,7 @@ const _DEFAULT_SOUND: AudioStream = preload("res://Assets/Sounds/button_press.wa
 @export var sound_on_press: AudioStream = _DEFAULT_SOUND
 @export var volume_db: float = -.5
 
-@onready var _pressed_sound: AudioStreamPlayer = AudioStreamPlayer.new()
+@onready var _pressed_sound: SoundEffect = SoundEffect.new()
 
 func _ready() -> void:
   _pressed_sound.stream = sound_on_press

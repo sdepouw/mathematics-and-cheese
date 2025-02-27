@@ -1,7 +1,8 @@
 # Included in global scope, so no class_name
 extends Node
 
-signal options_loaded(options: OptionValues)
+## Returns the current Option Values whenever they're saved or loaded
+signal options_updated(option_values: OptionValues)
 
 const _SAVE_LOCATION: String = "user://options.json";
 var _default_values: OptionValues
@@ -25,6 +26,7 @@ func _save_current_options() -> void:
   var options_data: String = JSON.stringify(_current_values.to_dictionary())
   var file: FileAccess = FileAccess.open(_SAVE_LOCATION, FileAccess.WRITE)
   file.store_line(options_data)
+  options_updated.emit(OptionValues.from_values(_current_values))
 
 func _save_default_options() -> void:
   _current_values = OptionValues.from_values(_default_values)
@@ -39,7 +41,7 @@ func _load_options() -> void:
     _current_values = OptionValues.from_json(json)
     if not _current_values:
       _save_default_options()
-  options_loaded.emit(OptionValues.from_values(_current_values))
+  options_updated.emit(OptionValues.from_values(_current_values))
 
 class OptionValues:
   var sound_volume: float
