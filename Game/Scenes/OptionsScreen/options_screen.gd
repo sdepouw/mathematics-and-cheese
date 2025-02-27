@@ -8,7 +8,7 @@ var _options: Options.OptionValues:
   set(value):
     _options = value
     if _options != null:
-      _set_sound_amount_value(_options.sound_volume)
+      _sound_volume_progress_bar.ratio = _options.sound_volume
 
 func _ready() -> void:
   _options = Options.get_current_options()
@@ -18,16 +18,10 @@ func _on_sound_amount_gui_input(event: InputEvent) -> void:
     var mouse_event: InputEventMouse = event as InputEventMouse
     var clicked_spot: float = clampf(mouse_event.position.x, 0, _sound_volume_progress_bar.size.x)
     _sound_volume_progress_bar.mouse_default_cursor_shape = Control.CURSOR_HSPLIT
-    _set_sound_amount_value(clicked_spot / _sound_volume_progress_bar.size.x)
-    _options.sound_volume = _sound_volume_progress_bar.value
+    _sound_volume_progress_bar.ratio = clicked_spot / _sound_volume_progress_bar.size.x
+    _options.sound_volume = _sound_volume_progress_bar.ratio
   else:
     _sound_volume_progress_bar.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-
-# https://stackoverflow.com/a/25835683/100534
-func _set_sound_amount_value(percentage: float) -> void:
-  var minimum: float = _sound_volume_progress_bar.min_value
-  var progress_bar_range: float = _sound_volume_progress_bar.max_value - minimum
-  _sound_volume_progress_bar.value = percentage * progress_bar_range + minimum
 
 func _on_clear_data_button_pressed() -> void:
   var confirmed: bool = await _clear_confirm_modal.prompt()
