@@ -7,6 +7,10 @@ extends Node
 ## closing the current scene in the process.
 signal load_main_menu
 
+## Indicates the game should switch to the options scene,
+## closing the current scene in the process.
+signal load_options
+
 ## Indicates the game should switch to the main gameplay scene,
 ## closing the current scene in the process.
 signal load_game

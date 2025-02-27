@@ -3,8 +3,9 @@
 class_name SoundEffect
 extends AudioStreamPlayer
 
-# TODO: Expose via Options menu
-const sound_volume: float = 1.0
-
 func _ready() -> void:
-  self.volume_linear *= clampf(sound_volume, 0.0, 1.0)
+  self.volume_linear *= clampf(Options.get_current_options().sound_volume, 0.0, 1.0)
+  Options.options_updated.connect(_on_options_updated)
+
+func _on_options_updated(option_values: Options.OptionValues) -> void:
+  self.volume_linear *= clampf(option_values.sound_volume, 0.0, 1.0)

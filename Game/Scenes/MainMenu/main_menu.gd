@@ -12,5 +12,8 @@ func _on_play_button_pressed() -> void:
 func _on_instructions_button_pressed() -> void:
   EventBus.load_instructions.emit()
 
+func _on_options_button_pressed() -> void:
+  EventBus.load_options.emit()
+
 func _on_credits_button_pressed() -> void:
   EventBus.load_credits.emit()
