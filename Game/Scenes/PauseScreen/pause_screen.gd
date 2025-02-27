@@ -33,9 +33,7 @@ func _toggle_paused() -> void:
     unpaused.emit()
 
 func _on_quit_button_pressed() -> void:
-  var confirmed: bool = await quit_confirm_modal\
-    .configure("Are you sure?", "Progress will not be saved!")\
-    .prompt()
+  var confirmed: bool = await quit_confirm_modal.prompt()
   if confirmed:
     EventBus.load_main_menu.emit()
     # HACK: Loading the new scene waits, so we wait so game doesn't unpause

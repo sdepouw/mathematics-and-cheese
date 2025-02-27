@@ -11,16 +11,19 @@ signal confirmed(is_confirmed: bool)
 @onready var _confirm_button: Button = %Confirm
 @onready var _cancel_button: Button = %Cancel
 
-func _ready() -> void:
-  hide()
+@export var header: String = "Are you sure?"
+@export var message: String = "Message body here"
+@export var confirm: String = "Yes"
+@export var cancel: String = "No"
+@export var show_background: bool = true
 
-func configure(header: String, message: String, confirm: String = "Yes", cancel: String = "No", show_background: bool = true) -> ConfirmationModal:
-  _background.visible = show_background
+func _ready() -> void:
   _header_label.text = header
   _message_label.text = message
   _confirm_button.text = confirm
   _cancel_button.text = cancel
-  return self
+  _background.visible = show_background
+  hide()
 
 func prompt() -> bool:
   show()

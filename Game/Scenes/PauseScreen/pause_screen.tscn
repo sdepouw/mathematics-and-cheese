@@ -78,5 +78,6 @@ metadata/_custom_type_script = "uid://cva0agtacaluv"
 
 [node name="QuitConfirmModal" parent="." instance=ExtResource("5_64lmj")]
 visible = false
+message = "Progress will not be saved!"
 
 [connection signal="pressed" from="QuitButton" to="." method="_on_quit_button_pressed"]

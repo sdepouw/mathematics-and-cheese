@@ -1,0 +1,108 @@
+[gd_scene load_steps=5 format=3 uid="uid://cn1iphhrvytyr"]
+
+[ext_resource type="Script" uid="uid://c12hyimcr08df" path="res://Scenes/OptionsScreen/options_screen.gd" id="1_a5ync"]
+[ext_resource type="PackedScene" uid="uid://cambpmv5v3opa" path="res://Scenes/EnhancedButton/enhanced_button.tscn" id="2_arfih"]
+[ext_resource type="PackedScene" uid="uid://dfqcen7aye16k" path="res://Scenes/ConfirmationModal/confirmation_modal.tscn" id="3_irk63"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_irk63"]
+bg_color = Color(0, 0.341176, 0.72549, 1)
+
+[node name="OptionsScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_a5ync")
+
+[node name="Header" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -89.5
+offset_top = 20.0
+offset_right = 89.5
+offset_bottom = 85.0
+grow_horizontal = 2
+text = "Options"
+
+[node name="SoundLabel" type="Label" parent="."]
+layout_mode = 2
+offset_left = 64.0
+offset_top = 125.5
+offset_right = 371.0
+offset_bottom = 190.5
+size_flags_horizontal = 4
+text = "Sound Volume"
+
+[node name="SoundAmount" type="ProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -704.0
+offset_top = -200.0
+offset_right = -64.0
+offset_bottom = -131.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 6
+mouse_default_cursor_shape = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_irk63")
+max_value = 1.0
+value = 0.55
+
+[node name="ClearDataButton" parent="." instance=ExtResource("2_arfih")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -264.0
+offset_top = -302.0
+offset_right = -64.0
+offset_bottom = -237.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 48
+text = "Clear Data
+"
+
+[node name="ClearDataLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 346.0
+offset_right = 832.0
+offset_bottom = 415.0
+theme_override_font_sizes/font_size = 32
+text = "Data includes high scores and any other progression!
+Once deleted it cannot be recovered!"
+
+[node name="BackButton" parent="." instance=ExtResource("2_arfih")]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -144.0
+offset_right = 200.0
+offset_bottom = -44.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Back"
+
+[node name="ClearConfirmModal" parent="." instance=ExtResource("3_irk63")]
+visible = false
+layout_mode = 1
+message = "Cannot be undone!"
+
+[connection signal="gui_input" from="SoundAmount" to="." method="_on_sound_amount_gui_input"]
+[connection signal="pressed" from="ClearDataButton" to="." method="_on_clear_data_button_pressed"]
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
