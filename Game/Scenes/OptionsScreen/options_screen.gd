@@ -37,7 +37,6 @@ func _on_save_button_pressed() -> void:
   EventBus.load_main_menu.emit()
 
 func _on_back_button_pressed() -> void:
-  Options.load_options()
   EventBus.load_main_menu.emit()
 
 func _on_restore_defaults_button_pressed() -> void:
