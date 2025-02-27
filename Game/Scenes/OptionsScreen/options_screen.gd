@@ -4,6 +4,8 @@ extends Control
 @onready var _clear_confirm_modal: ConfirmationModal = $ClearConfirmModal
 @onready var _sound_amount: ProgressBar = $SoundAmount
 
+# TODO: Apply saved sound option to our Sound Effect button
+
 var _options: Options.OptionValues:
   set(value):
     _options = value
