@@ -3,7 +3,19 @@
 class_name EnhancedButton
 extends Button
 
-@onready var _pressed_sound: AudioStreamPlayer = $PressedSound
+const _DEFAULT_SOUND: AudioStream = preload("res://Assets/Sounds/button_press.wav")
+
+@export var pressed_sound_file: AudioStream = _DEFAULT_SOUND
+@export var volume_db: float = -.5
+
+@onready var _pressed_sound: AudioStreamPlayer = AudioStreamPlayer.new()
+
+func _ready() -> void:
+  _pressed_sound.stream = pressed_sound_file
+  _pressed_sound.volume_db = volume_db
+  self.add_child(_pressed_sound)
+  self.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+  self.pressed.connect(_on_pressed_play_sound)
 
 func _on_pressed_play_sound() -> void:
   _pressed_sound.play()
