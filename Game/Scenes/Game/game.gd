@@ -66,9 +66,13 @@ func _end_game() -> void:
   _equation_board.toggle_cursor_sound(false)
   _equation_board.hide()
   var high_score_beaten: bool = _score_keeper.get_score() > HighScore.get_current_high_score()
-  _game_over_canvas.show_game_over(high_score_beaten)
+  #_game_over_canvas.show_game_over(high_score_beaten)
   if high_score_beaten:
     HighScore.save_new_high_score(_score_keeper.get_score())
+  # TODO: Show something in the middle of the screen, as we wait to load Game Over
+  # "A Cheesy Delight!" ?
+  await get_tree().create_timer(1.0).timeout
+  EventBus.load_game_over.emit(_score_keeper.get_score(), _score_keeper.get_best_streak())
 
 func _on_board_equation_selected(equation: Equation) -> void:
   if !_game_on or equation == null:

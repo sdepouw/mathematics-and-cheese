@@ -8,12 +8,16 @@ const _HOT_STREAK_THRESHOLD: int = 2
 
 var _current_score: int
 var _current_streak: int
+var _best_streak: int
 
 func get_score() -> int:
   return _current_score
 
 func get_streak() -> int:
   return _current_streak
+
+func get_best_streak() -> int:
+  return _best_streak;
 
 func on_hot_streak() -> bool:
   return _current_streak > _HOT_STREAK_THRESHOLD
@@ -25,6 +29,8 @@ func score_hit() -> void:
     _current_score += _BASE_REWARD + streak_bonus
   else:
     _current_score += _BASE_REWARD
+  if _current_streak > _best_streak:
+    _best_streak = _current_streak
   _notify_score_updated()
 
 func score_miss() -> void:
@@ -35,6 +41,7 @@ func score_miss() -> void:
 func reset() -> void:
   _current_score = 0
   _current_streak = 0
+  _best_streak = 0
   _notify_score_updated()
 
 func _notify_score_updated() -> void:
