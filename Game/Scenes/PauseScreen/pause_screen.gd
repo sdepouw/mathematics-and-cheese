@@ -8,7 +8,7 @@ var can_pause: bool = false
 
 @onready var _root_tree: SceneTree = get_tree()
 @onready var _controls_label: Label = $ControlsLabel
-@onready var _pause_sound: AudioStreamPlayer = $PauseSound
+@onready var _pause_sound: SoundEffect = $PauseSound
 @onready var quit_confirm_modal: ConfirmationModal = $QuitConfirmModal
 
 func _ready() -> void:

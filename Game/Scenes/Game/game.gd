@@ -9,9 +9,9 @@ extends Node
 @onready var _countdown_label: Label = $CountdownLabel
 @onready var _pause_screen: PauseScreen = $PauseScreen
 @onready var _game_over_canvas: GameOverCanvas = $GameOverCanvas
-@onready var _wrong_sound: AudioStreamPlayer = $WrongSound
-@onready var _correct_sound: AudioStreamPlayer = $CorrectSound
-@onready var _new_high_score_sound: AudioStreamPlayer = $NewHighScoreSound
+@onready var _wrong_sound: SoundEffect = $WrongSound
+@onready var _correct_sound: SoundEffect = $CorrectSound
+@onready var _new_high_score_sound: SoundEffect = $NewHighScoreSound
 @onready var _score_keeper: ScoreKeeper = ScoreKeeper.new()
 
 var _answer_to_hit: int:

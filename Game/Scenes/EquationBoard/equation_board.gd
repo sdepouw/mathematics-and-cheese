@@ -9,7 +9,7 @@ signal board_equation_selected(equation: Equation)
 @onready var _equation_row_1: EquationRow = $EquationRow1
 @onready var _equation_row_3: EquationRow = $EquationRow3
 @onready var _reticle: AnimatedSprite2D = $Reticle
-@onready var _move_cursor_sound: AudioStreamPlayer = $MoveCursorSound
+@onready var _move_cursor_sound: SoundEffect = $MoveCursorSound
 
 # TODO: Calculate these based on the rows used
 const _MAX_X: int = 2
