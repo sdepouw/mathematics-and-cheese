@@ -8,7 +8,6 @@ extends Node
 @onready var _countdown_timer: Timer = $CountdownTimer
 @onready var _countdown_label: Label = $CountdownLabel
 @onready var _pause_screen: PauseScreen = $PauseScreen
-@onready var _game_over_canvas: GameOverCanvas = $GameOverCanvas
 @onready var _wrong_sound: SoundEffect = $WrongSound
 @onready var _correct_sound: SoundEffect = $CorrectSound
 @onready var _new_high_score_sound: SoundEffect = $NewHighScoreSound
@@ -25,7 +24,6 @@ var _high_score_reached: bool = false
 func _ready() -> void:
   _start_new_game()
   _toggle_game_piece_visibility(false)
-  _game_over_canvas.hide()
   _score_keeper.score_updated.connect(_hud.update_score_display)
 
 func _process(_delta: float) -> void:
@@ -51,7 +49,6 @@ func _start_new_game() -> void:
   _high_score_reached = false
   _hud.update_time_display(_game_timer.wait_time)
   _hud.update_high_score_display(HighScore.get_current_high_score())
-  _game_over_canvas.hide()
   _generate_new_equations()
   await _run_countdown_async()
   _equation_board.toggle_cursor_sound(true)
@@ -65,7 +62,6 @@ func _end_game() -> void:
   _hud.show_game_end()
   _equation_board.toggle_cursor_sound(false)
   _equation_board.hide()
-  #_game_over_canvas.show_game_over(high_score_beaten)
   # TODO: Show something in the middle of the screen, as we wait to load Game Over
   # "A Cheesy Delight!" ?
   await get_tree().create_timer(1.0).timeout
