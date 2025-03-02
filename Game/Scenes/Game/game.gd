@@ -8,10 +8,9 @@ extends Node
 @onready var _countdown_timer: Timer = $CountdownTimer
 @onready var _countdown_label: Label = $CountdownLabel
 @onready var _pause_screen: PauseScreen = $PauseScreen
-@onready var _game_over_canvas: GameOverCanvas = $GameOverCanvas
 @onready var _wrong_sound: SoundEffect = $WrongSound
 @onready var _correct_sound: SoundEffect = $CorrectSound
-@onready var _new_high_score_sound: SoundEffect = $NewHighScoreSound
+@onready var _streak_reached_sound: SoundEffect = $StreakReachedSound
 @onready var _score_keeper: ScoreKeeper = ScoreKeeper.new()
 
 var _answer_to_hit: int:
@@ -25,7 +24,6 @@ var _high_score_reached: bool = false
 func _ready() -> void:
   _start_new_game()
   _toggle_game_piece_visibility(false)
-  _game_over_canvas.hide()
   _score_keeper.score_updated.connect(_hud.update_score_display)
 
 func _process(_delta: float) -> void:
@@ -51,7 +49,6 @@ func _start_new_game() -> void:
   _high_score_reached = false
   _hud.update_time_display(_game_timer.wait_time)
   _hud.update_high_score_display(HighScore.get_current_high_score())
-  _game_over_canvas.hide()
   _generate_new_equations()
   await _run_countdown_async()
   _equation_board.toggle_cursor_sound(true)
@@ -65,32 +62,22 @@ func _end_game() -> void:
   _hud.show_game_end()
   _equation_board.toggle_cursor_sound(false)
   _equation_board.hide()
-  var high_score_beaten: bool = _score_keeper.get_score() > HighScore.get_current_high_score()
-  _game_over_canvas.show_game_over(high_score_beaten)
-  if high_score_beaten:
-    HighScore.save_new_high_score(_score_keeper.get_score())
+  await get_tree().create_timer(1.0).timeout
+  EventBus.load_game_over.emit(_score_keeper.get_score(), _score_keeper.get_best_streak())
 
 func _on_board_equation_selected(equation: Equation) -> void:
   if !_game_on or equation == null:
     return
   if _answer_to_hit == equation.get_answer():
-    _score_keeper.score_hit()
-    if _score_keeper.get_score() > HighScore.get_current_high_score():
-      if not _high_score_reached:
-        _new_high_score_sound.play()
-        _high_score_reached = true
-      else:
-        _correct_sound.play()
-      _hud.update_high_score_display(_score_keeper.get_score(), true)
+    var streak_reached: bool = _score_keeper.score_hit()
+    if streak_reached:
+      _streak_reached_sound.play()
     else:
       _correct_sound.play()
   else:
     _wrong_sound.play()
     _score_keeper.score_miss()
-    if _score_keeper.get_score() <= HighScore.get_current_high_score():
-      _hud.update_high_score_display(HighScore.get_current_high_score(), false)
-    else:
-      _hud.update_high_score_display(_score_keeper.get_score(), true)
+    _hud.update_high_score_display(HighScore.get_current_high_score())
   _generate_new_equations()
 
 func _on_game_timer_timeout() -> void:

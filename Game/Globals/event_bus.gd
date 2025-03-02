@@ -23,6 +23,10 @@ signal load_instructions
 ## closing the current scene in the process.
 signal load_credits
 
+## Indicates the game should switch to the Game Over scene,
+## closing the current scene in the process.
+signal load_game_over(score: int, best_streak: int)
+
 ## Emitted when the player presses the "confirm" button
 signal player_confirm
 

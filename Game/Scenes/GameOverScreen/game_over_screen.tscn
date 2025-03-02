@@ -1,0 +1,132 @@
+[gd_scene load_steps=6 format=3 uid="uid://btspuodtkbr7u"]
+
+[ext_resource type="Script" uid="uid://bobwum3kiiunl" path="res://Scenes/GameOverScreen/game_over_screen.gd" id="1_c00pi"]
+[ext_resource type="PackedScene" uid="uid://dqtfvuspfhidd" path="res://Scenes/Game/game_over_canvas.tscn" id="2_clcq5"]
+[ext_resource type="AudioStream" uid="uid://dj2td4g4rgj06" path="res://Assets/Sounds/move_cursor.wav" id="3_pysk1"]
+[ext_resource type="Script" uid="uid://cva0agtacaluv" path="res://Scenes/SoundEffect/sound_effect.gd" id="4_fgskh"]
+[ext_resource type="AudioStream" uid="uid://dbv00fxfs8fif" path="res://Assets/Sounds/new_high_score.wav" id="5_fgskh"]
+
+[node name="GameOverScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_c00pi")
+
+[node name="ScoreSummaryVBox" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -335.5
+offset_top = 60.0
+offset_right = 335.5
+offset_bottom = 267.0
+grow_horizontal = 2
+
+[node name="ScoreHBox" type="HBoxContainer" parent="ScoreSummaryVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ScoreText" type="Label" parent="ScoreSummaryVBox/ScoreHBox"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+text = "Score"
+uppercase = true
+max_lines_visible = 1
+
+[node name="ScoreValue" type="Label" parent="ScoreSummaryVBox/ScoreHBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(205, 0)
+layout_mode = 2
+text = "00000000"
+horizontal_alignment = 2
+max_lines_visible = 1
+
+[node name="StreakHBox" type="HBoxContainer" parent="ScoreSummaryVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="StreakText" type="Label" parent="ScoreSummaryVBox/StreakHBox"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+text = "Best Streak"
+uppercase = true
+max_lines_visible = 1
+
+[node name="StreakScoreValue" type="Label" parent="ScoreSummaryVBox/StreakHBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(205, 0)
+layout_mode = 2
+text = "00000000"
+horizontal_alignment = 2
+max_lines_visible = 1
+
+[node name="Separator" type="Label" parent="ScoreSummaryVBox/StreakHBox"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "  x"
+
+[node name="StreakValue" type="Label" parent="ScoreSummaryVBox/StreakHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+text = "000"
+
+[node name="SumLine" type="Line2D" parent="ScoreSummaryVBox"]
+unique_name_in_owner = true
+position = Vector2(7, 144)
+points = PackedVector2Array(-15.5, -6.5, 512.5, -6.5)
+width = 5.0
+
+[node name="TotalHBox" type="HBoxContainer" parent="ScoreSummaryVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="TotalText" type="Label" parent="ScoreSummaryVBox/TotalHBox"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+text = "Total"
+uppercase = true
+max_lines_visible = 1
+
+[node name="TotalValue" type="Label" parent="ScoreSummaryVBox/TotalHBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(205, 0)
+layout_mode = 2
+text = "00000000"
+horizontal_alignment = 2
+max_lines_visible = 1
+
+[node name="StreakTallyTimer" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true
+
+[node name="ScoreLineTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="GameOverCanvas" parent="." instance=ExtResource("2_clcq5")]
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 65.0
+grow_horizontal = 2
+text = "Game Over"
+
+[node name="TallySound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_pysk1")
+script = ExtResource("4_fgskh")
+metadata/_custom_type_script = "uid://cva0agtacaluv"
+
+[node name="HighScoreReachedSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_fgskh")
+script = ExtResource("4_fgskh")
+metadata/_custom_type_script = "uid://cva0agtacaluv"
