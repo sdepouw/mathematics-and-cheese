@@ -72,6 +72,5 @@ metadata/_custom_type_script = "uid://cva0agtacaluv"
 
 [connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]
 [connection signal="board_equation_selected" from="EquationBoard" to="." method="_on_board_equation_selected"]
-[connection signal="play_again_requested" from="GameOverCanvas" to="." method="_on_play_again_requested"]
 [connection signal="paused" from="PauseScreen" to="." method="_on_pause_screen_paused"]
 [connection signal="unpaused" from="PauseScreen" to="." method="_on_pause_screen_unpaused"]
