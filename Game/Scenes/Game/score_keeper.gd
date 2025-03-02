@@ -8,7 +8,7 @@ const _HOT_STREAK_THRESHOLD: int = 2
 
 var _current_score: int:
   set(value):
-    _current_score = max(_current_score + value, 0)
+    _current_score = max(value, 0)
 var _current_streak: int
 var _best_streak: int
 
