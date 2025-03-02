@@ -61,7 +61,7 @@ stream = ExtResource("6_vifcx")
 script = ExtResource("10_7jvlm")
 metadata/_custom_type_script = "uid://cva0agtacaluv"
 
-[node name="NewHighScoreSound" type="AudioStreamPlayer" parent="."]
+[node name="StreakReachedSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_huoen")
 script = ExtResource("10_7jvlm")
 metadata/_custom_type_script = "uid://cva0agtacaluv"

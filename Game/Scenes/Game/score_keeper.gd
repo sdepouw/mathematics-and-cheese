@@ -24,7 +24,7 @@ func get_best_streak() -> int:
 func on_hot_streak() -> bool:
   return _current_streak > _HOT_STREAK_THRESHOLD
 
-func score_hit() -> void:
+func score_hit() -> bool:
   _current_streak += 1
   if on_hot_streak():
     var streak_bonus: int = ceili(_BASE_REWARD * _current_streak * 0.15)
@@ -34,6 +34,7 @@ func score_hit() -> void:
   if _current_streak > _best_streak:
     _best_streak = _current_streak
   _notify_score_updated()
+  return _current_streak == _HOT_STREAK_THRESHOLD + 1
 
 func score_miss() -> void:
   _current_score -= _BASE_PENALTY
