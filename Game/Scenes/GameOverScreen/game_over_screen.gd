@@ -42,7 +42,6 @@ func load_scene_data(data: Variant) -> void:
   _best_streak = data[1]
 
 func _ready() -> void:
-  load_scene_data([100000, 25]) # Debug
   _streak_score = _best_streak * best_streak_bonus_unit
   _total_score = _score + _streak_score
   var high_score_reached: bool = _total_score > HighScore.get_current_high_score()
@@ -52,6 +51,8 @@ func _ready() -> void:
   if high_score_reached:
     HighScore.save_new_high_score(_total_score)
     _high_score_reached_sound.play()
+    # TODO: Make the high score highlight color common. HighScore class?
+    _total_value.add_theme_color_override("font_color", Color.GREEN)
   _game_over_canvas.show_game_over(high_score_reached)
 
 func _initialize_tally_display() -> void:
