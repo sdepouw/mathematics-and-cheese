@@ -62,8 +62,6 @@ func _end_game() -> void:
   _hud.show_game_end()
   _equation_board.toggle_cursor_sound(false)
   _equation_board.hide()
-  # TODO: Show something in the middle of the screen, as we wait to load Game Over
-  # "A Cheesy Delight!" ?
   await get_tree().create_timer(1.0).timeout
   EventBus.load_game_over.emit(_score_keeper.get_score(), _score_keeper.get_best_streak())
 
