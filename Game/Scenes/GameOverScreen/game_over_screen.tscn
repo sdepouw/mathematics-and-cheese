@@ -10,3 +10,86 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_c00pi")
+
+[node name="ScoreSummaryVBox" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -311.5
+offset_top = -103.5
+offset_right = 311.5
+offset_bottom = 103.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScoreHBox" type="HBoxContainer" parent="ScoreSummaryVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ScoreText" type="Label" parent="ScoreSummaryVBox/ScoreHBox"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+text = "Score"
+uppercase = true
+max_lines_visible = 1
+
+[node name="ScoreValue" type="Label" parent="ScoreSummaryVBox/ScoreHBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(205, 0)
+layout_mode = 2
+text = "00000000"
+horizontal_alignment = 2
+max_lines_visible = 1
+
+[node name="StreakHBox" type="HBoxContainer" parent="ScoreSummaryVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="StreakText" type="Label" parent="ScoreSummaryVBox/StreakHBox"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+text = "Best Streak"
+uppercase = true
+max_lines_visible = 1
+
+[node name="StreakScoreValue" type="Label" parent="ScoreSummaryVBox/StreakHBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(205, 0)
+layout_mode = 2
+text = "00000000"
+horizontal_alignment = 2
+max_lines_visible = 1
+
+[node name="StreakValue" type="Label" parent="ScoreSummaryVBox/StreakHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+text = "000"
+
+[node name="SumLine" type="Line2D" parent="ScoreSummaryVBox"]
+unique_name_in_owner = true
+position = Vector2(7, 144)
+points = PackedVector2Array(-15.5, -6.5, 512.5, -6.5)
+width = 5.0
+
+[node name="TotalHBox" type="HBoxContainer" parent="ScoreSummaryVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="TotalText" type="Label" parent="ScoreSummaryVBox/TotalHBox"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+text = "Total"
+uppercase = true
+max_lines_visible = 1
+
+[node name="TotalValue" type="Label" parent="ScoreSummaryVBox/TotalHBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(205, 0)
+layout_mode = 2
+text = "00000000"
+horizontal_alignment = 2
+max_lines_visible = 1
