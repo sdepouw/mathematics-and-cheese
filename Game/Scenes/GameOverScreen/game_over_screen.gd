@@ -2,7 +2,7 @@ class_name GameOverScreen
 extends Control
 
 ## How many points to award per number in the Best Streak
-@export var best_streak_bonus_unit: int = 1000
+@export var best_streak_bonus_unit: int = 100
 
 @onready var _score_value: Label = %ScoreValue
 @onready var _streak_score_value: Label = %StreakScoreValue
