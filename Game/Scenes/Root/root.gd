@@ -1,12 +1,14 @@
 class_name Root extends Node
 
-const SPLASH_SCREEN_SCENE: PackedScene = preload("res://Scenes/SplashScreen/splash_screen.tscn")
-const MAIN_MENU_SCENE: PackedScene = preload("res://Scenes/MainMenu/main_menu.tscn")
-const OPTIONS_SCENE: PackedScene = preload("res://Scenes/OptionsScreen/options_screen.tscn")
-const GAME_SCENE: PackedScene = preload("res://Scenes/Game/game.tscn")
-const INSTRUCTIONS_SCENE: PackedScene = preload("res://Scenes/InstructionsScreen/instructions_screen.tscn")
-const CREDITS_SCENE: PackedScene = preload("res://Scenes/Credits/credits.tscn")
-const GAME_OVER_SCENE: PackedScene = preload("res://Scenes/GameOverScreen/game_over_screen.tscn")
+const _SCREEN_PATH: String = "res://Scenes/Screens/"
+
+const SPLASH_SCREEN_SCENE: PackedScene = preload(_SCREEN_PATH + "SplashScreen/splash_screen.tscn")
+const MAIN_MENU_SCENE: PackedScene = preload(_SCREEN_PATH + "MainMenu/main_menu.tscn")
+const OPTIONS_SCENE: PackedScene = preload(_SCREEN_PATH + "OptionsScreen/options_screen.tscn")
+const GAME_SCENE: PackedScene = preload(_SCREEN_PATH + "Game/game.tscn")
+const INSTRUCTIONS_SCENE: PackedScene = preload(_SCREEN_PATH + "InstructionsScreen/instructions_screen.tscn")
+const CREDITS_SCENE: PackedScene = preload(_SCREEN_PATH + "Credits/credits.tscn")
+const GAME_OVER_SCENE: PackedScene = preload(_SCREEN_PATH + "GameOverScreen/game_over_screen.tscn")
 
 @onready var _scene_loader: SceneLoader = $SceneLoader
 @onready var _backgroud_parallex: Parallax2D = $BackgroundParallex

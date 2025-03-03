@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://55o2ddpjh5ds"]
 
-[ext_resource type="Script" uid="uid://lv7n6cdct43x" path="res://Scenes/Game/game.gd" id="1_i1e5p"]
+[ext_resource type="Script" uid="uid://lv7n6cdct43x" path="res://Scenes/Screens/Game/game.gd" id="1_i1e5p"]
 [ext_resource type="PackedScene" uid="uid://cfdil1vt2522f" path="res://Scenes/HUD/hud.tscn" id="2_i1e5p"]
 [ext_resource type="PackedScene" uid="uid://c5b1rrrdeysj3" path="res://Scenes/EquationBoard/equation_board.tscn" id="3_flgk0"]
 [ext_resource type="PackedScene" uid="uid://bya2bspfpyt0c" path="res://Scenes/BlueyAnswer/bluey_answer.tscn" id="4_vifcx"]
@@ -14,7 +14,7 @@
 script = ExtResource("1_i1e5p")
 
 [node name="GameTimer" type="Timer" parent="."]
-wait_time = 60.0
+wait_time = 2.0
 one_shot = true
 
 [node name="HUD" parent="." instance=ExtResource("2_i1e5p")]
