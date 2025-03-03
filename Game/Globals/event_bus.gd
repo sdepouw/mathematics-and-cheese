@@ -8,6 +8,23 @@ var Screen: ScreenEventBus = ScreenEventBus.new()
 ## Player-related Events
 var Player: PlayerEventBus = PlayerEventBus.new()
 
+func _process(_delta: float) -> void:
+  _map_input_events_to_signals()
+
+func _map_input_events_to_signals() -> void:
+  if Input.is_action_just_pressed("move_left"):
+    Player.player_moved.emit(Globals.Direction.LEFT)
+  if Input.is_action_just_pressed("move_right"):
+    Player.player_moved.emit(Globals.Direction.RIGHT)
+  if Input.is_action_just_pressed("move_up"):
+    Player.player_moved.emit(Globals.Direction.UP)
+  if Input.is_action_just_pressed("move_down"):
+    Player.player_moved.emit(Globals.Direction.DOWN)
+  if Input.is_action_just_pressed("confirm"):
+    Player.player_confirm.emit()
+  if Input.is_action_just_pressed("cancel"):
+    Player.player_cancel.emit()
+
 ## Houses all Screen-related Events. Access via EventBus.Screen
 class ScreenEventBus:
   ## Indicates the game should switch to the main menu,
@@ -45,20 +62,3 @@ class PlayerEventBus:
 
   ## Emitted whenever a player presses a movement button (any direction)
   signal player_moved(direction: Globals.Direction)
-
-  func _process(_delta: float) -> void:
-    _map_input_events_to_signals()
-
-  func _map_input_events_to_signals() -> void:
-    if Input.is_action_just_pressed("move_left"):
-      player_moved.emit(Globals.Direction.LEFT)
-    if Input.is_action_just_pressed("move_right"):
-      player_moved.emit(Globals.Direction.RIGHT)
-    if Input.is_action_just_pressed("move_up"):
-      player_moved.emit(Globals.Direction.UP)
-    if Input.is_action_just_pressed("move_down"):
-      player_moved.emit(Globals.Direction.DOWN)
-    if Input.is_action_just_pressed("confirm"):
-      player_confirm.emit()
-    if Input.is_action_just_pressed("cancel"):
-      player_cancel.emit()
