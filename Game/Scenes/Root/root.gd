@@ -1,6 +1,6 @@
 class_name Root extends Node
 
-const _SCREEN_PATH: String = "res://Scenes/Screens/"
+const _SCREEN_PATH: String = "res://Screens/"
 
 const SPLASH_SCREEN_SCENE: PackedScene = preload(_SCREEN_PATH + "SplashScreen/splash_screen.tscn")
 const MAIN_MENU_SCENE: PackedScene = preload(_SCREEN_PATH + "MainMenuScreen/main_menu_screen.tscn")

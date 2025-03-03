@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://btspuodtkbr7u"]
 
-[ext_resource type="Script" uid="uid://bobwum3kiiunl" path="res://Scenes/Screens/GameOverScreen/game_over_screen.gd" id="1_c00pi"]
-[ext_resource type="PackedScene" uid="uid://dqtfvuspfhidd" path="res://Scenes/Screens/GameScreen/game_over_canvas.tscn" id="2_clcq5"]
+[ext_resource type="Script" uid="uid://bobwum3kiiunl" path="res://Screens/GameOverScreen/game_over_screen.gd" id="1_c00pi"]
+[ext_resource type="PackedScene" uid="uid://dqtfvuspfhidd" path="res://Screens/GameScreen/game_over_canvas.tscn" id="2_clcq5"]
 [ext_resource type="AudioStream" uid="uid://dj2td4g4rgj06" path="res://Assets/Sounds/move_cursor.wav" id="3_pysk1"]
 [ext_resource type="Script" uid="uid://cva0agtacaluv" path="res://CustomControls/SoundEffect/sound_effect.gd" id="4_fgskh"]
 [ext_resource type="AudioStream" uid="uid://dbv00fxfs8fif" path="res://Assets/Sounds/new_high_score.wav" id="5_fgskh"]
