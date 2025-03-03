@@ -34,7 +34,7 @@ func _toggle_paused() -> void:
 func _on_quit_button_pressed() -> void:
   var confirmed: bool = await quit_confirm_modal.prompt()
   if confirmed:
-    EventBus.load_main_menu.emit()
+    EventBus.Screen.load_main_menu.emit()
     # HACK: Loading the new scene waits, so we wait so game doesn't unpause
     await get_tree().create_timer(.2).timeout
     _toggle_paused()

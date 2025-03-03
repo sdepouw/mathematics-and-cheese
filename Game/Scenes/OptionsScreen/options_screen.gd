@@ -29,10 +29,10 @@ func _on_clear_data_button_pressed() -> void:
 
 func _on_save_button_pressed() -> void:
   Options.save_options(_options)
-  EventBus.load_main_menu.emit()
+  EventBus.Screen.load_main_menu.emit()
 
 func _on_back_button_pressed() -> void:
-  EventBus.load_main_menu.emit()
+  EventBus.Screen.load_main_menu.emit()
 
 func _on_restore_defaults_button_pressed() -> void:
   _options = Options.get_default_options()

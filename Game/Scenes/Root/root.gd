@@ -13,12 +13,12 @@ const GAME_OVER_SCENE: PackedScene = preload("res://Scenes/GameOverScreen/game_o
 
 func _ready() -> void:
   _scene_loader.queue_load(SPLASH_SCREEN_SCENE)
-  EventBus.load_main_menu.connect(_load_main_menu)
-  EventBus.load_options.connect(_load_options)
-  EventBus.load_game.connect(_load_game)
-  EventBus.load_instructions.connect(_load_instructions)
-  EventBus.load_credits.connect(_load_credits)
-  EventBus.load_game_over.connect(_load_game_over)
+  EventBus.Screen.load_main_menu.connect(_load_main_menu)
+  EventBus.Screen.load_options.connect(_load_options)
+  EventBus.Screen.load_game.connect(_load_game)
+  EventBus.Screen.load_instructions.connect(_load_instructions)
+  EventBus.Screen.load_credits.connect(_load_credits)
+  EventBus.Screen.load_game_over.connect(_load_game_over)
 
 func _load_main_menu() -> void:
   await _scene_loader.queue_load(MAIN_MENU_SCENE)

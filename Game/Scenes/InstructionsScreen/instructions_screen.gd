@@ -10,4 +10,4 @@ func _ready() -> void:
   _instructions_label.text = instructions_template.format({"controls": controls})
 
 func _on_back_button_pressed() -> void:
-  EventBus.load_main_menu.emit()
+  EventBus.Screen.load_main_menu.emit()

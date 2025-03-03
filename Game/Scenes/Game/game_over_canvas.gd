@@ -38,7 +38,7 @@ func _disable_game_end_buttons_momentarily() -> void:
   _main_menu_button.disabled = false
 
 func _on_restart_button_pressed() -> void:
-  EventBus.load_game.emit()
+  EventBus.Screen.load_game.emit()
 
 func _on_main_menu_button_pressed() -> void:
-  EventBus.load_main_menu.emit()
+  EventBus.Screen.load_main_menu.emit()
