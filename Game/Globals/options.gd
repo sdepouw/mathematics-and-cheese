@@ -1,4 +1,6 @@
-# Included in global scope, so no class_name
+## Repoistory for Game Options
+
+# Included in global scope, so no class_name (must extend Node)
 extends Node
 
 ## Returns the current Option Values whenever they're saved or loaded

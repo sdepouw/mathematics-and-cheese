@@ -1,6 +1,5 @@
 @icon("res://bluey.png")
-class_name BlueyAnswer
-extends Node2D
+class_name BlueyAnswer extends Node2D
 
 @onready var _answer_label: Label = $ThoughtBubbleSprite/AnswerLabel
 

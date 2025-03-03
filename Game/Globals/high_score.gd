@@ -1,6 +1,6 @@
 ## Repository for the High Score, stored in user files
 
-# Included in global scope, so no class_name
+# Included in global scope, so no class_name (must extend Node)
 extends Node
 
 signal updated(highScore: int)

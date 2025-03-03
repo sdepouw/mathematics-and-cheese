@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cambpmv5v3opa"]
+
+[ext_resource type="Script" uid="uid://4hhnbaprkawe" path="res://CustomControls/EnhancedButton/enhanced_button.gd" id="1_w8vv5"]
+
+[node name="EnhancedButton" type="Button"]
+mouse_default_cursor_shape = 2
+shortcut_in_tooltip = false
+script = ExtResource("1_w8vv5")

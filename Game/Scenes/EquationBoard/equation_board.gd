@@ -1,5 +1,4 @@
-class_name EquationBoard
-extends Node2D
+class_name EquationBoard extends Node2D
 
 const EQUATION_SCENE: PackedScene = preload("res://Scenes/Equation/equation.tscn")
 
@@ -29,8 +28,8 @@ func toggle_cursor_sound(enabled: bool) -> void:
 var _equations_grid: Array
 
 func _ready() -> void:
-  EventBus.player_moved.connect(_on_player_moved)
-  EventBus.player_confirm.connect(_on_player_confirm)
+  EventBus.Player.player_moved.connect(_on_player_moved)
+  EventBus.Player.player_confirm.connect(_on_player_confirm)
   _equations = [
     _instantiate_equation(),
     _instantiate_equation(),

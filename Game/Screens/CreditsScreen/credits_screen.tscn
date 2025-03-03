@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://c2m51cu3euqqd"]
+
+[ext_resource type="Script" uid="uid://c066o242r7s4j" path="res://Screens/CreditsScreen/credits_screen.gd" id="1_ykwev"]
+[ext_resource type="Script" uid="uid://de706yc1x0tdn" path="res://CustomControls/ClickableRichTextLabel/clickable_rich_text_label.gd" id="2_22rij"]
+[ext_resource type="PackedScene" uid="uid://cambpmv5v3opa" path="res://CustomControls/EnhancedButton/enhanced_button.tscn" id="3_4lsct"]
+
+[node name="Credits" type="Node"]
+script = ExtResource("1_ykwev")
+
+[node name="CreditsText" type="RichTextLabel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+horizontal_alignment = 1
+script = ExtResource("2_22rij")
+metadata/_custom_type_script = "uid://de706yc1x0tdn"
+
+[node name="BackButton" parent="." instance=ExtResource("3_4lsct")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -144.0
+offset_right = 200.0
+offset_bottom = -44.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Back"
+
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

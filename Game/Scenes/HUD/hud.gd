@@ -1,5 +1,4 @@
-class_name HUD
-extends CanvasLayer
+class_name HUD extends CanvasLayer
 
 @onready var _score_label: Label = $ScoreLabel;
 @onready var _streak_canvas: StreakCanvas = $StreakCanvas

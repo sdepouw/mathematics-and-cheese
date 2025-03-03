@@ -1,5 +1,4 @@
-class_name StreakCanvas
-extends CanvasLayer
+class_name StreakCanvas extends CanvasLayer
 
 @onready var _streak_label: Label = $StreakLabel
 @onready var _streak_text: Label = $StreakText
