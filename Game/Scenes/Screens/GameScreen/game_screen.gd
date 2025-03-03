@@ -1,4 +1,4 @@
-class_name Game extends Node
+class_name GameScreen extends Node
 
 @onready var _equation_board: EquationBoard = $EquationBoard
 @onready var _bluey: BlueyAnswer = $BlueyAnswer

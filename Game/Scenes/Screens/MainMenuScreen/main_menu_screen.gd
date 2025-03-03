@@ -1,4 +1,4 @@
-class_name MainMenu extends Node
+class_name MainMenuScreen extends Node
 
 @onready var _game_title_label: Label = $GameTitleLabel
 

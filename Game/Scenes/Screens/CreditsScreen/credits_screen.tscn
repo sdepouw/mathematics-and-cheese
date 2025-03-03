@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://c2m51cu3euqqd"]
 
-[ext_resource type="Script" uid="uid://c066o242r7s4j" path="res://Scenes/Screens/Credits/credits.gd" id="1_ykwev"]
+[ext_resource type="Script" uid="uid://c066o242r7s4j" path="res://Scenes/Screens/CreditsScreen/credits_screen.gd" id="1_ykwev"]
 [ext_resource type="Script" uid="uid://de706yc1x0tdn" path="res://CustomControls/ClickableRichTextLabel/clickable_rich_text_label.gd" id="2_22rij"]
 [ext_resource type="PackedScene" uid="uid://cambpmv5v3opa" path="res://CustomControls/EnhancedButton/enhanced_button.tscn" id="3_4lsct"]
 

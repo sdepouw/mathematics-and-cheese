@@ -3,11 +3,11 @@ class_name Root extends Node
 const _SCREEN_PATH: String = "res://Scenes/Screens/"
 
 const SPLASH_SCREEN_SCENE: PackedScene = preload(_SCREEN_PATH + "SplashScreen/splash_screen.tscn")
-const MAIN_MENU_SCENE: PackedScene = preload(_SCREEN_PATH + "MainMenu/main_menu.tscn")
+const MAIN_MENU_SCENE: PackedScene = preload(_SCREEN_PATH + "MainMenuScreen/main_menu_screen.tscn")
 const OPTIONS_SCENE: PackedScene = preload(_SCREEN_PATH + "OptionsScreen/options_screen.tscn")
-const GAME_SCENE: PackedScene = preload(_SCREEN_PATH + "Game/game.tscn")
+const GAME_SCENE: PackedScene = preload(_SCREEN_PATH + "GameScreen/game_screen.tscn")
 const INSTRUCTIONS_SCENE: PackedScene = preload(_SCREEN_PATH + "InstructionsScreen/instructions_screen.tscn")
-const CREDITS_SCENE: PackedScene = preload(_SCREEN_PATH + "Credits/credits.tscn")
+const CREDITS_SCENE: PackedScene = preload(_SCREEN_PATH + "CreditsScreen/credits_screen.tscn")
 const GAME_OVER_SCENE: PackedScene = preload(_SCREEN_PATH + "GameOverScreen/game_over_screen.tscn")
 
 @onready var _scene_loader: SceneLoader = $SceneLoader
