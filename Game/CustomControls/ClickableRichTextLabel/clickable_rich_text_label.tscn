@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://e6e1v3eou6ew"]
 
-[ext_resource type="Script" uid="uid://de706yc1x0tdn" path="res://Scenes/ClickableRichTextLabel/clickable_rich_text_label.gd" id="1_5ehpq"]
+[ext_resource type="Script" uid="uid://de706yc1x0tdn" path="res://CustomControls/ClickableRichTextLabel/clickable_rich_text_label.gd" id="1_5ehpq"]
 
 [node name="ClickableRichTextLabel" type="RichTextLabel"]
 script = ExtResource("1_5ehpq")

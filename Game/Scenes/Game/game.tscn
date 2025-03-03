@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://csme42t8hpnid" path="res://Scenes/PauseScreen/pause_screen.tscn" id="6_flgk0"]
 [ext_resource type="AudioStream" uid="uid://c42nkfhvunfly" path="res://Assets/Sounds/correct.wav" id="6_vifcx"]
 [ext_resource type="AudioStream" uid="uid://dbv00fxfs8fif" path="res://Assets/Sounds/new_high_score.wav" id="9_huoen"]
-[ext_resource type="Script" uid="uid://cva0agtacaluv" path="res://Scenes/SoundEffect/sound_effect.gd" id="10_7jvlm"]
+[ext_resource type="Script" uid="uid://cva0agtacaluv" path="res://CustomControls/SoundEffect/sound_effect.gd" id="10_7jvlm"]
 
 [node name="Game" type="Node"]
 script = ExtResource("1_i1e5p")

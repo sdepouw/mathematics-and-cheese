@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://cn1iphhrvytyr"]
 
 [ext_resource type="Script" uid="uid://c12hyimcr08df" path="res://Scenes/OptionsScreen/options_screen.gd" id="1_a5ync"]
-[ext_resource type="PackedScene" uid="uid://cambpmv5v3opa" path="res://Scenes/EnhancedButton/enhanced_button.tscn" id="2_arfih"]
+[ext_resource type="PackedScene" uid="uid://cambpmv5v3opa" path="res://CustomControls/EnhancedButton/enhanced_button.tscn" id="2_arfih"]
 [ext_resource type="PackedScene" uid="uid://dfqcen7aye16k" path="res://Scenes/ConfirmationModal/confirmation_modal.tscn" id="3_irk63"]
-[ext_resource type="Script" uid="uid://4hhnbaprkawe" path="res://Scenes/EnhancedButton/enhanced_button.gd" id="4_ndlxd"]
+[ext_resource type="Script" uid="uid://4hhnbaprkawe" path="res://CustomControls/EnhancedButton/enhanced_button.gd" id="4_ndlxd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_irk63"]
 bg_color = Color(0, 0.341176, 0.72549, 1)

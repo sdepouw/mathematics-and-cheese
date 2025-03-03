@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dfqcen7aye16k"]
 
 [ext_resource type="Script" uid="uid://bf3gyjo1lqu48" path="res://Scenes/ConfirmationModal/confirmation_modal.gd" id="1_bissh"]
-[ext_resource type="PackedScene" uid="uid://cambpmv5v3opa" path="res://Scenes/EnhancedButton/enhanced_button.tscn" id="3_itklm"]
+[ext_resource type="PackedScene" uid="uid://cambpmv5v3opa" path="res://CustomControls/EnhancedButton/enhanced_button.tscn" id="3_itklm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3nn7n"]
 bg_color = Color(0, 0, 0, 1)
