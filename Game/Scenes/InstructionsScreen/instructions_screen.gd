@@ -1,7 +1,7 @@
 class_name InstructionsScreen extends Node
 
-const _INSTRUCTIONS_TEXT_FILE_PATH: String = "res://Assets/instructions.txt"
-const _CONTROLS_TEXT_FILE_PATH: String = "res://Assets/controls.txt"
+const _INSTRUCTIONS_TEXT_FILE_PATH: String = "res://Assets/Text/instructions.txt"
+const _CONTROLS_TEXT_FILE_PATH: String = "res://Assets/Text/controls.txt"
 @onready var _instructions_label: ClickableRichTextLabel = $InstructionsLabel
 
 func _ready() -> void:

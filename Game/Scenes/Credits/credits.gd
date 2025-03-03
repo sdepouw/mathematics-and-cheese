@@ -1,7 +1,6 @@
 class_name CreditsScreen extends Node
 
-const _CREDITS_TEXT_FILE_PATH: String = "res://Assets/credits.txt"
-
+const _CREDITS_TEXT_FILE_PATH: String = "res://Assets/Text/credits.txt"
 @onready var _credits_text_label: ClickableRichTextLabel = $CreditsText
 
 func _ready() -> void:
