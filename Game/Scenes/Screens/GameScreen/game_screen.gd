@@ -6,7 +6,7 @@ class_name GameScreen extends Node
 @onready var _game_timer: Timer = $GameTimer
 @onready var _countdown_timer: Timer = $CountdownTimer
 @onready var _countdown_label: Label = $CountdownLabel
-@onready var _pause_screen: PauseScreen = $PauseScreen
+@onready var _pause_overlay: PauseOverlay = $PauseOverlay
 @onready var _wrong_sound: SoundEffect = $WrongSound
 @onready var _correct_sound: SoundEffect = $CorrectSound
 @onready var _streak_reached_sound: SoundEffect = $StreakReachedSound
@@ -53,10 +53,10 @@ func _start_new_game() -> void:
   _equation_board.toggle_cursor_sound(true)
   _toggle_game_piece_visibility(true)
   _game_timer.start()
-  _pause_screen.can_pause = true
+  _pause_overlay.can_pause = true
 
 func _end_game() -> void:
-  _pause_screen.can_pause = false
+  _pause_overlay.can_pause = false
   _toggle_game_piece_visibility(false)
   _hud.show_game_end()
   _equation_board.toggle_cursor_sound(false)
@@ -93,10 +93,10 @@ func _run_countdown_async() -> void:
   await _countdown_timer.timeout
   _countdown_label.hide()
 
-func _on_pause_screen_paused() -> void:
+func _on_pause_overlay_paused() -> void:
   _toggle_game_piece_visibility(false)
   _equation_board.hide()
 
-func _on_pause_screen_unpaused() -> void:
+func _on_pause_overlay_unpaused() -> void:
   _toggle_game_piece_visibility(true)
   _equation_board.show()

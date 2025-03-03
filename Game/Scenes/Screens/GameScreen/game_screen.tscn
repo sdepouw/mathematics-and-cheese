@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cfdil1vt2522f" path="res://Scenes/HUD/hud.tscn" id="2_fuaif"]
 [ext_resource type="PackedScene" uid="uid://c5b1rrrdeysj3" path="res://Scenes/EquationBoard/equation_board.tscn" id="3_kedtl"]
 [ext_resource type="PackedScene" uid="uid://bya2bspfpyt0c" path="res://Scenes/BlueyAnswer/bluey_answer.tscn" id="4_ldurr"]
-[ext_resource type="PackedScene" uid="uid://csme42t8hpnid" path="res://Scenes/PauseScreen/pause_screen.tscn" id="5_xno5l"]
+[ext_resource type="PackedScene" uid="uid://csme42t8hpnid" path="res://Scenes/PauseOverlay/pause_overlay.tscn" id="5_xno5l"]
 [ext_resource type="AudioStream" uid="uid://7cc2l76edtum" path="res://Assets/Sounds/wrong.wav" id="6_c3a4v"]
 [ext_resource type="Script" uid="uid://cva0agtacaluv" path="res://CustomControls/SoundEffect/sound_effect.gd" id="7_xu67b"]
 [ext_resource type="AudioStream" uid="uid://c42nkfhvunfly" path="res://Assets/Sounds/correct.wav" id="8_j7wfc"]
@@ -48,7 +48,7 @@ horizontal_alignment = 1
 wait_time = 3.0
 one_shot = true
 
-[node name="PauseScreen" parent="." instance=ExtResource("5_xno5l")]
+[node name="PauseOverlay" parent="." instance=ExtResource("5_xno5l")]
 visible = false
 
 [node name="WrongSound" type="AudioStreamPlayer" parent="."]
@@ -68,5 +68,5 @@ metadata/_custom_type_script = "uid://cva0agtacaluv"
 
 [connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]
 [connection signal="board_equation_selected" from="EquationBoard" to="." method="_on_board_equation_selected"]
-[connection signal="paused" from="PauseScreen" to="." method="_on_pause_screen_paused"]
-[connection signal="unpaused" from="PauseScreen" to="." method="_on_pause_screen_unpaused"]
+[connection signal="paused" from="PauseOverlay" to="." method="_on_pause_overlay_paused"]
+[connection signal="unpaused" from="PauseOverlay" to="." method="_on_pause_overlay_unpaused"]

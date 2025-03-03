@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://csme42t8hpnid"]
 
-[ext_resource type="Script" uid="uid://bmif7r0xmyepq" path="res://Scenes/PauseScreen/pause_screen.gd" id="1_kf473"]
+[ext_resource type="Script" uid="uid://bmif7r0xmyepq" path="res://Scenes/PauseOverlay/pause_overlay.gd" id="1_kf473"]
 [ext_resource type="AudioStream" uid="uid://qp5ruxvyevjv" path="res://Assets/Sounds/pause.wav" id="2_542x1"]
 [ext_resource type="PackedScene" uid="uid://cambpmv5v3opa" path="res://CustomControls/EnhancedButton/enhanced_button.tscn" id="2_qnk5u"]
 [ext_resource type="Script" uid="uid://cva0agtacaluv" path="res://CustomControls/SoundEffect/sound_effect.gd" id="4_povxt"]
