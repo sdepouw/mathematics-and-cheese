@@ -12,7 +12,7 @@ var can_pause: bool = false
 
 func _ready() -> void:
   self.visible = false
-  _controls_label.text = Globals.get_controls_text()
+  _controls_label.text = Text.controls
 
 func _process(_delta: float) -> void:
   # We have to manually parse inputs instead of relying on EventBus

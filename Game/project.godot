@@ -23,6 +23,7 @@ Globals="*res://Globals/globals.gd"
 EventBus="*res://Globals/event_bus.gd"
 HighScore="*res://Globals/high_score.gd"
 Options="*res://Globals/options.gd"
+Text="*res://Globals/text.gd"
 
 [debug]
 
