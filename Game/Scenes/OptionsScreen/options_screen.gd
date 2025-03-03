@@ -1,5 +1,4 @@
-class_name OptionsScreen
-extends Control
+class_name OptionsScreen extends Control
 
 @onready var _clear_confirm_modal: ConfirmationModal = $ClearConfirmModal
 @onready var _sound_volume_progress_bar: ProgressBar = $SoundAmount

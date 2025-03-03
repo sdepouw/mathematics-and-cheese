@@ -1,5 +1,4 @@
-class_name CreditsScreen
-extends Node
+class_name CreditsScreen extends Node
 
 const _CREDITS_TEXT_FILE_PATH: String = "res://Assets/credits.txt"
 

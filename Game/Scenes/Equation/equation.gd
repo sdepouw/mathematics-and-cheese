@@ -1,5 +1,4 @@
-class_name Equation
-extends Area2D
+class_name Equation extends Area2D
 
 signal equation_clicked(equation: Equation)
 signal equation_mouse_entered(equation: Equation)

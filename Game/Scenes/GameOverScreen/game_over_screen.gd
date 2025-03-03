@@ -1,5 +1,4 @@
-class_name GameOverScreen
-extends Control
+class_name GameOverScreen extends Control
 
 ## How many points to award per number in the Best Streak
 @export var best_streak_bonus_unit: int = 100

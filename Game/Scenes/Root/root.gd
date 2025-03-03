@@ -1,5 +1,4 @@
-class_name Root
-extends Node
+class_name Root extends Node
 
 const SPLASH_SCREEN_SCENE: PackedScene = preload("res://Scenes/SplashScreen/splash_screen.tscn")
 const MAIN_MENU_SCENE: PackedScene = preload("res://Scenes/MainMenu/main_menu.tscn")

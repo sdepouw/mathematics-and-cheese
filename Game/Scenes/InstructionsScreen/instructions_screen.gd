@@ -1,5 +1,4 @@
-class_name InstructionsScreen
-extends Node
+class_name InstructionsScreen extends Node
 
 const _INSTRUCTIONS_TEXT_FILE_PATH: String = "res://Assets/instructions.txt"
 const _CONTROLS_TEXT_FILE_PATH: String = "res://Assets/controls.txt"

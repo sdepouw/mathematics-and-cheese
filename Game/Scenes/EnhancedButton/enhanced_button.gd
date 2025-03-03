@@ -1,7 +1,6 @@
 ## Button that contains a default size, uses the pointer cursor on hover, and
 ## plays a sound when clicked
-class_name EnhancedButton
-extends Button
+class_name EnhancedButton extends Button
 
 const _DEFAULT_SOUND: AudioStream = preload("res://Assets/Sounds/button_press.wav")
 

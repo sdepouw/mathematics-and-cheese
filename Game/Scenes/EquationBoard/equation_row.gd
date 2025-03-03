@@ -1,5 +1,4 @@
-class_name EquationRow
-extends Node2D
+class_name EquationRow extends Node2D
 
 @onready var _col_1: Marker2D = $Col1
 @onready var _col_2: Marker2D = $Col2

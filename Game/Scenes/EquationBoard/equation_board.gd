@@ -1,5 +1,4 @@
-class_name EquationBoard
-extends Node2D
+class_name EquationBoard extends Node2D
 
 const EQUATION_SCENE: PackedScene = preload("res://Scenes/Equation/equation.tscn")
 

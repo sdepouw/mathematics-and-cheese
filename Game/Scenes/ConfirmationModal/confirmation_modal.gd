@@ -1,6 +1,5 @@
 ## Prompts the player to Confirm or Cancel
-class_name ConfirmationModal
-extends Control
+class_name ConfirmationModal extends Control
 
 # Script and scene based off https://www.youtube.com/watch?v=GCFosi_53ro
 signal confirmed(is_confirmed: bool)

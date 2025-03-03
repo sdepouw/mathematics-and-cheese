@@ -1,8 +1,7 @@
 ## Instantiates a given PackedScene into SceneLoader's parent, ensuring
 ## that the previously-istantiated PackedScene is removed and deleted
 ## beforehand
-class_name SceneLoader
-extends Node
+class_name SceneLoader extends Node
 
 var _loaded_instance: Node
 var _scene_to_load: PackedScene

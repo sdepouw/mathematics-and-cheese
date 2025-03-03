@@ -1,5 +1,4 @@
-class_name PauseScreen
-extends CanvasLayer
+class_name PauseScreen extends CanvasLayer
 
 signal paused
 signal unpaused

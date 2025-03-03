@@ -1,5 +1,4 @@
-class_name GameOverCanvas
-extends CanvasLayer
+class_name GameOverCanvas extends CanvasLayer
 
 @onready var _game_over_label: Label = $GameOverLabel
 @onready var _restart_button: EnhancedButton = $RestartButton
