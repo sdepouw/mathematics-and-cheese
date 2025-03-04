@@ -62,14 +62,14 @@ func _end_game() -> void:
   _equation_board.toggle_cursor_sound(false)
   _equation_board.hide()
   await get_tree().create_timer(1.0).timeout
-  EventBus.Screen.load_game_over.emit(_score_keeper.get_score(), _score_keeper.get_best_streak())
+  EventBus.Screen.load_game_over.emit(_score_keeper.get_score(), _score_keeper.get_best_streak(), _score_keeper.get_cheeses())
 
 func _on_board_equation_selected(equation: Equation) -> void:
   if !_game_on or equation == null:
     return
   if _answer_to_hit == equation.get_answer():
     var streak_reached: bool = _score_keeper.score_hit()
-    if streak_reached:
+    if streak_reached || _score_keeper.just_rewarded_cheese():
       _streak_reached_sound.play()
     else:
       _correct_sound.play()
