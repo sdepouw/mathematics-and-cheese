@@ -44,12 +44,12 @@ func _toggle_game_piece_visibility(visible: bool) -> void:
     item.visible = visible
 
 func _start_new_game() -> void:
-  _score_keeper.reset()
   _high_score_reached = false
   _hud.update_time_display(_game_timer.wait_time)
   _hud.update_high_score_display(HighScore.get_current_high_score())
   _generate_new_equations()
   await _run_countdown_async()
+  _score_keeper.reset()
   _equation_board.toggle_cursor_sound(true)
   _toggle_game_piece_visibility(true)
   _game_timer.start()
