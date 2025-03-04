@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4qkke5fih46m"]
+
+[ext_resource type="Texture2D" uid="uid://cnhrf60x1lk0d" path="res://Assets/Art/cheese/cheddar.png" id="1_ypv2b"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_senf6"]
+radius = 53.2566
+height = 120.814
+
+[node name="CheeseBody" type="RigidBody2D"]
+
+[node name="CheeseSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_ypv2b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(6, -3)
+rotation = -1.2339
+shape = SubResource("CapsuleShape2D_senf6")

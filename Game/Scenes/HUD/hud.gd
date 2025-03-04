@@ -4,7 +4,10 @@ class_name HUD extends CanvasLayer
 @onready var _streak_canvas: StreakCanvas = $StreakCanvas
 @onready var _high_score_label: Label = $HighScoreLabel;
 @onready var _time_label: Label = $TimeLabel;
+
 @onready var _new_cheese_label: Label = $NewCheeseLabel
+@onready var _cheese_spawn_point: Marker2D = $CheeseSpawnPoint
+const CHEESE_BODY: PackedScene = preload("res://Scenes/HUD/cheese_body.tscn")
 
 func _ready() -> void:
   _new_cheese_label.hide()
@@ -37,9 +40,13 @@ func _update_streak_display(streak: int, streak_visible: bool) -> void:
   _streak_canvas.update_streak_display(streak, streak_visible)
 
 func _highlight_new_cheese() -> void:
+  var cheese: RigidBody2D = CHEESE_BODY.instantiate()
+  cheese.position = _cheese_spawn_point.position
+  add_child(cheese)
   _new_cheese_label.show()
-  await get_tree().create_timer(.75).timeout
+  await get_tree().create_timer(2).timeout
   _new_cheese_label.hide()
+  cheese.queue_free()
 
 func _clamp_score_display(score: int) -> String:
   return "%07d" % max(0, score)

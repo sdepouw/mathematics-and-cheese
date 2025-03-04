@@ -76,6 +76,7 @@ func _ready() -> void:
   #load_scene_data([10000, 27, 5]) # Debugging
   var high_score_reached: bool = _total_score > HighScore.get_current_high_score()
   _initialize_tally_display()
+  # TODO: Spawn all the collected cheeses, have them fall and land on the bottom of the screen
   await _tally_async()
 
   if high_score_reached:
