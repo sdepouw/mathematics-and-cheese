@@ -37,6 +37,10 @@ var _cheese_score: int:
   get: return _cheeses * cheese_bonus_unit
 var _total_score: int:
   get: return _score + _streak_score + _cheese_score
+var _current_score: int:
+  set(value):
+    _current_score = value
+    _score_value.text = "%d" % value
 var _current_streak_score: int:
   set(value):
     _current_streak_score = value
@@ -57,6 +61,7 @@ func load_scene_data(data: Variant) -> void:
   _cheeses = data[2]
 
 func _ready() -> void:
+  load_scene_data([13000, 27, 5])
   var high_score_reached: bool = _total_score > HighScore.get_current_high_score()
   _initialize_tally_display()
   await _tally_async()
@@ -75,7 +80,7 @@ func _initialize_tally_display() -> void:
   _sum_line.hide()
   _total_line.hide()
   _game_over_canvas.hide()
-  _score_value.text = "%d" % _score
+  _score_value.text = "0"
   _streak_value.text = "%03d" % _best_streak
   _streak_score_value.text = "0"
   _cheese_value.text = "%03d" % _cheeses
@@ -84,7 +89,14 @@ func _initialize_tally_display() -> void:
 
 func _tally_async() -> void:
   await _restart_score_line_timer_async()
+
   _score_line.show()
+  while _current_score < _score:
+    var increment: int = _current_score + 847
+    _tally_timer.start()
+    await _tally_timer.timeout
+    _tally_sound.play()
+    _current_score = clampi(increment, 0, _score)
   await _restart_score_line_timer_async()
 
   _streak_line.show()
