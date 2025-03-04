@@ -61,7 +61,6 @@ func load_scene_data(data: Variant) -> void:
   _cheeses = data[2]
 
 func _ready() -> void:
-  load_scene_data([13000, 27, 5])
   var high_score_reached: bool = _total_score > HighScore.get_current_high_score()
   _initialize_tally_display()
   await _tally_async()
