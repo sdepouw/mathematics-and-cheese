@@ -86,11 +86,11 @@ func _on_play_again_requested() -> void:
   _start_new_game()
 
 func _run_countdown_async() -> void:
-  _equation_board.show() # Allow preview of first set of equations
   _equation_board.reset_reticle_position()
   _countdown_label.show()
   _countdown_timer.start()
   await _countdown_timer.timeout
+  _equation_board.show()
   _countdown_label.hide()
 
 func _on_pause_overlay_paused() -> void:
