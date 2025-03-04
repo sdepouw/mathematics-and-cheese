@@ -1,9 +1,13 @@
 class_name GameOverScreen extends Control
 
+## The rate per tick in which the Score and Total Score are tallied up
+@export_range(0, 99999) var score_tally_rate: int = 847
 ## How many points to award per number in the Best Streak
-@export var best_streak_bonus_unit: int = 100
+@export_range(0, 99999) var best_streak_bonus_unit: int = 100
 ## How many points to award for each Cheese collected
-@export var cheese_bonus_unit: int = 400
+@export_range(0, 99999) var cheese_bonus_unit: int = 400
+## How much time to add to the tally tick for counting Cheese
+@export_range(0.0, 1.0, .1) var cheese_tally_speed_modifier: float = .1
 
 @onready var _score_value: Label = %ScoreValue
 @onready var _streak_score_value: Label = %StreakScoreValue
@@ -41,10 +45,18 @@ var _current_score: int:
   set(value):
     _current_score = value
     _score_value.text = "%d" % value
+var _current_best_streak: int:
+  set(value):
+    _current_best_streak = value
+    _streak_value.text = "%03d" % value
 var _current_streak_score: int:
   set(value):
     _current_streak_score = value
     _streak_score_value.text = "%d" % value
+var _current_cheeses: int:
+  set(value):
+    _current_cheeses = value
+    _cheese_value.text = "%03d" % value
 var _current_cheese_score: int:
   set(value):
     _current_cheese_score = value
@@ -61,6 +73,7 @@ func load_scene_data(data: Variant) -> void:
   _cheeses = data[2]
 
 func _ready() -> void:
+  #load_scene_data([10000, 27, 5]) # Debugging
   var high_score_reached: bool = _total_score > HighScore.get_current_high_score()
   _initialize_tally_display()
   await _tally_async()
@@ -91,37 +104,39 @@ func _tally_async() -> void:
 
   _score_line.show()
   while _current_score < _score:
-    var increment: int = _current_score + 847
-    _tally_timer.start()
-    await _tally_timer.timeout
+    var increment: int = _current_score + score_tally_rate
     _tally_sound.play()
     _current_score = clampi(increment, 0, _score)
+    _tally_timer.start()
+    await _tally_timer.timeout
   await _restart_score_line_timer_async()
 
   _streak_line.show()
   while _current_streak_score < _streak_score:
     var increment: int = _current_streak_score + best_streak_bonus_unit
-    _tally_timer.start()
-    await _tally_timer.timeout
     _tally_sound.play()
     _current_streak_score = clampi(increment, 0, _streak_score)
+    _current_best_streak = clampi(_current_best_streak + 1, 0, _best_streak)
+    _tally_timer.start()
+    await _tally_timer.timeout
   await _restart_score_line_timer_async()
 
-  _tally_timer.wait_time += .25
+  _tally_timer.wait_time += cheese_tally_speed_modifier
   _cheese_line.show()
   while _current_cheese_score < _cheese_score:
     var increment: int = _current_cheese_score + cheese_bonus_unit
-    _tally_timer.start()
-    await _tally_timer.timeout
     _tally_sound.play()
     _current_cheese_score = clampi(increment, 0, _cheese_score)
-  _tally_timer.wait_time -= .25
+    _current_cheeses = clampi(_current_cheeses + 1, 0, _cheeses)
+    _tally_timer.start()
+    await _tally_timer.timeout
+  _tally_timer.wait_time -= cheese_tally_speed_modifier
 
   await _restart_score_line_timer_async()
   _sum_line.show()
   _total_line.show()
   while _current_total_score < _total_score:
-    var increment: int = _current_total_score + 5276
+    var increment: int = _current_total_score + score_tally_rate
     _tally_timer.start()
     await _tally_timer.timeout
     _tally_sound.play()
