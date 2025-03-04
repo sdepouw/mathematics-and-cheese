@@ -9,7 +9,7 @@ class_name GameScreen extends Node
 @onready var _pause_overlay: PauseOverlay = $PauseOverlay
 @onready var _wrong_sound: SoundEffect = $WrongSound
 @onready var _correct_sound: SoundEffect = $CorrectSound
-@onready var _streak_reached_sound: SoundEffect = $StreakReachedSound
+@onready var _new_cheese_sound: SoundEffect = $NewCheeseSound
 @onready var _score_keeper: ScoreKeeper = ScoreKeeper.new()
 
 var _answer_to_hit: int:
@@ -68,9 +68,9 @@ func _on_board_equation_selected(equation: Equation) -> void:
   if !_game_on or equation == null:
     return
   if _answer_to_hit == equation.get_answer():
-    var streak_reached: bool = _score_keeper.score_hit()
-    if streak_reached || _score_keeper.just_rewarded_cheese():
-      _streak_reached_sound.play()
+    _score_keeper.score_hit()
+    if _score_keeper.just_rewarded_cheese():
+      _new_cheese_sound.play()
     else:
       _correct_sound.play()
   else:

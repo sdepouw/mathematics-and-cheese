@@ -32,7 +32,7 @@ func on_hot_streak() -> bool:
 func just_rewarded_cheese() -> bool:
   return _current_streak > 0 && _current_streak % _CHEESE_REWARD_MULTIPLE == 0
 
-func score_hit() -> bool:
+func score_hit() -> void:
   _current_streak += 1
   if on_hot_streak():
     var streak_bonus: int = ceili(_BASE_REWARD * _current_streak * 0.15)
@@ -44,7 +44,6 @@ func score_hit() -> bool:
   if just_rewarded_cheese():
     _cheeses += 1
   _notify_score_updated()
-  return _current_streak == _HOT_STREAK_THRESHOLD + 1
 
 func score_miss() -> void:
   _current_score -= _BASE_PENALTY
