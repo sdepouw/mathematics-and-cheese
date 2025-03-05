@@ -54,3 +54,14 @@ grow_horizontal = 2
 theme_override_font_sizes/font_size = 96
 text = "00"
 horizontal_alignment = 1
+
+[node name="NewCheeseLabel" type="Label" parent="."]
+offset_top = 96.0
+offset_right = 282.0
+offset_bottom = 161.0
+theme_override_colors/font_color = Color(1, 0.70435, 0.0862641, 1)
+theme_override_font_sizes/font_size = 56
+text = "Cheese Get!"
+
+[node name="CheeseSpawnPoint" type="Marker2D" parent="."]
+position = Vector2(87, -51)

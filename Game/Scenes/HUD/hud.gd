@@ -5,9 +5,19 @@ class_name HUD extends CanvasLayer
 @onready var _high_score_label: Label = $HighScoreLabel;
 @onready var _time_label: Label = $TimeLabel;
 
-func update_score_display(new_score: int, new_streak: int, on_hot_streak: bool) -> void:
+@onready var _new_cheese_label: Label = $NewCheeseLabel
+@onready var _cheese_spawn_point: Marker2D = $CheeseSpawnPoint
+const CHEESE_BODY: PackedScene = preload("res://Scenes/HUD/cheese_body.tscn")
+@onready var _new_cheese_label_default_text: String = _new_cheese_label.text
+
+func _ready() -> void:
+  _new_cheese_label.hide()
+
+func update_score_display(new_score: int, new_streak: int, on_hot_streak: bool, new_cheeses: int) -> void:
   _update_score_display(new_score)
   _update_streak_display(new_streak, on_hot_streak)
+  if new_cheeses > 0:
+    _highlight_new_cheese(new_cheeses)
 
 func update_high_score_display(high_score: int) -> void:
   _high_score_label.text = _clamp_score_display(high_score)
@@ -29,6 +39,25 @@ func _update_score_display(score: int) -> void:
 
 func _update_streak_display(streak: int, streak_visible: bool) -> void:
   _streak_canvas.update_streak_display(streak, streak_visible)
+
+func _highlight_new_cheese(new_cheeses: int) -> void:
+  if new_cheeses > 1:
+    _new_cheese_label.text = "%s x%d" % [_new_cheese_label_default_text, new_cheeses]
+  else:
+    _new_cheese_label.text = _new_cheese_label_default_text
+  _new_cheese_label.show()
+  while (new_cheeses > 0):
+    _spawn_cheese()
+    new_cheeses -= 1
+  await get_tree().create_timer(2).timeout
+  _new_cheese_label.hide()
+
+func _spawn_cheese() -> void:
+  var cheese: RigidBody2D = CHEESE_BODY.instantiate()
+  cheese.position = _cheese_spawn_point.position
+  add_child(cheese)
+  await get_tree().create_timer(2).timeout
+  cheese.queue_free()
 
 func _clamp_score_display(score: int) -> String:
   return "%07d" % max(0, score)
