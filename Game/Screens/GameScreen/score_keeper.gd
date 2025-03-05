@@ -6,8 +6,9 @@ const _BASE_REWARD: int = 100
 const _BASE_PENALTY: int = 50
 const _HOT_STREAK_THRESHOLD: int = 2
 const _CHEESE_REWARD_MULTIPLE: int = 5
+const _QUICK_MATHS_TIME: float = 1.0
 
-var _timer: NativeTimer = NativeTimer.new(2.0)
+var _timer: NativeTimer = NativeTimer.new(_QUICK_MATHS_TIME)
 
 var _current_score: int:
   set(value):
