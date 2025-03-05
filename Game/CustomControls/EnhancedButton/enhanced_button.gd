@@ -19,4 +19,4 @@ func _ready() -> void:
 func _on_pressed_play_sound() -> void:
   _pressed_sound.play()
   # Doesn't work, since other methods getting emitted to can't await this method
-  await _pressed_sound.finished
+  #await _pressed_sound.finished

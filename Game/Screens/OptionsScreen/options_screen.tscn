@@ -128,13 +128,11 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 theme_override_constants/separation = 50
 
-[node name="SaveButton" type="Button" parent="ButtonsMargins/ButtonsHBox"]
+[node name="SaveButton" parent="ButtonsMargins/ButtonsHBox" instance=ExtResource("2_arfih")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 text = "Save"
-script = ExtResource("4_ndlxd")
-metadata/_custom_type_script = "uid://4hhnbaprkawe"
 
 [node name="BackButton" parent="ButtonsMargins/ButtonsHBox" instance=ExtResource("2_arfih")]
 layout_mode = 2
