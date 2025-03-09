@@ -1,0 +1,11 @@
+Color Palette for Bluey
+
+FUR
+#80abda - primary fur color
+#92aebf - shaded fur color
+
+PAW
+#0081d8 - primary paw color
+#006fac - shaded paw color
+#b9c7d2 - primary claw color
+#9aa8b1 - shaded paw color

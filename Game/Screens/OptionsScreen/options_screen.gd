@@ -16,11 +16,12 @@ func _on_sound_amount_gui_input(event: InputEvent) -> void:
   if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
     var mouse_event: InputEventMouse = event as InputEventMouse
     var clicked_spot: float = clampf(mouse_event.position.x, 0, _sound_volume_progress_bar.size.x)
-    _sound_volume_progress_bar.mouse_default_cursor_shape = Control.CURSOR_HSPLIT
+    # TODO: Using custom mouse cursor. For now we only have the one.
+    # _sound_volume_progress_bar.mouse_default_cursor_shape = Control.CURSOR_HSPLIT
     _sound_volume_progress_bar.ratio = clicked_spot / _sound_volume_progress_bar.size.x
     _options.sound_volume = _sound_volume_progress_bar.ratio
-  else:
-    _sound_volume_progress_bar.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+  #else:
+    #_sound_volume_progress_bar.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 
 func _on_clear_data_button_pressed() -> void:
   var confirmed: bool = await _clear_confirm_modal.prompt()
