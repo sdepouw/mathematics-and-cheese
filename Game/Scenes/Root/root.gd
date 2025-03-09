@@ -13,6 +13,8 @@ const GAME_OVER_SCENE: PackedScene = preload(_SCREEN_PATH + "GameOverScreen/game
 @onready var _scene_loader: SceneLoader = $SceneLoader
 @onready var _backgroud_parallex: Parallax2D = $BackgroundParallex
 
+const DEFAULT_MOUSE_CURSOR: Resource = preload("res://Assets/Art/bluey/open-paw.png")
+
 func _ready() -> void:
   _scene_loader.queue_load(SPLASH_SCREEN_SCENE)
   EventBus.Screen.load_main_menu.connect(_load_main_menu)
@@ -21,6 +23,7 @@ func _ready() -> void:
   EventBus.Screen.load_instructions.connect(_load_instructions)
   EventBus.Screen.load_credits.connect(_load_credits)
   EventBus.Screen.load_game_over.connect(_load_game_over)
+  Input.set_custom_mouse_cursor(DEFAULT_MOUSE_CURSOR, Input.CURSOR_ARROW)
 
 func _load_main_menu() -> void:
   await _scene_loader.queue_load(MAIN_MENU_SCENE)

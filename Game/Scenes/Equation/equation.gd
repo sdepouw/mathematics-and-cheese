@@ -59,10 +59,13 @@ var _default_cursor_shape: Input.CursorShape
 func _on_mouse_entered() -> void:
   _default_cursor_shape = Input.get_current_cursor_shape()
   equation_mouse_entered.emit(self)
-  Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
+  # TODO: Using custom mouse cursor. For now we only have the one.
+  # Also we shouldn't be setting the global default cursor shape!
+  #Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
 
 func _on_mouse_exited() -> void:
-  Input.set_default_cursor_shape(_default_cursor_shape)
+  pass
+  #Input.set_default_cursor_shape(_default_cursor_shape)
 
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
   var mouse_event: InputEventMouseButton = event as InputEventMouseButton

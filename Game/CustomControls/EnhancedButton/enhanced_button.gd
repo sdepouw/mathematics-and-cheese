@@ -13,7 +13,8 @@ func _ready() -> void:
   _pressed_sound.stream = sound_on_press
   _pressed_sound.volume_db = volume_db
   self.add_child(_pressed_sound)
-  self.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+  # TODO: Using custom mouse cursor. For now we only have the one.
+  # self.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
   self.pressed.connect(_on_pressed_play_sound)
 
 func _on_pressed_play_sound() -> void:
