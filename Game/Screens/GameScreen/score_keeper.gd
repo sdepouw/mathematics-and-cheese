@@ -1,6 +1,6 @@
 class_name ScoreKeeper
 
-signal score_updated(new_score: int, new_streak: int, on_hot_streak: bool, new_cheeses: int)
+signal score_updated(new_score: int, new_streak: int, is_on_hot_streak: bool, new_cheeses: int)
 
 const _BASE_REWARD: int = 100
 const _BASE_PENALTY: int = 50
@@ -30,7 +30,7 @@ func get_best_streak() -> int:
 func get_cheeses() -> int:
   return _cheeses
 
-func on_hot_streak() -> bool:
+func is_on_hot_streak() -> bool:
   return _current_streak > _HOT_STREAK_THRESHOLD
 
 func just_rewarded_cheese() -> bool:
@@ -39,7 +39,7 @@ func just_rewarded_cheese() -> bool:
 func score_hit() -> void:
   _current_streak += 1
   _just_rewarded_cheeses = 0
-  if on_hot_streak():
+  if is_on_hot_streak():
     var streak_bonus: int = ceili(_BASE_REWARD * _current_streak * 0.15)
     _current_score += _BASE_REWARD + streak_bonus
   else:
@@ -70,4 +70,4 @@ func reset() -> void:
   _timer.restart()
 
 func _notify_score_updated() -> void:
-  score_updated.emit(_current_score, _current_streak, on_hot_streak(), _just_rewarded_cheeses)
+  score_updated.emit(_current_score, _current_streak, is_on_hot_streak(), _just_rewarded_cheeses)
