@@ -15,8 +15,23 @@ var _current_score: int:
     _current_score = max(value, 0)
 var _current_streak: int
 var _best_streak: int
-var _cheeses: int
+var _total_cheeses: int:
+  get:
+    _total_cheeses = 0
+    for _cheese_count: int in _cheeses.values():
+      _total_cheeses += _cheese_count
+    return _total_cheeses
 var _just_rewarded_cheeses: int
+var _cheeses: Dictionary[Globals.CheeseType, int] = {
+  Globals.CheeseType.CHEDDAR: 0,
+  Globals.CheeseType.QUESO_FRESCO: 0,
+  Globals.CheeseType.SWISS: 0,
+  Globals.CheeseType.PEPPER_JACK: 0,
+  Globals.CheeseType.MIMOLETTE: 0,
+  Globals.CheeseType.BLUE: 0,
+  Globals.CheeseType.GRUYERE: 0,
+  Globals.CheeseType.BRIE: 0
+}
 
 func get_score() -> int:
   return _current_score
@@ -28,7 +43,7 @@ func get_best_streak() -> int:
   return _best_streak
 
 func get_cheeses() -> int:
-  return _cheeses
+  return _total_cheeses
 
 func is_on_hot_streak() -> bool:
   return _current_streak > _HOT_STREAK_THRESHOLD
@@ -49,10 +64,10 @@ func score_hit() -> void:
   var cheese_streak: bool = _current_streak > 0 && _current_streak % _CHEESE_REWARD_MULTIPLE == 0
   var quick_maths: bool = _timer.within_wait_time()
   if cheese_streak:
-    _cheeses += 1
+    _score_new_cheese()
     _just_rewarded_cheeses += 1
   if quick_maths:
-    _cheeses += 1
+    _score_new_cheese()
     _just_rewarded_cheeses += 1
   _notify_score_updated()
 
@@ -66,8 +81,22 @@ func reset() -> void:
   _current_score = 0
   _current_streak = 0
   _best_streak = 0
-  _cheeses = 0
+  _cheeses = {
+    Globals.CheeseType.CHEDDAR: 0,
+    Globals.CheeseType.QUESO_FRESCO: 0,
+    Globals.CheeseType.SWISS: 0,
+    Globals.CheeseType.PEPPER_JACK: 0,
+    Globals.CheeseType.MIMOLETTE: 0,
+    Globals.CheeseType.BLUE: 0,
+    Globals.CheeseType.GRUYERE: 0,
+    Globals.CheeseType.BRIE: 0
+  }
   _timer.restart()
+
+func _score_new_cheese() -> Globals.CheeseType:
+  var _new_cheese: Globals.CheeseType = Globals.CheeseType.values().pick_random()
+  _cheeses[_new_cheese] += 1
+  return _new_cheese
 
 func _notify_score_updated() -> void:
   score_updated.emit(_current_score, _current_streak, is_on_hot_streak(), _just_rewarded_cheeses)
