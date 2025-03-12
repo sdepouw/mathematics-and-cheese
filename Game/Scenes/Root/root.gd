@@ -40,7 +40,7 @@ func _load_instructions() -> void:
 func _load_credits() -> void:
   await _scene_loader.queue_load(CREDITS_SCENE)
 
-func _load_game_over(_score: int, _best_streak: int, _cheeses: int) -> void:
+func _load_game_over(_score: int, _best_streak: int, _cheeses: Dictionary[Globals.CheeseType, int]) -> void:
   await _scene_loader.queue_load(GAME_OVER_SCENE, [_score, _best_streak, _cheeses])
 
 func _on_scene_loader_instance_loaded(loaded_scene: PackedScene, _loaded_instance: Node) -> void:

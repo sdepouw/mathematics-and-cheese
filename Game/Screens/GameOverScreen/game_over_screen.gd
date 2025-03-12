@@ -34,11 +34,17 @@ class_name GameOverScreen extends Control
 
 var _score: int
 var _best_streak: int
-var _cheeses: int
+var _cheeses: Dictionary[Globals.CheeseType, int]
+var _total_cheese_count: int:
+  get:
+    _total_cheese_count = 0
+    for _cheese_count: int in _cheeses.values():
+      _total_cheese_count += _cheese_count
+    return _total_cheese_count
 var _streak_score: int:
   get: return _best_streak * best_streak_bonus_unit
 var _cheese_score: int:
-  get: return _cheeses * cheese_bonus_unit
+  get: return _total_cheese_count * cheese_bonus_unit
 var _total_score: int:
   get: return _score + _streak_score + _cheese_score
 var _current_score: int:
@@ -67,13 +73,13 @@ var _current_total_score: int:
     _total_value.text = "%d" % value
 
 func load_scene_data(data: Variant) -> void:
-  # data is Array[int]
+  # data is Array[int, int, Dictinoary[Globals.CheeseType, int]]
   _score = data[0]
   _best_streak = data[1]
   _cheeses = data[2]
 
 func _ready() -> void:
-  #load_scene_data([10000, 27, 5]) # Debugging
+  #_load_data_for_debugging()
   var high_score_reached: bool = _total_score > HighScore.get_current_high_score()
   _initialize_tally_display()
   # TODO: Spawn all the collected cheeses, have them fall and land on the bottom of the screen
@@ -128,7 +134,7 @@ func _tally_async() -> void:
     var increment: int = _current_cheese_score + cheese_bonus_unit
     _tally_sound.play()
     _current_cheese_score = clampi(increment, 0, _cheese_score)
-    _current_cheeses = clampi(_current_cheeses + 1, 0, _cheeses)
+    _current_cheeses = clampi(_current_cheeses + 1, 0, _total_cheese_count)
     _tally_timer.start()
     await _tally_timer.timeout
   _tally_timer.wait_time -= cheese_tally_speed_modifier
@@ -147,3 +153,16 @@ func _tally_async() -> void:
 func _restart_score_line_timer_async() -> void:
   _score_line_timer.start()
   await _score_line_timer.timeout
+
+func _load_data_for_debugging() -> void:
+  var cheeses: Dictionary[Globals.CheeseType, int] = {
+    Globals.CheeseType.CHEDDAR: randi_range(0, 3),
+    Globals.CheeseType.QUESO_FRESCO: randi_range(0, 3),
+    Globals.CheeseType.SWISS: randi_range(0, 3),
+    Globals.CheeseType.PEPPER_JACK: randi_range(0, 3),
+    Globals.CheeseType.MIMOLETTE: randi_range(0, 3),
+    Globals.CheeseType.BLUE: randi_range(0, 3),
+    Globals.CheeseType.GRUYERE: randi_range(0, 3),
+    Globals.CheeseType.BRIE: randi_range(0, 3)
+  }
+  load_scene_data([randi_range(0, 10000), randi_range(0, 50), cheeses])

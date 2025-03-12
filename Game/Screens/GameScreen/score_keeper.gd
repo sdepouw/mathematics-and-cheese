@@ -15,12 +15,6 @@ var _current_score: int:
     _current_score = max(value, 0)
 var _current_streak: int
 var _best_streak: int
-var _total_cheeses: int:
-  get:
-    _total_cheeses = 0
-    for _cheese_count: int in _cheeses.values():
-      _total_cheeses += _cheese_count
-    return _total_cheeses
 var _just_rewarded_cheeses: Array[Globals.CheeseType]
 var _cheeses: Dictionary[Globals.CheeseType, int] = {
   Globals.CheeseType.CHEDDAR: 0,
@@ -42,8 +36,8 @@ func get_streak() -> int:
 func get_best_streak() -> int:
   return _best_streak
 
-func get_cheeses() -> int:
-  return _total_cheeses
+func get_cheeses() -> Dictionary[Globals.CheeseType, int]:
+  return _cheeses
 
 func is_on_hot_streak() -> bool:
   return _current_streak > _HOT_STREAK_THRESHOLD

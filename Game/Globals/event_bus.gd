@@ -49,7 +49,7 @@ class ScreenEventBus:
 
   ## Indicates the game should switch to the Game Over scene,
   ## closing the current scene in the process.
-  signal load_game_over(score: int, best_streak: int, cheeses: int)
+  signal load_game_over(score: int, best_streak: int, cheeses: Dictionary[Globals.CheeseType, int])
 
 ## Houses all Player-related Events. Access via EventBus.Player
 class PlayerEventBus:
