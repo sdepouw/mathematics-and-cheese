@@ -1,6 +1,6 @@
 class_name ScoreKeeper
 
-signal score_updated(new_score: int, new_streak: int, is_on_hot_streak: bool, new_cheeses: int)
+signal score_updated(new_score: int, new_streak: int, is_on_hot_streak: bool, new_cheeses: Array[Globals.CheeseType])
 
 const _BASE_REWARD: int = 100
 const _BASE_PENALTY: int = 50
@@ -21,7 +21,7 @@ var _total_cheeses: int:
     for _cheese_count: int in _cheeses.values():
       _total_cheeses += _cheese_count
     return _total_cheeses
-var _just_rewarded_cheeses: int
+var _just_rewarded_cheeses: Array[Globals.CheeseType]
 var _cheeses: Dictionary[Globals.CheeseType, int] = {
   Globals.CheeseType.CHEDDAR: 0,
   Globals.CheeseType.QUESO_FRESCO: 0,
@@ -49,11 +49,11 @@ func is_on_hot_streak() -> bool:
   return _current_streak > _HOT_STREAK_THRESHOLD
 
 func just_rewarded_cheese() -> bool:
-  return _just_rewarded_cheeses > 0
+  return _just_rewarded_cheeses.size() > 0
 
 func score_hit() -> void:
   _current_streak += 1
-  _just_rewarded_cheeses = 0
+  _just_rewarded_cheeses.clear()
   if is_on_hot_streak():
     var streak_bonus: int = ceili(_BASE_REWARD * _current_streak * 0.15)
     _current_score += _BASE_REWARD + streak_bonus
@@ -65,14 +65,12 @@ func score_hit() -> void:
   var quick_maths: bool = _timer.within_wait_time()
   if cheese_streak:
     _score_new_cheese()
-    _just_rewarded_cheeses += 1
   if quick_maths:
     _score_new_cheese()
-    _just_rewarded_cheeses += 1
   _notify_score_updated()
 
 func score_miss() -> void:
-  _just_rewarded_cheeses = 0
+  _just_rewarded_cheeses.clear()
   _current_score -= _BASE_PENALTY
   _current_streak = 0
   _notify_score_updated()
@@ -93,10 +91,10 @@ func reset() -> void:
   }
   _timer.restart()
 
-func _score_new_cheese() -> Globals.CheeseType:
+func _score_new_cheese() -> void:
   var _new_cheese: Globals.CheeseType = Globals.CheeseType.values().pick_random()
   _cheeses[_new_cheese] += 1
-  return _new_cheese
+  _just_rewarded_cheeses.append(_new_cheese)
 
 func _notify_score_updated() -> void:
   score_updated.emit(_current_score, _current_streak, is_on_hot_streak(), _just_rewarded_cheeses)

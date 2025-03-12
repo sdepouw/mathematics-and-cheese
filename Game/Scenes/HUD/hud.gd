@@ -13,10 +13,10 @@ const CHEESE_BODY: PackedScene = preload("res://Scenes/HUD/cheese_body.tscn")
 func _ready() -> void:
   _new_cheese_label.hide()
 
-func update_score_display(new_score: int, new_streak: int, is_on_hot_streak: bool, new_cheeses: int) -> void:
+func update_score_display(new_score: int, new_streak: int, is_on_hot_streak: bool, new_cheeses: Array[Globals.CheeseType]) -> void:
   _update_score_display(new_score)
   _update_streak_display(new_streak, is_on_hot_streak)
-  if new_cheeses > 0:
+  if new_cheeses.size() > 0:
     _highlight_new_cheese(new_cheeses)
 
 func update_high_score_display(high_score: int) -> void:
@@ -40,20 +40,20 @@ func _update_score_display(score: int) -> void:
 func _update_streak_display(streak: int, streak_visible: bool) -> void:
   _streak_canvas.update_streak_display(streak, streak_visible)
 
-func _highlight_new_cheese(new_cheeses: int) -> void:
-  if new_cheeses > 1:
-    _new_cheese_label.text = "%s x%d" % [_new_cheese_label_default_text, new_cheeses]
+func _highlight_new_cheese(new_cheeses: Array[Globals.CheeseType]) -> void:
+  if new_cheeses.size() > 1:
+    _new_cheese_label.text = "%s x%d" % [_new_cheese_label_default_text, new_cheeses.size()]
   else:
     _new_cheese_label.text = _new_cheese_label_default_text
   _new_cheese_label.show()
-  while (new_cheeses > 0):
-    _spawn_cheese()
-    new_cheeses -= 1
+  for _cheese: Globals.CheeseType in new_cheeses:
+    _spawn_cheese(_cheese)
   await get_tree().create_timer(2).timeout
   _new_cheese_label.hide()
 
-func _spawn_cheese() -> void:
-  var cheese: RigidBody2D = CHEESE_BODY.instantiate()
+func _spawn_cheese(cheese_type: Globals.CheeseType) -> void:
+  var cheese: CheeseBody = CHEESE_BODY.instantiate()
+  cheese.set_cheese_type(cheese_type)
   cheese.position = _cheese_spawn_point.position
   add_child(cheese)
   await get_tree().create_timer(2).timeout

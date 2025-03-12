@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://b4qkke5fih46m"]
+[gd_scene load_steps=4 format=3 uid="uid://b4qkke5fih46m"]
 
+[ext_resource type="Script" uid="uid://b7mfqoavgh3jn" path="res://Scenes/HUD/cheese_body.gd" id="1_senf6"]
 [ext_resource type="Texture2D" uid="uid://cnhrf60x1lk0d" path="res://Assets/Art/cheese/cheddar.png" id="1_ypv2b"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_senf6"]
@@ -7,6 +8,7 @@ radius = 53.2566
 height = 120.814
 
 [node name="CheeseBody" type="RigidBody2D"]
+script = ExtResource("1_senf6")
 
 [node name="CheeseSprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_ypv2b")
