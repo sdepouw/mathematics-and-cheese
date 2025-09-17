@@ -83,6 +83,11 @@ func _ready() -> void:
   var high_score_reached: bool = _total_score > HighScore.get_current_high_score()
   _initialize_tally_display()
   # TODO: Spawn all the collected cheeses, have them fall and land on the bottom of the screen
+  # spawn path thing along the top of the screen (just a line)
+  # choose random point
+  # spawn a cheese-body, scaled down
+  # make a floor along the bottom (with walls on the side), so they don't fall away
+  # bouncy?
   await _tally_async()
 
   if high_score_reached:
